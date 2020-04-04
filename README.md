@@ -1,8 +1,11 @@
 # CryptoGUI
 A little project including cryptanalysis and Java GUI!
 <br><br>
-I use this project as a way for me to learn Java GUI programming. Also diving into front-end development if I can! (And it also helps me kill some time!)
-<br><br>
+I use this project as a way for me to learn Java GUI programming. Also diving into front-end development if I can!
+<br>
+(And it also helps me kill some time!)
+<br>
+<br>
 Tasks (current, upcoming, planned, etc.):<br>
 - [ ] Implement simple cryptanalysis techniques
   - [ ] Caesar
@@ -17,5 +20,6 @@ Tasks (current, upcoming, planned, etc.):<br>
   - [ ] Import from/export to files
   - [ ] Including/ignoring special characters
   - [ ] and others! :D
-<br><br><br>
-More to come soon!
+<br>
+<br>
+# More to come soon!
