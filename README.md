@@ -17,5 +17,5 @@ Tasks (current, upcoming, planned, etc.):<br>
   - [ ] Import from/export to files
   - [ ] Including/ignoring special characters
   - [ ] and others! :D
-<br><br>
+<br><br><br>
 More to come soon!
