@@ -22,5 +22,4 @@ Tasks (current, upcoming, planned, etc.):<br>
   - [ ] Design pattern implementation (Strategy for algorithm selection and Singleton for frame instances?)
   - [ ] and more!
 <br>
-<br>
-! Looking forward to how this looks! More to come soon !
+! Looking forward to how this looks. More to come soon !
