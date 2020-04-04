@@ -3,7 +3,7 @@ A little project including cryptanalysis and Java GUI!
 <br><br>
 I use this project as a way for me to learn Java GUI programming. Also diving into front-end development if I can!
 <br>
-(And it also helps me kill some time!)
+(And it also helps me kill some time by practicing and improving my skills!)
 <br>
 <br>
 Tasks (current, upcoming, planned, etc.):<br>
@@ -19,7 +19,8 @@ Tasks (current, upcoming, planned, etc.):<br>
 - [ ] Thinking of other improvements like:
   - [ ] Import from/export to files
   - [ ] Including/ignoring special characters
-  - [ ] and others! :D
+  - [ ] Design pattern implementation (Strategy for algorithm selection and Singleton for frame instances?)
+  - [ ] and more!
 <br>
 <br>
-! More to come soon !
+! Looking forward to how this looks! More to come soon !
