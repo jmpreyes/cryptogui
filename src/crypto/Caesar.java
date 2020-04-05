@@ -5,9 +5,8 @@ package crypto;
  * It implements the CryptoStrat interface -- defines the two methods for 
  * respective encryption and decryption given the text and key.
  * 
- * @author Joseph
- * @version 1.0
- * @since January 13, 2020
+ * @author Joseph R.
+ * @since April 5, 2020
  * @see CryptoStrat
  */
 public class Caesar implements CryptoStrat {
@@ -21,6 +20,13 @@ public class Caesar implements CryptoStrat {
         return decrypt(ciphertext, key);
     }
     
+    /**
+     * Perform encryption operation given the plaintext and the key value.
+     * 
+     * @param plainText the text message for encryption
+     * @param key the integer value for character shift
+     * @return an encrypted text (ciphertext)
+     */
     private String encrypt(String plainText, int key) {
         String cipherText = new String();
         plainText = plainText.toUpperCase();
@@ -37,6 +43,13 @@ public class Caesar implements CryptoStrat {
         return cipherText;
     }
     
+    /**
+     * Perform decryption operation given the ciphertext and the key value.
+     * 
+     * @param cipherText the text message for decryption
+     * @param key the integer value for character shift
+     * @return the decrypted, original message (plaintext)
+     */
     private String decrypt(String cipherText, int key) {
         String plainText = new String();
         

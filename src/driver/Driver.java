@@ -9,7 +9,7 @@ import gui.CryptoGUI;
  * This class is the driver class (main class) of the program.
  * 
  * @author Joseph R.
- * @since January 13, 2020
+ * @since April 5, 2020
  * @see gui.CryptoGUI
  */
 public class Driver {
