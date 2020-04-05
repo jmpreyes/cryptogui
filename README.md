@@ -8,7 +8,7 @@ I use this project as a way for me to learn Java GUI programming. Also diving in
 <br>
 Tasks (current, upcoming, planned, etc.):<br>
 - [ ] Implement simple cryptanalysis techniques
-  - [ ] Caesar
+  - [ x ] Caesar
   - [ ] Vigenere
   - [ ] Porta
   - [ ] Zimmermann
@@ -19,7 +19,7 @@ Tasks (current, upcoming, planned, etc.):<br>
 - [ ] Thinking of other improvements like:
   - [ ] Import from/export to files
   - [ ] Including/ignoring special characters
-  - [ ] Design pattern implementation (Strategy for algorithm selection and Singleton for frame instances?)
+  - [ x ] Design pattern implementation (Strategy for algorithm selection and Singleton for frame instances?)
   - [ ] and more!
 <br>
 ! Looking forward to how this looks. More to come soon !
