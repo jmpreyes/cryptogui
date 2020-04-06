@@ -17,7 +17,8 @@ import javax.swing.*;
  * @since April 3, 2020
  * @see crypto.CryptoStratContext
  */
-public class CryptoGUI extends JFrame {
+public class CryptoGUI {
+    private final JFrame frame;
     private final JTextArea inputTextArea;
     private final JTextArea outputTextArea;
     private final JTextField keyTextField;
@@ -33,6 +34,10 @@ public class CryptoGUI extends JFrame {
     private final JScrollPane outputTextAreaScrollPane;
     private final JLabel keyLabel;
     
+    // Frame width
+    private final int FRAME_WIDTH = 500;
+    // Frame height
+    private final int FRAME_HEIGHT = 500;
     // Strategy design pattern
     private static CryptoStratContext cs;
     // Singleton design pattern
@@ -59,8 +64,8 @@ public class CryptoGUI extends JFrame {
      */
     private CryptoGUI() {
         // Frame properties
-        super("CryptoGUI: Cryptic Messages");
-        setBounds(0, 0, 500, 300);
+        frame = new JFrame("CryptoGUI -- Cryptic Messages");
+        frame.setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
         
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
@@ -88,7 +93,7 @@ public class CryptoGUI extends JFrame {
         
         // Creating a panel for the text areas
         textPanel = new JPanel(new GridLayout(1, 2));
-        inputTextArea = new JTextArea("Enter plain text", 25, 20);
+        inputTextArea = new JTextArea("Enter plain text here", 25, 20);
         outputTextArea = new JTextArea(25, 20);
         inputTextArea.setLineWrap(true);
         outputTextArea.setLineWrap(true);
@@ -102,9 +107,9 @@ public class CryptoGUI extends JFrame {
         textPanel.add(outputTextAreaScrollPane);
         
         // Adding panels to the frame
-        add(topPanel, BorderLayout.NORTH);
-        add(textPanel, BorderLayout.CENTER);
-        add(btnPanel, BorderLayout.SOUTH);
+        frame.add(topPanel, BorderLayout.NORTH);
+        frame.add(textPanel, BorderLayout.CENTER);
+        frame.add(btnPanel, BorderLayout.SOUTH);
         
         // Assigning an event listener to the buttons
         encryptBtn.addActionListener(new ButtonListener());
@@ -113,9 +118,10 @@ public class CryptoGUI extends JFrame {
         moveBtn.addActionListener(new ButtonListener());
         quitBtn.addActionListener(new ButtonListener());
         
-        setResizable(false);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     /**
@@ -127,37 +133,54 @@ public class CryptoGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == encryptBtn) {
+                // For "encrypt" button
                 cs = new CryptoStratContext(new Caesar());
                 try {
                     int key = Integer.parseInt(keyTextField.getText());
-                    if (key > 25 || key < 0) throw new Exception();
+                    
+                    if (key > 25 || key < 0) 
+                        throw new Exception();
+                    
                     String plainText = inputTextArea.getText();
                     String cipherText = cs.executeEncryption(plainText, key);
                     outputTextArea.setText(cipherText);
                     inputTextArea.cut();
                 } catch (Exception ex) {
-                    outputTextArea.setText("Warning: Invalid key value");
+                    outputTextArea.setText(">\tWarning: Invalid key value");
                 }
             } else if (e.getSource() == decryptBtn) {
+                // For "decrypt" button
                 cs = new CryptoStratContext(new Caesar());
                 try {
                     int key = Integer.parseInt(keyTextField.getText());
-                    if (key > 25 || key < 0) throw new Exception();
+                    
+                    if (key > 25 || key < 0)
+                        throw new Exception();
+                    
                     String cipherText = inputTextArea.getText();
                     String plainText = cs.executeDecryption(cipherText, key);
                     outputTextArea.setText(plainText);
                 } catch (Exception ex) {
-                    outputTextArea.setText("Warning: Invalid key value");
+                    outputTextArea.setText(">\tWarning: Invalid key value");
                 }
             } else if (e.getSource() == clearBtn) {
+                // For "clear" button
                 outputTextArea.setText("");
-                inputTextArea.setText("Enter plain text");
+                inputTextArea.setText("Enter plain text here");
                 keyTextField.setText("");
             } else if (e.getSource() == moveBtn) {
+                // For "move" button
                 inputTextArea.setText(outputTextArea.getText());
                 outputTextArea.setText("");
-            } else
-                System.exit(0);
+            } else {
+                // For "quit" button
+                int exitCode = JOptionPane.showConfirmDialog(frame, 
+                        "Do you want to exit the application?");
+                if (exitCode == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(frame, "Goodbye!");
+                    System.exit(0);
+                }
+            }
         }
     }
 }

@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Joseph/Documents/NetBeansProjects/Crypto/src/crypto/CryptoStrat.java</file>
-            <file>file:/C:/Users/Joseph/Documents/NetBeansProjects/Crypto/src/crypto/CryptoStratContext.java</file>
-            <file>file:/C:/Users/Joseph/Documents/NetBeansProjects/Crypto/src/driver/Driver.java</file>
-            <file>file:/C:/Users/Joseph/Documents/NetBeansProjects/Crypto/src/gui/CryptoGUI.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/src/crypto/CryptoStrat.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/test/testCaesarCrypto/CaesarTestSuite.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/src/crypto/CryptoStratContext.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/src/gui/CryptoGUI.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/src/crypto/Caesar.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/src/driver/Driver.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/test/testCaesarCrypto/TestCaesarEncryption.java</file>
+            <file>file:/C:/Users/Joseph/git_local_cryptogui/cryptogui/test/testCaesarCrypto/TestCaesarDecryption.java</file>
         </group>
     </open-files>
 </project-private>
