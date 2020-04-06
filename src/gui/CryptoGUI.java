@@ -18,20 +18,41 @@ import javax.swing.*;
  * @see crypto.CryptoStratContext
  */
 public class CryptoGUI extends JFrame{
+    // Text areas
     private final JTextArea inputTextArea;
     private final JTextArea outputTextArea;
+    
+    // Text field
     private final JTextField keyTextField;
+    
+    // Buttons
     private final JButton encryptBtn;
     private final JButton decryptBtn;
     private final JButton clearBtn;
     private final JButton moveBtn;
     private final JButton quitBtn;
+    
+    // Panels
     private final JPanel topPanel;
     private final JPanel btnPanel;
     private final JPanel textPanel;
+    
+    // Scroll panes
     private final JScrollPane inputTextAreaScrollPane;
     private final JScrollPane outputTextAreaScrollPane;
+    
+    // Label
     private final JLabel keyLabel;
+    
+    // Menu bar and menu items
+    private final JMenuBar menuBar;
+    private final JMenu fileMenu;
+    private final JMenu optionsMenu;
+    private final JMenu helpMenu;
+    private final JMenuItem saveMenuItem;
+    private final JMenuItem switchMenuItem;
+    private final JMenuItem quitMenuItem;
+    private final JMenuItem aboutMenuItem;
     
     // Frame width
     private final int FRAME_WIDTH = 650;
@@ -66,6 +87,67 @@ public class CryptoGUI extends JFrame{
         super("CryptoGUI -- Cryptic Messages");
         setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
         
+        // Prompt confirmation to exit when user tries to close the window
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent evt) {
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                
+                if (exitCode == JOptionPane.YES_OPTION) {
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        });
+        
+        // Creating a menu bar and its items
+        menuBar = new JMenuBar();
+        
+        // "File" menu
+        fileMenu = new JMenu("File");
+        saveMenuItem = new JMenuItem("Save Output File");
+        quitMenuItem = new JMenuItem("Quit");
+        
+        saveMenuItem.addActionListener((ActionEvent e) -> {
+            // STUB
+            JOptionPane.showMessageDialog(rootPane, "Work in progress.");
+        });
+        
+        quitMenuItem.addActionListener((ActionEvent e) -> {
+            int exitCode = JOptionPane.showConfirmDialog(rootPane, "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+            
+            if (exitCode == JOptionPane.YES_OPTION)
+                System.exit(0);
+        });
+        
+        // "Options" menu
+        optionsMenu = new JMenu("Options");
+        switchMenuItem = new JMenuItem("Change Cryptanalysis Technique");
+        
+        switchMenuItem.addActionListener((ActionEvent e) -> {
+            // STUB
+            JOptionPane.showMessageDialog(rootPane, "Work in progress.");
+        });
+        
+        // "Help" menu
+        helpMenu = new JMenu("Help");
+        aboutMenuItem = new JMenuItem("About Project");
+        
+        aboutMenuItem.addActionListener((ActionEvent e) -> {
+           JOptionPane.showMessageDialog(rootPane, "Written by Joe R.\nApril 2020\nEmail at foo@foo.com"); 
+        });
+        
+        // Adding the menu items to the "Options" menu bar
+        fileMenu.add(saveMenuItem);
+        fileMenu.add(quitMenuItem);
+        optionsMenu.add(switchMenuItem);
+        helpMenu.add(aboutMenuItem);
+        
+        // Adding each type of menu to the main menu bar
+        menuBar.add(fileMenu);
+        menuBar.add(optionsMenu);
+        menuBar.add(helpMenu);
+        
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
         keyLabel = new JLabel("Enter key value [0 - 25]");
@@ -76,12 +158,18 @@ public class CryptoGUI extends JFrame{
         topPanel.add(keyTextField);
         
         // Creating a panel for buttons and the buttons' labels
+        // Added tool tip for every button on hover
         btnPanel = new JPanel();
         encryptBtn = new JButton("Encrypt");
+        encryptBtn.setToolTipText("Encrypt your original message with a key.");
         decryptBtn = new JButton("Decrypt");
+        decryptBtn.setToolTipText("Decrypt your coded message to get the original text. Same key for encryption is necessary.");
         clearBtn = new JButton("Clear");
+        clearBtn.setToolTipText("Clear and reset both text screens.");
         moveBtn = new JButton("Move");
+        moveBtn.setToolTipText("Move the text from the right to the left pane.");
         quitBtn = new JButton("Quit");
+        quitBtn.setToolTipText("Exit the application.");
         
         // Adding the buttons to the button panel
         btnPanel.add(encryptBtn);
@@ -98,8 +186,8 @@ public class CryptoGUI extends JFrame{
         outputTextArea.setLineWrap(true);
         outputTextArea.setEditable(false);
         
-        // Adding the scroll panes to each text area and 
-        // adding them to the text area panel
+        // Adding the scroll panes to each text area 
+        // and adding them to the text area panel
         inputTextAreaScrollPane = new JScrollPane(inputTextArea);
         outputTextAreaScrollPane = new JScrollPane(outputTextArea);
         textPanel.add(inputTextAreaScrollPane);
@@ -124,7 +212,7 @@ public class CryptoGUI extends JFrame{
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
             } catch (Exception ex) {
-                outputTextArea.setText(">\tWarning: Invalid key value");
+                outputTextArea.setText("Warning: Invalid key value");
             }
         });
         
@@ -140,7 +228,7 @@ public class CryptoGUI extends JFrame{
                 String plainText = cs.executeDecryption(cipherText, key);
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
-                outputTextArea.setText(">\tWarning: Invalid key value");
+                outputTextArea.setText("Warning: Invalid key value");
             }
         });
         
@@ -156,12 +244,17 @@ public class CryptoGUI extends JFrame{
         });
         
         quitBtn.addActionListener((ActionEvent e) -> {
+            int exitCode = JOptionPane.showConfirmDialog(rootPane, "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+            
+            if (exitCode == JOptionPane.YES_OPTION)
                 System.exit(0);
         });
         
+        setJMenuBar(menuBar);
         setResizable(false);
         setVisible(true);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }
