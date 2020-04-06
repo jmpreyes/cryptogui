@@ -17,8 +17,7 @@ import javax.swing.*;
  * @since April 3, 2020
  * @see crypto.CryptoStratContext
  */
-public class CryptoGUI {
-    private final JFrame frame;
+public class CryptoGUI extends JFrame{
     private final JTextArea inputTextArea;
     private final JTextArea outputTextArea;
     private final JTextField keyTextField;
@@ -35,7 +34,7 @@ public class CryptoGUI {
     private final JLabel keyLabel;
     
     // Frame width
-    private final int FRAME_WIDTH = 500;
+    private final int FRAME_WIDTH = 650;
     // Frame height
     private final int FRAME_HEIGHT = 500;
     // Strategy design pattern
@@ -64,8 +63,8 @@ public class CryptoGUI {
      */
     private CryptoGUI() {
         // Frame properties
-        frame = new JFrame("CryptoGUI -- Cryptic Messages");
-        frame.setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+        super("CryptoGUI -- Cryptic Messages");
+        setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
         
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
@@ -107,80 +106,62 @@ public class CryptoGUI {
         textPanel.add(outputTextAreaScrollPane);
         
         // Adding panels to the frame
-        frame.add(topPanel, BorderLayout.NORTH);
-        frame.add(textPanel, BorderLayout.CENTER);
-        frame.add(btnPanel, BorderLayout.SOUTH);
+        add(topPanel, BorderLayout.NORTH);
+        add(textPanel, BorderLayout.CENTER);
+        add(btnPanel, BorderLayout.SOUTH);
         
         // Assigning an event listener to the buttons
-        encryptBtn.addActionListener(new ButtonListener());
-        decryptBtn.addActionListener(new ButtonListener());
-        clearBtn.addActionListener(new ButtonListener());
-        moveBtn.addActionListener(new ButtonListener());
-        quitBtn.addActionListener(new ButtonListener());
-        
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-    
-    /**
-     * Assigns an operation or a functionality to each button by implementing 
-     * the <code>ActionListener</code> interface.
-     */
-    // Note: Need to decouple context object and encrypt/decrypt operation !!!
-    private class ButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == encryptBtn) {
-                // For "encrypt" button
-                cs = new CryptoStratContext(new Caesar());
-                try {
-                    int key = Integer.parseInt(keyTextField.getText());
-                    
-                    if (key > 25 || key < 0) 
-                        throw new Exception();
-                    
-                    String plainText = inputTextArea.getText();
-                    String cipherText = cs.executeEncryption(plainText, key);
-                    outputTextArea.setText(cipherText);
-                    inputTextArea.cut();
-                } catch (Exception ex) {
-                    outputTextArea.setText(">\tWarning: Invalid key value");
-                }
-            } else if (e.getSource() == decryptBtn) {
-                // For "decrypt" button
-                cs = new CryptoStratContext(new Caesar());
-                try {
-                    int key = Integer.parseInt(keyTextField.getText());
-                    
-                    if (key > 25 || key < 0)
-                        throw new Exception();
-                    
-                    String cipherText = inputTextArea.getText();
-                    String plainText = cs.executeDecryption(cipherText, key);
-                    outputTextArea.setText(plainText);
-                } catch (Exception ex) {
-                    outputTextArea.setText(">\tWarning: Invalid key value");
-                }
-            } else if (e.getSource() == clearBtn) {
-                // For "clear" button
-                outputTextArea.setText("");
-                inputTextArea.setText("Enter plain text here");
-                keyTextField.setText("");
-            } else if (e.getSource() == moveBtn) {
-                // For "move" button
-                inputTextArea.setText(outputTextArea.getText());
-                outputTextArea.setText("");
-            } else {
-                // For "quit" button
-                int exitCode = JOptionPane.showConfirmDialog(frame, 
-                        "Do you want to exit the application?");
-                if (exitCode == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(frame, "Goodbye!");
-                    System.exit(0);
-                }
+        encryptBtn.addActionListener((ActionEvent e) -> {
+            cs = new CryptoStratContext(new Caesar());
+            try {
+                int key = Integer.parseInt(keyTextField.getText());
+                
+                if (key > 25 || key < 0)
+                    throw new Exception();
+                
+                String plainText = inputTextArea.getText();
+                String cipherText = cs.executeEncryption(plainText, key);
+                outputTextArea.setText(cipherText);
+                inputTextArea.cut();
+            } catch (Exception ex) {
+                outputTextArea.setText(">\tWarning: Invalid key value");
             }
-        }
+        });
+        
+        decryptBtn.addActionListener((ActionEvent e) -> {
+            cs = new CryptoStratContext(new Caesar());
+            try {
+                int key = Integer.parseInt(keyTextField.getText());
+                
+                if (key > 25 || key < 0)
+                    throw new Exception();
+                
+                String cipherText = inputTextArea.getText();
+                String plainText = cs.executeDecryption(cipherText, key);
+                outputTextArea.setText(plainText);
+            } catch (Exception ex) {
+                outputTextArea.setText(">\tWarning: Invalid key value");
+            }
+        });
+        
+        clearBtn.addActionListener((ActionEvent e) -> {
+            outputTextArea.setText("");
+            inputTextArea.setText("Enter plain text here");
+            keyTextField.setText("");
+        });
+        
+        moveBtn.addActionListener((ActionEvent e) -> {
+            inputTextArea.setText(outputTextArea.getText());
+            outputTextArea.setText("");
+        });
+        
+        quitBtn.addActionListener((ActionEvent e) -> {
+                System.exit(0);
+        });
+        
+        setResizable(false);
+        setVisible(true);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
