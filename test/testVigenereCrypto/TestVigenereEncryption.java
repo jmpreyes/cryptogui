@@ -1,5 +1,5 @@
 /**
- * testVigenererCrypto contains the unit tests for Vigenère cipher operations.
+ * testVigenereCrypto contains the unit tests for Vigenère cipher operations.
  */
 package testVigenereCrypto;
 
