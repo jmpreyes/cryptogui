@@ -1,3 +1,7 @@
+/**
+ * package crypto contains the implementation of various cryptographic 
+ * techniques. Also contains the Strategy design pattern code.
+ */
 package crypto;
 
 /**
@@ -11,23 +15,23 @@ package crypto;
  */
 public class Caesar implements CryptoStrat {
     @Override
-    public String performEncryption(String plaintext, int key) {
-        return encrypt(plaintext, key);
+    public String performEncryption(String plainText, String key) {
+        return encrypt(plainText, key);
     }
     
     @Override
-    public String performDecryption(String ciphertext, int key) {
-        return decrypt(ciphertext, key);
+    public String performDecryption(String cipherText, String key) {
+        return decrypt(cipherText, key);
     }
     
     /**
      * Perform encryption operation given the plaintext and the key value.
      * 
      * @param plainText the text message for encryption
-     * @param key the integer value for character shift
+     * @param key the value for character shift
      * @return an encrypted text (ciphertext)
      */
-    private String encrypt(String plainText, int key) {
+    private String encrypt(String plainText, String key) {
         String cipherText = new String();
         plainText = plainText.toUpperCase();
         
@@ -35,7 +39,7 @@ public class Caesar implements CryptoStrat {
             char ch = plainText.charAt(i);
             if (ch >= 'A' && ch <= 'Z') {
                 int oldAlphaPos = ch - 'A';
-                int newAlphaPos = (oldAlphaPos + key) % 26;
+                int newAlphaPos = (oldAlphaPos + Integer.parseInt(key)) % 26;
                 cipherText += (char)(newAlphaPos + 'A');
             }
         }
@@ -47,16 +51,16 @@ public class Caesar implements CryptoStrat {
      * Perform decryption operation given the ciphertext and the key value.
      * 
      * @param cipherText the text message for decryption
-     * @param key the integer value for character shift
+     * @param key the value for character shift
      * @return the decrypted, original message (plaintext)
      */
-    private String decrypt(String cipherText, int key) {
+    private String decrypt(String cipherText, String key) {
         String plainText = new String();
         
         for (int i = 0; i < cipherText.length(); i++) {
             char ch = cipherText.charAt(i);
             int oldAlphaPos = ch - 'A';
-            int newAlphaPos = oldAlphaPos - key;
+            int newAlphaPos = oldAlphaPos - Integer.parseInt(key);
             
             if (newAlphaPos < 0)
                 newAlphaPos += 26;

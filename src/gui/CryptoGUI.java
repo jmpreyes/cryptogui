@@ -17,7 +17,7 @@ import javax.swing.*;
  * @since April 3, 2020
  * @see crypto.CryptoStratContext
  */
-public class CryptoGUI extends JFrame{
+public class CryptoGUI extends JFrame {
     // Text areas
     private final JTextArea inputTextArea;
     private final JTextArea outputTextArea;
@@ -208,7 +208,7 @@ public class CryptoGUI extends JFrame{
                     throw new Exception();
                 
                 String plainText = inputTextArea.getText();
-                String cipherText = cs.executeEncryption(plainText, key);
+                String cipherText = cs.executeEncryption(plainText, String.valueOf(key));
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
             } catch (Exception ex) {
@@ -225,7 +225,7 @@ public class CryptoGUI extends JFrame{
                     throw new Exception();
                 
                 String cipherText = inputTextArea.getText();
-                String plainText = cs.executeDecryption(cipherText, key);
+                String plainText = cs.executeDecryption(cipherText, String.valueOf(key));
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
                 outputTextArea.setText("Warning: Invalid key value");

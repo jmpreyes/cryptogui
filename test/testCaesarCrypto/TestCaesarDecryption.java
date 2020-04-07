@@ -1,3 +1,6 @@
+/**
+ * testCaesarCrypto contains the unit tests for Caesar cipher operations.
+ */
 package testCaesarCrypto;
 
 import crypto.Caesar;
@@ -15,7 +18,7 @@ public class TestCaesarDecryption {
     Caesar c = new Caesar();
     String cipherText = "BCDEF";
     int key = 1;
-    String plainText = c.performDecryption(cipherText, key);
+    String plainText = c.performDecryption(cipherText, String.valueOf(key));
     String expectedPlainText = "ABCDE";
     
     @Test
@@ -23,14 +26,4 @@ public class TestCaesarDecryption {
         System.out.println("@Test TestCaesarDecryption()");
         assertEquals(plainText, expectedPlainText);
     }
-    
-    /*
-    // If key is 0, plain text and cipher text should be the same
-    // No shifting happens
-    @Test
-    public void TestWhenKeyIsZero() {
-        System.out.println("@Test TestWhenKeyIsZero()");
-        assertEquals(plainText, expectedPlainText);
-    }
-    */
 }
