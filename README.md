@@ -7,19 +7,21 @@ I use this project as a way for me to learn Java GUI programming. Also diving in
 <br>
 <br>
 Tasks (current, upcoming, planned, etc.):<br>
-- [ ] Implement simple cryptanalysis techniques
+- [ ] Implement simple cryptographic techniques
   - [ x ] Caesar
-  - [ x ] Vigenere
+  - [ x ] Vigenère
   - [ ] Porta
   - [ ] Zimmermann
+  ...and more!
 - [ ] Implement better user interface
   - [ ] Main menu
   - [ x ] Text screen
   - [ x ] Ensure buttons work
+  ...and more!
 - [ ] Thinking of other improvements like:
   - [ ] Import from/export to files
   - [ ] Including/ignoring special characters
   - [ x ] Design pattern implementation (Strategy for algorithm selection and Singleton for frame instances?)
   ...and more!
 <br>
-! Looking forward to how this looks. More to come soon !
+A very relaxed, recreational project. Looking forward to how this looks. More to come soon!
