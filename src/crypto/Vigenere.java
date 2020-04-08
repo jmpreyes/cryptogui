@@ -5,130 +5,93 @@
 package crypto;
 
 /**
- * This class defines the Vigenère cipher using a 2-D table of characters for 
- * poly-alphabetic manipulation.
- * 
- * This is a work in progress. Need to check unit tests.
+ * This class simply defines the Vigenère cipher, a polyalphabetic cryptographic 
+ * technique.
  * 
  * @author Joseph R.
- * @since April 7, 2020
+ * @since April 8, 2020
  * @see crypto.CryptoStrat
  */
 public class Vigenere implements CryptoStrat {
-    private char[][] tabulaRecta = { 
-            {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'},
-            {'B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A'},
-            {'C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B'},
-            {'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C'},
-            {'E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D'},
-            {'F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E'},
-            {'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F'},
-            {'H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G'},
-            {'I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H'},
-            {'J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I'},
-            {'K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J'},
-            {'L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K'},
-            {'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L'},
-            {'N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M'},
-            {'O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N'},
-            {'P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'},
-            {'Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'},
-            {'R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'},
-            {'S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R'},
-            {'T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S'},
-            {'U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T'},
-            {'V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U'},
-            {'W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V'},
-            {'X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W'},
-            {'Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X'},
-            {'Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y'}
-    };
+    /**
+     * Ensure the key has the same length or same number of characters as 
+     * the text for encryption or decryption. Essentially, the length of the 
+     * text must be equal to the length of the key.
+     * 
+     * @param text the plaintext or the ciphertext
+     * @param key the word needed for encryption or decryption
+     * @return key which repeats until it matches text length
+     */
+    public String createValidKey(String text, String key) {
+        int textLength = text.length();
+        for (int i = 0; ; i++) {
+            if (textLength == i)
+                i = 0;
+            if (key.length() == text.length())
+                break;
+            key += (key.charAt(i));
+        }
+        return key;
+    }
     
+    /**
+     * Returns the encrypted message. Convert [A - Z] as respective 
+     * integers [0 - 25] and then perform the encryption operation:
+     * 
+     * CT(i) = (PT(i) + K(i)) % 26
+     * 
+     * @param plainText the message to be encrypted
+     * @param key the string for encryption
+     * @return the encrypted ciphertext
+     */
+    private String encrypt(String plainText, String key) {
+        String cipherText = new String();
+        cipherText = cipherText.toUpperCase();
+                
+        for (int i = 0; i < plainText.length(); i++) {
+            int numVal = (plainText.charAt(i) + key.charAt(i)) % 26;
+            numVal += 'A';
+            cipherText += (char)numVal;
+        }
+        
+        return cipherText;
+    }
+    
+    /**
+     * Returns the decrypted message. Similar to the encryption process, but 
+     * the decryption operation is:
+     * 
+     * PT(i) = (CT(i) - K(i) + 26) % 26
+     * 
+     * @param cipherText the message to be decrypted
+     * @param key the string for decryption
+     * @return the original plaintext
+     */
+    private String decrypt(String cipherText, String key) {
+        String plainText = new String();
+        plainText = plainText.toUpperCase();
+        
+        for (int i = 0; i < cipherText.length() && i < key.length(); i++) {
+            int vals = (cipherText.charAt(i) - key.charAt(i) + 26) % 26;
+            vals = vals + 'A';
+            plainText = plainText + (char)vals;
+        }
+        
+        return plainText;
+    }
+    /**
+     * Perform Vigenère encryption.
+     */
     @Override
     public String performEncryption(String plainText, String key) {
         return encrypt(plainText, key);
     }
 
+    /**
+     * Perform Vigenère decryption.
+     */
     @Override
     public String performDecryption(String cipherText, String key) {
         return decrypt(cipherText, key);
-    }
-    
-    /**
-     * Returns the encrypted message after the characters in plaintext are 
-     * replaced on the table given the key value.
-     * 
-     * @param plainText the message to be encrypted
-     * @param key the value for encryption
-     * @return the encrypted ciphertext
-     */
-    private String encrypt(String plainText, String key) {
-        StringBuilder sb = new StringBuilder();
-        plainText = plainText.toUpperCase();
-        
-        for (int i = 0; i < plainText.length(); i++)
-            sb.append(getEncryptedChar(plainText.charAt(i), key.charAt(i)));
-        
-        return sb.toString();
-    }
-    
-    /**
-     * Returns the encrypted character. Read down and across to match the 
-     * plaintext and key characters and return the character in which they 
-     * intersect on the character table.
-     * 
-     * @param plainTextChar the letter in the plaintext
-     * @param key the letter in the key used for encryption
-     * @return the character for encryption to replace the plaintext character
-     */
-    private char getEncryptedChar(char plainTextChar, char key) {
-        for (int row = 0; row < tabulaRecta.length; row++) {
-            if (tabulaRecta[row][0] == key) {
-                for (int col = 0; col < tabulaRecta[row].length; col++) {
-                    if (tabulaRecta[0][col] == plainTextChar)
-                        return tabulaRecta[row][col];
-                }
-            }
-        }
-        return plainTextChar;
-    }
-    
-    /**
-     * Returns the decrypted message after the characters in ciphertext are 
-     * replaced on the table given the key value.
-     * 
-     * @param cipherText the message to be decrypted
-     * @param key the value for decryption
-     * @return the original plaintext
-     */
-    private String decrypt(String cipherText, String key) {
-        StringBuilder sb = new StringBuilder();
-        cipherText = cipherText.toUpperCase();
-        
-        for (int i = 0; i < cipherText.length(); i++)
-            sb.append(getDecryptedChar(cipherText.charAt(i), key.charAt(i)));
-        
-        return sb.toString();
-    }
-    
-    /**
-     * Returns the decrypted character. Read across and down to match the 
-     * ciphertext and key characters and return the character in which they 
-     * intersect on the character table.
-     * 
-     * @param cipherTextChar the letter in the ciphertext
-     * @param key the letter in the key used for decryption
-     * @return the character for decryption to replace the ciphertext character
-     */
-    private char getDecryptedChar(char cipherTextChar, char key) {
-        for (int col = 0; col < tabulaRecta[0].length; col++) {
-            if (tabulaRecta[0][col] == key) {
-                for (int row = 0; row < tabulaRecta.length; row++) {
-                    if (tabulaRecta[row][col] == cipherTextChar)
-                        return tabulaRecta[row][0];
-                }
-            }
-        }
-        return cipherTextChar;
     }
 }

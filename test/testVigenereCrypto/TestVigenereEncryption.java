@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
  */
 public class TestVigenereEncryption {
     Vigenere v = new Vigenere();
-    String plainText = "Hello world";
-    String key = "I am Joe";
-    String cipherText = v.performDecryption(plainText, key);
-    String expectedCipherText = "PEXUCAWRXM";
+    String plainText = "HELLOFROMTHEOTHERSIDE";
+    String key = v.createValidKey(plainText, "ADELE");
+    String cipherText = v.performEncryption(plainText, key);
+    String expectedCipherText = "HHPWSFUSXXHHSELEUWTHE";
     
     @Test
     public void TestVigenereEncryption() {

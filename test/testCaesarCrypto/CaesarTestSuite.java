@@ -15,4 +15,5 @@ import org.junit.runners.Suite;
     testCaesarCrypto.TestCaesarEncryption.class, 
     testCaesarCrypto.TestCaesarDecryption.class
 })
+
 public class CaesarTestSuite {}

@@ -13,17 +13,7 @@ package crypto;
  * @since April 5, 2020
  * @see CryptoStrat
  */
-public class Caesar implements CryptoStrat {
-    @Override
-    public String performEncryption(String plainText, String key) {
-        return encrypt(plainText, key);
-    }
-    
-    @Override
-    public String performDecryption(String cipherText, String key) {
-        return decrypt(cipherText, key);
-    }
-    
+public class Caesar implements CryptoStrat {   
     /**
      * Perform encryption operation given the plaintext and the key value.
      * 
@@ -69,5 +59,21 @@ public class Caesar implements CryptoStrat {
         }
         
         return plainText;
+    }
+    
+    /**
+     * Performs Caesar encryption.
+     */
+    @Override
+    public String performEncryption(String plainText, String key) {
+        return encrypt(plainText, key);
+    }
+    
+    /**
+     * Performs Caesar decryption.
+     */
+    @Override
+    public String performDecryption(String cipherText, String key) {
+        return decrypt(cipherText, key);
     }
 }
