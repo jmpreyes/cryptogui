@@ -53,7 +53,7 @@ public class Vigenere implements CryptoStrat {
         for (int i = 0; i < plainText.length(); i++) {
             int numVal = (plainText.charAt(i) + key.charAt(i)) % 26;
             numVal += 'A';
-            cipherText += (char)numVal;
+            cipherText += (char)(numVal);
         }
         
         return cipherText;
