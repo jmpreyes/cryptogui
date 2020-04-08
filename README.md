@@ -1,12 +1,9 @@
 # CryptoGUI
-A little project including cryptanalysis and Java GUI!
-<br>
-<br>
+A little project with cryptography and Java GUI!
+___
 I use this project as a way for me to learn Java GUI programming. Also diving into front-end development if I can!
-<br>
 (And it also helps me kill some time by practicing and improving my skills!)
-<br>
-<br>
+
 Tasks (current, upcoming, planned, etc.):<br>
 - [ ] Implement simple cryptographic techniques
   - [ x ] Caesar
@@ -24,5 +21,17 @@ Tasks (current, upcoming, planned, etc.):<br>
   - [ ] Including/ignoring special characters
   - [ x ] Design pattern implementation (Strategy for algorithm selection and Singleton for frame instances?)
   ...and more!
-<br>
-A very relaxed, recreational project. Looking forward to how this looks. More to come soon!
+
+**This is a very relaxed, recreational project.**
+___
+April 8, 2020:
+
+So far, only Caesar cipher is implemented with the interface. Buttons and menu work.
+A screenshot of application looks as follows:
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/32146406/78811677-1e77b780-79c2-11ea-9eae-2463ece23c4e.png">
+</p>
+
+Vigenère cipher also implemented but not tied to the interface. That's the next focus.
+
+More to come soon!
