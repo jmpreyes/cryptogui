@@ -1,6 +1,10 @@
 # CryptoGUI
 A little project including cryptanalysis and Java GUI!
-<br><br>
+<br>
+<br>
+![Screenshot](C:\Users\Joseph\git_local_cryptogui\cryptogui/screenshot.png "Screenshot")
+<br>
+<br>
 I use this project as a way for me to learn Java GUI programming. Also diving into front-end development if I can!
 <br>
 (And it also helps me kill some time by practicing and improving my skills!)
