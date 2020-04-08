@@ -27,8 +27,10 @@ public class Vigenere implements CryptoStrat {
         for (int i = 0; ; i++) {
             if (textLength == i)
                 i = 0;
+            
             if (key.length() == text.length())
                 break;
+            
             key += (key.charAt(i));
         }
         return key;
@@ -72,9 +74,9 @@ public class Vigenere implements CryptoStrat {
         plainText = plainText.toUpperCase();
         
         for (int i = 0; i < cipherText.length() && i < key.length(); i++) {
-            int vals = (cipherText.charAt(i) - key.charAt(i) + 26) % 26;
-            vals = vals + 'A';
-            plainText = plainText + (char)vals;
+            int numVal = (cipherText.charAt(i) - key.charAt(i) + 26) % 26;
+            numVal += 'A';
+            plainText += (char)(numVal);
         }
         
         return plainText;
