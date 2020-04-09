@@ -23,11 +23,14 @@ public class Caesar {
         
         for (int i = 0; i < plainText.length(); i++) {
             char ch = plainText.charAt(i);
-            if (ch >= 'A' && ch <= 'Z') {
-                int oldAlphaPos = ch - 'A';
-                int newAlphaPos = (oldAlphaPos + Integer.parseInt(key)) % 26;
-                cipherText += (char)(newAlphaPos + 'A');
-            }
+            if (ch != ' ') {
+                if (ch >= 'A' && ch <= 'Z') {
+                    int oldAlphaPos = ch - 'A';
+                    int newAlphaPos = (oldAlphaPos + Integer.parseInt(key)) % 26;
+                    cipherText += (char)(newAlphaPos + 'A');
+                }
+            } else
+                cipherText += ' ';
         }
         
         return cipherText;
@@ -42,16 +45,20 @@ public class Caesar {
      */
     public String decrypt(String cipherText, String key) {
         String plainText = new String();
+        cipherText = cipherText.toUpperCase();
         
         for (int i = 0; i < cipherText.length(); i++) {
             char ch = cipherText.charAt(i);
-            int oldAlphaPos = ch - 'A';
-            int newAlphaPos = oldAlphaPos - Integer.parseInt(key);
-            
-            if (newAlphaPos < 0)
-                newAlphaPos += 26;
-            
-            plainText += (char)(newAlphaPos + 'A');
+            if (ch != ' ') {
+                int oldAlphaPos = ch - 'A';
+                int newAlphaPos = oldAlphaPos - Integer.parseInt(key);
+
+                if (newAlphaPos < 0)
+                    newAlphaPos += 26;
+
+                plainText += (char)(newAlphaPos + 'A');
+            } else
+                plainText += ' ';
         }
         
         return plainText;

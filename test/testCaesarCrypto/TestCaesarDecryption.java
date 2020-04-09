@@ -16,14 +16,14 @@ import static org.junit.Assert.*;
  */
 public class TestCaesarDecryption {
     Caesar c = new Caesar();
-    String cipherText = "BCDEF";
+    String cipherText = "Nz obnf jt Kpf";
     int key = 1;
     String plainText = c.decrypt(cipherText, String.valueOf(key));
-    String expectedPlainText = "ABCDE";
+    String expectedPlainText = "My name is Joe";
     
     @Test
     public void TestCaesarDecryption() {
         System.out.println("@Test TestCaesarDecryption()");
-        assertEquals(plainText, expectedPlainText);
+        assertEquals(plainText, expectedPlainText.toUpperCase());
     }
 }

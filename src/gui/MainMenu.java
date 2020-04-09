@@ -100,8 +100,8 @@ public class MainMenu extends JFrame {
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
                     CaesarGUI.createInstance();
-                    //dispose();
-                    //setVisible(false);
+                    dispose();
+                    setVisible(false);
                 }
             }
             else if (vigenereRadioBtn.isSelected()) {
