@@ -9,13 +9,13 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Creates the window for Caesar cipher.
+ * Creates the window for Vigenère cipher.
  * 
  * @author Joseph R.
  * @since April 9, 2020
- * @see crypto.Caesar
+ * @see crypto.Vigenere
  */
-public class CaesarGUI extends JFrame {
+public class VigenereGUI extends JFrame {
     // Text areas
     private final JTextArea inputTextArea;
     private final JTextArea outputTextArea;
@@ -55,27 +55,27 @@ public class CaesarGUI extends JFrame {
     private final int FRAME_WIDTH = 800;
     private final int FRAME_HEIGHT = 600;
     
-    // Caesar cipher instance
-    private final Caesar caesar = new Caesar();
+    // Vigenère cipher instance
+    private final Vigenere vigenere = new Vigenere();
     
     // Singleton design pattern
-    private static final CaesarGUI GUI_OBJ = new CaesarGUI();
+    private static final VigenereGUI GUI_OBJ = new VigenereGUI();
     
     /**
-     * Ensures that only one instance of <code>CaesarGUI</code> is created. 
+     * Ensures that only one instance of <code>VigenereGUI</code> is created. 
      * Re-use the object if it's already instantiated.
      * 
-     * @return object of <code>CaesarGUI</code>
+     * @return object of <code>VigenereGUI</code>
      */
-    public static CaesarGUI createInstance() {
+    public static VigenereGUI createInstance() {
         if (GUI_OBJ != null)
             return GUI_OBJ;
         
-        return new CaesarGUI();
+        return new VigenereGUI();
     }
     
-    private CaesarGUI() {
-        super("CryptoGUI -- Cryptic Messages -- Caesar Cipher");
+    private VigenereGUI() {
+        super("CryptoGUI -- Cryptic Messages -- Vigenère Cipher");
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         
         // Prompt confirmation to exit when user tries to close the window
@@ -98,7 +98,7 @@ public class CaesarGUI extends JFrame {
         // "File" menu
         fileMenu = new JMenu("File");
         saveMenuItem = new JMenuItem("Save Output File");
-        exitMenuItem = new JMenuItem("Quit");
+        exitMenuItem = new JMenuItem("Exit");
         
         saveMenuItem.addActionListener((ActionEvent e) -> {
             // STUB
@@ -144,8 +144,8 @@ public class CaesarGUI extends JFrame {
         
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
-        keyLabel = new JLabel("Enter a number as key value between 0 and 25 (inclusive)");
-        keyTextField = new JTextField(5);
+        keyLabel = new JLabel("Enter keyword or passcode");
+        keyTextField = new JTextField(20);
         
         // Adding the key label and text field on top panel
         topPanel.add(keyLabel);
@@ -181,23 +181,17 @@ public class CaesarGUI extends JFrame {
         exitBtn = new JButton("Exit");
         exitBtn.setToolTipText("Exit the application.");
         
-        // Adding the buttons to the button panel
-        btnPanel.add(encryptBtn);
-        btnPanel.add(decryptBtn);
-        btnPanel.add(clearBtn);
-        btnPanel.add(moveBtn);
-        btnPanel.add(exitBtn);
-        
         // Assigning an event listener to the buttons
         encryptBtn.addActionListener((ActionEvent e) -> {
             try {
-                int key = Integer.parseInt(keyTextField.getText());
+                String key = keyTextField.getText();
                 
-                if (key > 25 || key < 0)
+                if (key.isEmpty())
                     throw new Exception();
                 
                 String plainText = inputTextArea.getText();
-                String cipherText = caesar.encrypt(plainText, String.valueOf(key));
+                key = vigenere.createValidKey(plainText, key);
+                String cipherText = vigenere.encrypt(plainText, key);
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
             } catch (Exception ex) {
@@ -207,13 +201,14 @@ public class CaesarGUI extends JFrame {
         
         decryptBtn.addActionListener((ActionEvent e) -> {
             try {
-                int key = Integer.parseInt(keyTextField.getText());
+                String key = keyTextField.getText();
                 
-                if (key > 25 || key < 0)
+                if (key.isEmpty())
                     throw new Exception();
                 
                 String cipherText = inputTextArea.getText();
-                String plainText = caesar.decrypt(cipherText, String.valueOf(key));
+                key = vigenere.createValidKey(cipherText, key);
+                String plainText = vigenere.decrypt(cipherText, key);
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
                 outputTextArea.setText("Warning: Invalid key value");
@@ -238,6 +233,13 @@ public class CaesarGUI extends JFrame {
             if (exitCode == JOptionPane.YES_OPTION)
                 System.exit(0);
         });
+        
+        // Adding the buttons to the button panel
+        btnPanel.add(encryptBtn);
+        btnPanel.add(decryptBtn);
+        btnPanel.add(clearBtn);
+        btnPanel.add(moveBtn);
+        btnPanel.add(exitBtn);
         
         // Adding panels to the frame
         add(topPanel, BorderLayout.NORTH);

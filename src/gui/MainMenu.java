@@ -105,11 +105,18 @@ public class MainMenu extends JFrame {
                 }
             }
             else if (vigenereRadioBtn.isSelected()) {
-                JOptionPane.showMessageDialog(rootPane, "Selected Vigenère cipher");
-                // vigenere.createInstance
+                int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Continue with " + vigenereRadioBtn.getText() + "?", 
+                        "Confirm", JOptionPane.YES_NO_OPTION);
+                
+                if (proceedCode == JOptionPane.YES_OPTION) {
+                    VigenereGUI.createInstance();
+                    dispose();
+                    setVisible(false);
+                }
             }
             else {
-                JOptionPane.showMessageDialog(rootPane, "You didn't select anything");
+                JOptionPane.showMessageDialog(rootPane, "Please select an option");
                 // stub
             }
         });

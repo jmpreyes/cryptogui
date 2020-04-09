@@ -24,6 +24,6 @@ public class TestVigenereDecryption {
     @Test
     public void TestVigenereDecryption() {
         System.out.println("@Test TestVigenereDecryption()");
-        assertEquals(plainText, expectedPlainText);
+        assertEquals(plainText, expectedPlainText.toUpperCase());
     }
 }

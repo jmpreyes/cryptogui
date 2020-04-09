@@ -21,16 +21,16 @@ public class Vigenere {
      * @return key which repeats until it matches text length
      */
     public String createValidKey(String text, String key) {
-        int textLength = text.length();
-        for (int i = 0; ; i++) {
-            if (textLength == i)
+        key = key.toUpperCase();
+        
+        for (int i = 0; i < text.length(); i++) {
+            if (i == text.length())
                 i = 0;
-            
-            if (key.length() == text.length())
+            if (text.length() == key.length())
                 break;
-            
             key += (key.charAt(i));
         }
+        
         return key;
     }
     
@@ -46,7 +46,7 @@ public class Vigenere {
      */
     public String encrypt(String plainText, String key) {
         String cipherText = new String();
-        cipherText = cipherText.toUpperCase();
+        plainText = plainText.toUpperCase();
                 
         for (int i = 0; i < plainText.length(); i++) {
             int numVal = (plainText.charAt(i) + key.charAt(i)) % 26;
@@ -69,7 +69,7 @@ public class Vigenere {
      */
     public String decrypt(String cipherText, String key) {
         String plainText = new String();
-        plainText = plainText.toUpperCase();
+        cipherText = cipherText.toUpperCase();
         
         for (int i = 0; i < cipherText.length() && i < key.length(); i++) {
             int numVal = (cipherText.charAt(i) - key.charAt(i) + 26) % 26;

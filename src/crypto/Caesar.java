@@ -77,10 +77,8 @@ public class Caesar {
             if (ch != ' ' && !isAMetaChar(ch)) {
                 int oldAlphaPos = ch - 'A';
                 int newAlphaPos = oldAlphaPos - Integer.parseInt(key);
-
                 if (newAlphaPos < 0)
                     newAlphaPos += 26;
-
                 plainText += (char)(newAlphaPos + 'A');
             } else if (isAMetaChar(ch)) {
                 plainText += ch;
