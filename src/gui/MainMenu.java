@@ -58,7 +58,8 @@ public class MainMenu extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (exitCode == JOptionPane.YES_OPTION) {
                     dispose();
@@ -93,7 +94,9 @@ public class MainMenu extends JFrame {
         // and which cipher to use
         selectBtn.addActionListener((ActionEvent e) -> {
             if (caesarRadioBtn.isSelected()) {
-                int proceedCode = JOptionPane.showConfirmDialog(rootPane, "Continue with " + caesarRadioBtn.getText() + "?", "Confirm", JOptionPane.YES_NO_OPTION);
+                int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Continue with " + caesarRadioBtn.getText() + "?", 
+                        "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
                     CaesarGUI.createInstance();

@@ -82,7 +82,8 @@ public class CaesarGUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (exitCode == JOptionPane.YES_OPTION) {
                     dispose();
@@ -105,7 +106,8 @@ public class CaesarGUI extends JFrame {
         });
         
         quitMenuItem.addActionListener((ActionEvent e) -> {
-            int exitCode = JOptionPane.showConfirmDialog(rootPane, "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+            int exitCode = JOptionPane.showConfirmDialog(rootPane, 
+                    "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
             
             if (exitCode == JOptionPane.YES_OPTION)
                 System.exit(0);
@@ -125,7 +127,8 @@ public class CaesarGUI extends JFrame {
         aboutMenuItem = new JMenuItem("About Project");
         
         aboutMenuItem.addActionListener((ActionEvent e) -> {
-           JOptionPane.showMessageDialog(rootPane, "Written by Joe R.\nApril 2020\nEmail at foo@foo.com"); 
+           JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
+                   + "\nApril 2020\nEmail at foo@foo.com"); 
         });
         
         // Adding the menu items to the "Options" menu bar
@@ -191,7 +194,6 @@ public class CaesarGUI extends JFrame {
         
         // Assigning an event listener to the buttons
         encryptBtn.addActionListener((ActionEvent e) -> {
-            //cs = new CryptoStratContext(new Caesar());
             try {
                 int key = Integer.parseInt(keyTextField.getText());
                 
@@ -199,7 +201,6 @@ public class CaesarGUI extends JFrame {
                     throw new Exception();
                 
                 String plainText = inputTextArea.getText();
-                //String cipherText = cs.executeEncryption(plainText, String.valueOf(key));
                 String cipherText = caesar.encrypt(plainText, String.valueOf(key));
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
@@ -209,7 +210,6 @@ public class CaesarGUI extends JFrame {
         });
         
         decryptBtn.addActionListener((ActionEvent e) -> {
-            //cs = new CryptoStratContext(new Caesar());
             try {
                 int key = Integer.parseInt(keyTextField.getText());
                 
@@ -217,7 +217,6 @@ public class CaesarGUI extends JFrame {
                     throw new Exception();
                 
                 String cipherText = inputTextArea.getText();
-                //String plainText = cs.executeDecryption(cipherText, String.valueOf(key));
                 String plainText = caesar.decrypt(cipherText, String.valueOf(key));
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
@@ -237,7 +236,8 @@ public class CaesarGUI extends JFrame {
         });
         
         quitBtn.addActionListener((ActionEvent e) -> {
-            int exitCode = JOptionPane.showConfirmDialog(rootPane, "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+            int exitCode = JOptionPane.showConfirmDialog(rootPane, 
+                    "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
             
             if (exitCode == JOptionPane.YES_OPTION)
                 System.exit(0);
