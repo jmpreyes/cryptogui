@@ -12,14 +12,14 @@ import static org.junit.Assert.*;
  * 
  * @author Joseph R.
  * @since April 5, 2020
- * @see Caesar
+ * @see crypto.Caesar
  */
 public class TestCaesarDecryption {
     Caesar c = new Caesar();
-    String cipherText = "Nz obnf jt Kpf";
+    String cipherText = "Nz obnf jt Kpf!";
     int key = 1;
     String plainText = c.decrypt(cipherText, String.valueOf(key));
-    String expectedPlainText = "My name is Joe";
+    String expectedPlainText = "My name is Joe!";
     
     @Test
     public void TestCaesarDecryption() {

@@ -31,8 +31,8 @@ public class MainMenu extends JFrame {
     // Button
     private final JButton selectBtn;
     
-    private final int FRAME_WIDTH = 650;
-    private final int FRAME_HEIGHT = 500;
+    private final int FRAME_WIDTH = 350;
+    private final int FRAME_HEIGHT = 150;
     
     // Singleton design pattern
     private static final MainMenu MENU_OBJ = new MainMenu();
@@ -51,8 +51,8 @@ public class MainMenu extends JFrame {
     }
     
     private MainMenu() {
-        //super("CryptoGUI -- Cryptic Messages");
-        setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+        super("CryptoGUI -- Cryptic Messages");
+        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         
         // Prompt confirmation to exit when user tries to close the window
         addWindowListener(new WindowAdapter() {

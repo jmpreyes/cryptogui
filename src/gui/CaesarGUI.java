@@ -28,7 +28,7 @@ public class CaesarGUI extends JFrame {
     private final JButton decryptBtn;
     private final JButton clearBtn;
     private final JButton moveBtn;
-    private final JButton quitBtn;
+    private final JButton exitBtn;
     
     // Panels
     private final JPanel topPanel;
@@ -49,11 +49,11 @@ public class CaesarGUI extends JFrame {
     private final JMenu helpMenu;
     private final JMenuItem saveMenuItem;
     private final JMenuItem switchMenuItem;
-    private final JMenuItem quitMenuItem;
+    private final JMenuItem exitMenuItem;
     private final JMenuItem aboutMenuItem;
     
-    private final int FRAME_WIDTH = 650;
-    private final int FRAME_HEIGHT = 500;
+    private final int FRAME_WIDTH = 1024;
+    private final int FRAME_HEIGHT = 768;
     
     // Caesar cipher instance
     private final Caesar caesar = new Caesar();
@@ -75,8 +75,8 @@ public class CaesarGUI extends JFrame {
     }
     
     private CaesarGUI() {
-        //super("CryptoGUI -- Cryptic Messages");
-        setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+        super("CryptoGUI -- Cryptic Messages -- Caesar Cipher");
+        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         
         // Prompt confirmation to exit when user tries to close the window
         addWindowListener(new WindowAdapter() {
@@ -98,14 +98,14 @@ public class CaesarGUI extends JFrame {
         // "File" menu
         fileMenu = new JMenu("File");
         saveMenuItem = new JMenuItem("Save Output File");
-        quitMenuItem = new JMenuItem("Quit");
+        exitMenuItem = new JMenuItem("Quit");
         
         saveMenuItem.addActionListener((ActionEvent e) -> {
             // STUB
             JOptionPane.showMessageDialog(rootPane, "Work in progress.");
         });
         
-        quitMenuItem.addActionListener((ActionEvent e) -> {
+        exitMenuItem.addActionListener((ActionEvent e) -> {
             int exitCode = JOptionPane.showConfirmDialog(rootPane, 
                     "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
             
@@ -133,7 +133,7 @@ public class CaesarGUI extends JFrame {
         
         // Adding the menu items to the "Options" menu bar
         fileMenu.add(saveMenuItem);
-        fileMenu.add(quitMenuItem);
+        fileMenu.add(exitMenuItem);
         optionsMenu.add(switchMenuItem);
         helpMenu.add(aboutMenuItem);
         
@@ -162,15 +162,15 @@ public class CaesarGUI extends JFrame {
         clearBtn.setToolTipText("Clear and reset both text screens.");
         moveBtn = new JButton("Move");
         moveBtn.setToolTipText("Move the text from the right to the left pane.");
-        quitBtn = new JButton("Quit");
-        quitBtn.setToolTipText("Exit the application.");
+        exitBtn = new JButton("Exit");
+        exitBtn.setToolTipText("Exit the application.");
         
         // Adding the buttons to the button panel
         btnPanel.add(encryptBtn);
         btnPanel.add(decryptBtn);
         btnPanel.add(clearBtn);
         btnPanel.add(moveBtn);
-        btnPanel.add(quitBtn);
+        btnPanel.add(exitBtn);
         
         // Creating a panel for the text areas
         textPanel = new JPanel(new GridLayout(1, 2));
@@ -235,7 +235,7 @@ public class CaesarGUI extends JFrame {
             outputTextArea.setText("");
         });
         
-        quitBtn.addActionListener((ActionEvent e) -> {
+        exitBtn.addActionListener((ActionEvent e) -> {
             int exitCode = JOptionPane.showConfirmDialog(rootPane, 
                     "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
             

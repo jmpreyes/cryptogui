@@ -9,7 +9,29 @@ package crypto;
  * @author Joseph R.
  * @since April 9, 2020
  */
-public class Caesar {   
+public class Caesar {
+    // Array of all meta characters to ignore from the text
+    private final char[] METACHARS = {'<', '>', '(', ')', '[', ']', '{', '}', 
+                                     '\\', '^', '-', '=', '$', '!', '|', '?', 
+                                     '*', '+', '.', ',', '\'', '\"'};
+    
+    /**
+     * Determine if character in the text is a meta character. If so, 
+     * ignore it and add it to the resulting text after encryption or 
+     * decryption.
+     * 
+     * @param ch the character in the text
+     * @return true if the character is a meta character; else, return <code>false</code>
+     */
+    private boolean isAMetaChar(char ch) {
+        for (int i = 0; i < METACHARS.length; i++) {
+            if (ch == METACHARS[i])
+                return true;
+        }
+        
+        return false;
+    }
+    
     /**
      * Perform encryption operation given the plaintext and the key value.
      * 
@@ -23,14 +45,17 @@ public class Caesar {
         
         for (int i = 0; i < plainText.length(); i++) {
             char ch = plainText.charAt(i);
-            if (ch != ' ') {
+            if (ch != ' ' && !isAMetaChar(ch)) {
                 if (ch >= 'A' && ch <= 'Z') {
                     int oldAlphaPos = ch - 'A';
                     int newAlphaPos = (oldAlphaPos + Integer.parseInt(key)) % 26;
                     cipherText += (char)(newAlphaPos + 'A');
                 }
-            } else
+            } else if (isAMetaChar(ch)) {
+                cipherText += ch;
+            } else {
                 cipherText += ' ';
+            }
         }
         
         return cipherText;
@@ -49,7 +74,7 @@ public class Caesar {
         
         for (int i = 0; i < cipherText.length(); i++) {
             char ch = cipherText.charAt(i);
-            if (ch != ' ') {
+            if (ch != ' ' && !isAMetaChar(ch)) {
                 int oldAlphaPos = ch - 'A';
                 int newAlphaPos = oldAlphaPos - Integer.parseInt(key);
 
@@ -57,8 +82,11 @@ public class Caesar {
                     newAlphaPos += 26;
 
                 plainText += (char)(newAlphaPos + 'A');
-            } else
+            } else if (isAMetaChar(ch)) {
+                plainText += ch;
+            } else {
                 plainText += ' ';
+            }
         }
         
         return plainText;
