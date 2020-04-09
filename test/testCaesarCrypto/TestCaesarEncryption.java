@@ -18,7 +18,7 @@ public class TestCaesarEncryption {
     Caesar c = new Caesar();
     String plainText = "ABCDE";
     int key = 1;
-    String cipherText = c.performEncryption(plainText, String.valueOf(key));
+    String cipherText = c.encrypt(plainText, String.valueOf(key));
     String expectedCipherText = "BCDEF";
     
     @Test

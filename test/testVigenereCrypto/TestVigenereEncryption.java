@@ -18,7 +18,7 @@ public class TestVigenereEncryption {
     Vigenere v = new Vigenere();
     String plainText = "HELLOFROMTHEOTHERSIDE";
     String key = v.createValidKey(plainText, "ADELE");
-    String cipherText = v.performEncryption(plainText, key);
+    String cipherText = v.encrypt(plainText, key);
     String expectedCipherText = "HHPWSFUSXXHHSELEUWTHE";
     
     @Test

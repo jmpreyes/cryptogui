@@ -1,18 +1,16 @@
 /**
- * package crypto contains the implementation of various cryptographic
- * techniques. Also contains the Strategy design pattern code.
+ * package crypto contains the implementation of various cryptographic styles.
  */
 package crypto;
 
 /**
- * This class simply defines the Vigenère cipher, a polyalphabetic cryptographic 
- * technique.
+ * This class simply defines the Vigenère cipher, a poly-alphabetic 
+ * cryptographic technique.
  * 
  * @author Joseph R.
- * @since April 8, 2020
- * @see crypto.CryptoStrat
+ * @since April 9, 2020
  */
-public class Vigenere implements CryptoStrat {
+public class Vigenere {
     /**
      * Ensure the key has the same length or same number of characters as 
      * the text for encryption or decryption. Essentially, the length of the 
@@ -46,7 +44,7 @@ public class Vigenere implements CryptoStrat {
      * @param key the string for encryption
      * @return the encrypted ciphertext
      */
-    private String encrypt(String plainText, String key) {
+    public String encrypt(String plainText, String key) {
         String cipherText = new String();
         cipherText = cipherText.toUpperCase();
                 
@@ -69,7 +67,7 @@ public class Vigenere implements CryptoStrat {
      * @param key the string for decryption
      * @return the original plaintext
      */
-    private String decrypt(String cipherText, String key) {
+    public String decrypt(String cipherText, String key) {
         String plainText = new String();
         plainText = plainText.toUpperCase();
         
@@ -80,20 +78,5 @@ public class Vigenere implements CryptoStrat {
         }
         
         return plainText;
-    }
-    /**
-     * Perform Vigenère encryption.
-     */
-    @Override
-    public String performEncryption(String plainText, String key) {
-        return encrypt(plainText, key);
-    }
-
-    /**
-     * Perform Vigenère decryption.
-     */
-    @Override
-    public String performDecryption(String cipherText, String key) {
-        return decrypt(cipherText, key);
     }
 }

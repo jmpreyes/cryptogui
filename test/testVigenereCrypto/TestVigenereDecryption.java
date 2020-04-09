@@ -18,7 +18,7 @@ public class TestVigenereDecryption {
     Vigenere v = new Vigenere();
     String cipherText = "HHPWSFUSXXHHSELEUWTHE";
     String key = v.createValidKey(cipherText, "ADELE");
-    String plainText = v.performDecryption(cipherText, key);
+    String plainText = v.decrypt(cipherText, key);
     String expectedPlainText = "HELLOFROMTHEOTHERSIDE";
     
     @Test

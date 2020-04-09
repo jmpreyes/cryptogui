@@ -1,19 +1,15 @@
 /**
- * package crypto contains the implementation of various cryptographic 
- * techniques. Also contains the Strategy design pattern code.
+ * package crypto contains the implementation of various cryptographic styles.
  */
 package crypto;
 
 /**
- * This class defines the Caesar cryptographic technique.
- * It implements the CryptoStrat interface -- defines the two methods for 
- * respective encryption and decryption given the text and key.
+ * This class defines the Caesar cipher.
  * 
  * @author Joseph R.
- * @since April 5, 2020
- * @see CryptoStrat
+ * @since April 9, 2020
  */
-public class Caesar implements CryptoStrat {   
+public class Caesar {   
     /**
      * Perform encryption operation given the plaintext and the key value.
      * 
@@ -21,7 +17,7 @@ public class Caesar implements CryptoStrat {
      * @param key the value for character shift
      * @return an encrypted text (ciphertext)
      */
-    private String encrypt(String plainText, String key) {
+    public String encrypt(String plainText, String key) {
         String cipherText = new String();
         plainText = plainText.toUpperCase();
         
@@ -44,7 +40,7 @@ public class Caesar implements CryptoStrat {
      * @param key the value for character shift
      * @return the decrypted, original message (plaintext)
      */
-    private String decrypt(String cipherText, String key) {
+    public String decrypt(String cipherText, String key) {
         String plainText = new String();
         
         for (int i = 0; i < cipherText.length(); i++) {
@@ -59,21 +55,5 @@ public class Caesar implements CryptoStrat {
         }
         
         return plainText;
-    }
-    
-    /**
-     * Performs Caesar encryption.
-     */
-    @Override
-    public String performEncryption(String plainText, String key) {
-        return encrypt(plainText, key);
-    }
-    
-    /**
-     * Performs Caesar decryption.
-     */
-    @Override
-    public String performDecryption(String cipherText, String key) {
-        return decrypt(cipherText, key);
     }
 }

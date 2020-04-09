@@ -3,14 +3,13 @@
  */
 package driver;
 
-import gui.CryptoGUI;
+import gui.MainMenu;
 
 /**
  * This class is the driver class (main class) of the program.
  * 
  * @author Joseph R.
- * @since April 5, 2020
- * @see gui.CryptoGUI
+ * @since April 9, 2020
  */
 public class Driver {
     /**
@@ -18,7 +17,6 @@ public class Driver {
      * @param args String arguments
      */
     public static void main(String[] args) {
-        //CryptoGUI c = new CryptoGUI();
-        CryptoGUI c = CryptoGUI.createInstance();
+        MainMenu m = MainMenu.createMainMenuInstance();
     }
 }

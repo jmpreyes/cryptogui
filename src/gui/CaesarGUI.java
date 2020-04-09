@@ -9,15 +9,13 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Create the frame/window on screen with its buttons, text areas, and 
- * other properties. Strategy and Singleton design patterns are implemented 
- * for practice.
+ * Creates the window for Caesar cipher.
  * 
  * @author Joseph R.
- * @since April 3, 2020
- * @see crypto.CryptoStratContext
+ * @since April 9, 2020
+ * @see crypto.Caesar
  */
-public class CryptoGUI extends JFrame {
+public class CaesarGUI extends JFrame {
     // Text areas
     private final JTextArea inputTextArea;
     private final JTextArea outputTextArea;
@@ -54,37 +52,30 @@ public class CryptoGUI extends JFrame {
     private final JMenuItem quitMenuItem;
     private final JMenuItem aboutMenuItem;
     
-    // Frame width
     private final int FRAME_WIDTH = 650;
-    // Frame height
     private final int FRAME_HEIGHT = 500;
-    // Strategy design pattern
-    private static CryptoStratContext cs;
+    
+    // Caesar cipher instance
+    private final Caesar caesar = new Caesar();
+    
     // Singleton design pattern
-    private static final CryptoGUI GUI_OBJ = new CryptoGUI();
+    private static final CaesarGUI GUI_OBJ = new CaesarGUI();
     
     /**
-     * Singleton implementation: create only one JFrame object. Object creation 
-     * is done by invoking <code>CrypoGUI.createInstance()</code> instead of 
-     * calling its class constructor.
+     * Ensures that only one instance of <code>CaesarGUI</code> is created. 
+     * Re-use the object if it's already instantiated.
      * 
-     * @return only one object of CryptoGUI
+     * @return object of <code>CaesarGUI</code>
      */
-    public static CryptoGUI createInstance() {
+    public static CaesarGUI createInstance() {
         if (GUI_OBJ != null)
             return GUI_OBJ;
         
-        return new CryptoGUI();
+        return new CaesarGUI();
     }
     
-    /**
-     * Singleton implementation: allow only one instance of the frame at once. 
-     * The constructor creates the frame, its buttons, and associating 
-     * properties. Event handling is implemented for the buttons.
-     */
-    private CryptoGUI() {
-        // Frame properties
-        super("CryptoGUI -- Cryptic Messages");
+    private CaesarGUI() {
+        //super("CryptoGUI -- Cryptic Messages");
         setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
         
         // Prompt confirmation to exit when user tries to close the window
@@ -122,7 +113,7 @@ public class CryptoGUI extends JFrame {
         
         // "Options" menu
         optionsMenu = new JMenu("Options");
-        switchMenuItem = new JMenuItem("Change Cryptanalysis Technique");
+        switchMenuItem = new JMenuItem("Change Cryptographic Technique");
         
         switchMenuItem.addActionListener((ActionEvent e) -> {
             // STUB
@@ -200,7 +191,7 @@ public class CryptoGUI extends JFrame {
         
         // Assigning an event listener to the buttons
         encryptBtn.addActionListener((ActionEvent e) -> {
-            cs = new CryptoStratContext(new Caesar());
+            //cs = new CryptoStratContext(new Caesar());
             try {
                 int key = Integer.parseInt(keyTextField.getText());
                 
@@ -208,7 +199,8 @@ public class CryptoGUI extends JFrame {
                     throw new Exception();
                 
                 String plainText = inputTextArea.getText();
-                String cipherText = cs.executeEncryption(plainText, String.valueOf(key));
+                //String cipherText = cs.executeEncryption(plainText, String.valueOf(key));
+                String cipherText = caesar.encrypt(plainText, String.valueOf(key));
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
             } catch (Exception ex) {
@@ -217,7 +209,7 @@ public class CryptoGUI extends JFrame {
         });
         
         decryptBtn.addActionListener((ActionEvent e) -> {
-            cs = new CryptoStratContext(new Caesar());
+            //cs = new CryptoStratContext(new Caesar());
             try {
                 int key = Integer.parseInt(keyTextField.getText());
                 
@@ -225,7 +217,8 @@ public class CryptoGUI extends JFrame {
                     throw new Exception();
                 
                 String cipherText = inputTextArea.getText();
-                String plainText = cs.executeDecryption(cipherText, String.valueOf(key));
+                //String plainText = cs.executeDecryption(cipherText, String.valueOf(key));
+                String plainText = caesar.decrypt(cipherText, String.valueOf(key));
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
                 outputTextArea.setText("Warning: Invalid key value");
@@ -250,11 +243,11 @@ public class CryptoGUI extends JFrame {
                 System.exit(0);
         });
         
-        setJMenuBar(menuBar);
-        setResizable(false);
-        setVisible(true);
+        pack();
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setJMenuBar(menuBar);
+        setVisible(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }
