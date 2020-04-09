@@ -24,14 +24,4 @@ Tasks (current, upcoming, planned, etc.):<br>
 
 **This is a very relaxed, recreational project.**
 ___
-April 8, 2020:
-
-So far, only Caesar cipher is implemented with the interface. Buttons and menu work.
-A screenshot of application looks as follows:
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/32146406/78811677-1e77b780-79c2-11ea-9eae-2463ece23c4e.png">
-</p>
-
-Vigenère cipher also implemented but not tied to the interface. That's the next focus.
-
 More to come soon!
