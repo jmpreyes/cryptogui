@@ -18,6 +18,7 @@ public class MainMenu extends JFrame {
     // Radio buttons and group for selection
     private final JRadioButton caesarRadioBtn;
     private final JRadioButton vigenereRadioBtn;
+    private final JRadioButton portaRadioBtn;
     private final ButtonGroup radioBtnGroup;
     
     // Label for header text
@@ -50,6 +51,9 @@ public class MainMenu extends JFrame {
         return new MainMenu();
     }
     
+    /**
+     * Creates the main menu frame.
+     */
     private MainMenu() {
         super("CryptoGUI -- Cryptic Messages");
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -76,14 +80,21 @@ public class MainMenu extends JFrame {
         
         // Creating a panel for the radio button group
         // and adding the radio buttons to that group
-        radioGroupPanel = new JPanel(new GridLayout(2, 1));
+        radioGroupPanel = new JPanel(new GridLayout(3, 1));
         caesarRadioBtn = new JRadioButton("Caesar Cipher");
         vigenereRadioBtn = new JRadioButton("Vigenère Cipher");
+        portaRadioBtn = new JRadioButton("Porta Cipher");
+        
+        // Adding the radio buttons to a group so only one is enabled at once
         radioBtnGroup = new ButtonGroup();
         radioBtnGroup.add(caesarRadioBtn);
         radioBtnGroup.add(vigenereRadioBtn);
+        radioBtnGroup.add(portaRadioBtn);
+        
+        // Adding each radio button to the radio group panel
         radioGroupPanel.add(caesarRadioBtn);
         radioGroupPanel.add(vigenereRadioBtn);
+        radioGroupPanel.add(portaRadioBtn);
         
         // Creating the panel for the button and adding the button to the panel
         btnPanel = new JPanel();
@@ -103,8 +114,7 @@ public class MainMenu extends JFrame {
                     dispose();
                     setVisible(false);
                 }
-            }
-            else if (vigenereRadioBtn.isSelected()) {
+            } else if (vigenereRadioBtn.isSelected()) {
                 int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
                         "Continue with " + vigenereRadioBtn.getText() + "?", 
                         "Confirm", JOptionPane.YES_NO_OPTION);
@@ -114,10 +124,17 @@ public class MainMenu extends JFrame {
                     dispose();
                     setVisible(false);
                 }
-            }
-            else {
+            } else if (portaRadioBtn.isSelected()) {
+                int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Continue with " + portaRadioBtn.getText() + "?", 
+                        "Confirm", JOptionPane.YES_NO_OPTION);
+                
+                // stub for now
+                if (proceedCode == JOptionPane.YES_OPTION)
+                    JOptionPane.showMessageDialog(rootPane, "You selected Porta cipher!");
+            } else {
+                // stub for now
                 JOptionPane.showMessageDialog(rootPane, "Please select an option");
-                // stub
             }
         });
         
