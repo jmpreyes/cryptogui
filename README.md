@@ -10,8 +10,8 @@ Cryptography:
 - [x] Implement Caesar cipher
 - [x] Implement Vigenère cipher
 - [x] Implement Porta cipher
-- [ ] Implement Zimmermann cipher
-And more variations in the future!
+- [ ] Implement Zimmermann cipher<br>
+...and more variations in the future!
 
 User Interface (with Java Swing and AWT):
 - [x] Implement menu for cipher selection
