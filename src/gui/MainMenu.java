@@ -44,11 +44,8 @@ public class MainMenu extends JFrame {
      * 
      * @return object of <code>MainMenu</code>
      */
-    public static MainMenu createMainMenuInstance() {
-        if (MENU_OBJ != null)
-            return MENU_OBJ;
-        
-        return new MainMenu();
+    public static MainMenu getInstance() {
+        return MENU_OBJ;
     }
     
     /**
@@ -110,7 +107,7 @@ public class MainMenu extends JFrame {
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
-                    CaesarGUI.createInstance();
+                    CaesarGUI.getInstance();
                     dispose();
                     setVisible(false);
                 }
@@ -120,7 +117,7 @@ public class MainMenu extends JFrame {
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
-                    VigenereGUI.createInstance();
+                    VigenereGUI.getInstance();
                     dispose();
                     setVisible(false);
                 }

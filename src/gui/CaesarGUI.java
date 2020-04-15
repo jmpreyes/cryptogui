@@ -67,11 +67,8 @@ public class CaesarGUI extends JFrame {
      * 
      * @return object of <code>CaesarGUI</code>
      */
-    public static CaesarGUI createInstance() {
-        if (GUI_OBJ != null)
-            return GUI_OBJ;
-        
-        return new CaesarGUI();
+    public static CaesarGUI getInstance() {
+        return GUI_OBJ;
     }
     
     private CaesarGUI() {

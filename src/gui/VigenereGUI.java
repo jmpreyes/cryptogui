@@ -67,11 +67,8 @@ public class VigenereGUI extends JFrame {
      * 
      * @return object of <code>VigenereGUI</code>
      */
-    public static VigenereGUI createInstance() {
-        if (GUI_OBJ != null)
-            return GUI_OBJ;
-        
-        return new VigenereGUI();
+    public static VigenereGUI getInstance() {
+        return GUI_OBJ;
     }
     
     private VigenereGUI() {
