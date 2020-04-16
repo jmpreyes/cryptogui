@@ -15,9 +15,10 @@ import static org.junit.Assert.*;
  * @see crypto.Porta
  */
 public class TestPortaDecryption {
-    Porta p = new Porta("THEQUICKFOXJUMPSOVERTHELAZYDOG");
+    Porta p = new Porta();
     String cipherText = "GYKEXZEVTSTTSIAJZEMY";
-    String plainText = p.decrypt(cipherText);
+    String key = "THEQUICKFOXJUMPSOVERTHELAZYDOG";
+    String plainText = p.decrypt(cipherText, key);
     String expectedPlainText = "PIZZAISDELICIOUSFOOD";
     
     @Test
