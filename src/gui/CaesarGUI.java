@@ -194,7 +194,7 @@ public class CaesarGUI extends JFrame {
                     throw new Exception();
                 
                 String plainText = inputTextArea.getText();
-                String cipherText = caesar.encrypt(plainText, String.valueOf(key));
+                String cipherText = caesar.encrypt(plainText, key);
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
             } catch (Exception ex) {
@@ -210,7 +210,7 @@ public class CaesarGUI extends JFrame {
                     throw new Exception();
                 
                 String cipherText = inputTextArea.getText();
-                String plainText = caesar.decrypt(cipherText, String.valueOf(key));
+                String plainText = caesar.decrypt(cipherText, key);
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
                 outputTextArea.setText("Warning: Invalid key value");

@@ -39,7 +39,7 @@ public class Caesar {
      * @param key the value for character shift
      * @return an encrypted text (ciphertext)
      */
-    public String encrypt(String plainText, String key) {
+    public String encrypt(String plainText, int key) {
         String cipherText = new String();
         plainText = plainText.toUpperCase();
         
@@ -48,7 +48,7 @@ public class Caesar {
             if (ch != ' ' && !isAMetaChar(ch)) {
                 if (ch >= 'A' && ch <= 'Z') {
                     int oldAlphaPos = ch - 'A';
-                    int newAlphaPos = (oldAlphaPos + Integer.parseInt(key)) % 26;
+                    int newAlphaPos = (oldAlphaPos + key) % 26;
                     cipherText += (char)(newAlphaPos + 'A');
                 }
             } else if (isAMetaChar(ch)) {
@@ -68,7 +68,7 @@ public class Caesar {
      * @param key the value for character shift
      * @return the decrypted, original message (plaintext)
      */
-    public String decrypt(String cipherText, String key) {
+    public String decrypt(String cipherText, int key) {
         String plainText = new String();
         cipherText = cipherText.toUpperCase();
         
@@ -76,7 +76,7 @@ public class Caesar {
             char ch = cipherText.charAt(i);
             if (ch != ' ' && !isAMetaChar(ch)) {
                 int oldAlphaPos = ch - 'A';
-                int newAlphaPos = oldAlphaPos - Integer.parseInt(key);
+                int newAlphaPos = oldAlphaPos - key;
                 if (newAlphaPos < 0)
                     newAlphaPos += 26;
                 plainText += (char)(newAlphaPos + 'A');

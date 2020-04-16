@@ -18,7 +18,7 @@ public class TestCaesarEncryption {
     Caesar c = new Caesar();
     String plainText = "My name is Joe^";
     int key = 1;
-    String cipherText = c.encrypt(plainText, String.valueOf(key));
+    String cipherText = c.encrypt(plainText, key);
     String expectedCipherText = "Nz obnf jt Kpf^";
     
     @Test
