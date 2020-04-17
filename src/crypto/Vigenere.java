@@ -1,6 +1,3 @@
-/**
- * package crypto contains the implementation of various cryptographic styles.
- */
 package crypto;
 
 /**

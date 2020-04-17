@@ -1,6 +1,3 @@
-/*
- * *** Use crypto.Vigenere.java instead ***
- */
 package misc;
 
 /*

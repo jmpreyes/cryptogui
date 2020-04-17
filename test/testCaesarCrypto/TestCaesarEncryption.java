@@ -1,6 +1,3 @@
-/**
- * testCaesarCrypto contains the unit tests for Caesar cipher operations.
- */
 package testCaesarCrypto;
 
 import crypto.Caesar;

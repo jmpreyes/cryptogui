@@ -1,12 +1,11 @@
-/**
- * package crypto contains the implementation of various cryptographic styles.
- */
 package crypto;
 
 /**
  * This class defines the Porta cipher.
  * 
- * !!! Rough implementation. Need to rewrite this !!!
+ * !!! Rough implementation. 
+ *     Work in progress 
+ *     Test cases are valid so far !!!
  * 
  * @author Joseph R.
  * @since April 14, 2020
@@ -116,21 +115,16 @@ public class Porta {
         return targetDecryptChar;
     }
 
+    /*
+    
     /**
      * Determines whether or not the text is valid. A text is valid if it is 
      * non-empty and has at least 10 characters.
      * 
      * @param text the message to be encrypted or decrypted
-     * @return true if text is non-empty and has at least 10 characters, false otherwise
-     */
+     * @return true if text is non-empty and has at least 10 characters; false otherwise
+    
     private boolean isValidText(String text) {
-        /*
-        if (text != null)
-            return true;
-        else
-            return false;
-         */
-        
         return !text.isEmpty();
     }
     
@@ -140,7 +134,7 @@ public class Porta {
      * 
      * @param key the given key for encryption or decryption
      * @param capacity the maximum length of the key
-     */
+    
     public void ensureCapacity(String key, int capacity) {
         if (capacity > key.length())
             resize(key, capacity);
@@ -151,7 +145,7 @@ public class Porta {
      * enough to cover all characters of the plaintext or ciphertext.
      * 
      * @param capacity the maximum length of the key
-     */
+    
     private void resize(String key, int capacity) {
         char[] temp = new char[capacity];
         int index = 0;
@@ -164,4 +158,6 @@ public class Porta {
         }
         key = new String(temp);
     }
+    
+    */
 }

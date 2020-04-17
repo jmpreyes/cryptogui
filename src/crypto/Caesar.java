@@ -16,23 +16,6 @@ public class Caesar {
                                      '*', '+', '.', ',', '\'', '\"'};
     
     /**
-     * Determine if character in the text is a meta character. If so, 
-     * ignore it and add it to the resulting text after encryption or 
-     * decryption.
-     * 
-     * @param ch the character in the text
-     * @return true if the character is a meta character; else, return <code>false</code>
-     */
-    private boolean isAMetaChar(char ch) {
-        for (int i = 0; i < METACHARS.length; i++) {
-            if (ch == METACHARS[i])
-                return true;
-        }
-        
-        return false;
-    }
-    
-    /**
      * Perform encryption operation given the plaintext and the key value.
      * 
      * @param plainText the text message for encryption
@@ -88,5 +71,22 @@ public class Caesar {
         }
         
         return plainText;
+    }
+    
+    /**
+     * Determine if character in the text is a meta character. If so, 
+     * ignore it and add it to the resulting text after encryption or 
+     * decryption.
+     * 
+     * @param ch the character in the text
+     * @return true if the character is a meta character; false otherwise
+     */
+    private boolean isAMetaChar(char ch) {
+        for (int i = 0; i < METACHARS.length; i++) {
+            if (ch == METACHARS[i])
+                return true;
+        }
+        
+        return false;
     }
 }

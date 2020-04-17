@@ -1,6 +1,3 @@
-/**
- * package gui implements the user interface of the application.
- */
 package gui;
 
 import java.awt.*;
@@ -12,7 +9,6 @@ import javax.swing.*;
  * 
  * @author Joseph R.
  * @since April 9, 2020
- * @see gui.CaesarGUI
  */
 public class MainMenu extends JFrame {
     // Radio buttons and group for selection
@@ -126,9 +122,11 @@ public class MainMenu extends JFrame {
                         "Continue with " + portaRadioBtn.getText() + "?", 
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
-                // stub for now
-                if (proceedCode == JOptionPane.YES_OPTION)
-                    JOptionPane.showMessageDialog(rootPane, "You selected Porta cipher!");
+                if (proceedCode == JOptionPane.YES_OPTION) {
+                    PortaGUI.getInstance();
+                    dispose();
+                    setVisible(false);
+                }
             } else {
                 // stub for now
                 JOptionPane.showMessageDialog(rootPane, "Please select an option");

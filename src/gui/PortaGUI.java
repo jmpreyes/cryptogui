@@ -1,18 +1,18 @@
 package gui;
 
-import crypto.Vigenere;
+import crypto.Porta;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Creates the window for Vigenère cipher.
+ * Creates the window for Porta cipher.
  * 
  * @author Joseph R.
- * @since April 9, 2020
- * @see crypto.Vigenere
+ * @since April 17, 2020
+ * @see crypto.Porta
  */
-public class VigenereGUI extends JFrame {
+public class PortaGUI extends JFrame {
     // Text areas
     private final JTextArea inputTextArea;
     private final JTextArea outputTextArea;
@@ -52,24 +52,24 @@ public class VigenereGUI extends JFrame {
     private final int FRAME_WIDTH = 800;
     private final int FRAME_HEIGHT = 600;
     
-    // Vigenère cipher instance
-    private final Vigenere vigenere = new Vigenere();
+    // Porta cipher instance
+    private final Porta porta = new Porta();
     
     // Singleton design pattern
-    private static final VigenereGUI GUI_OBJ = new VigenereGUI();
+    private static final PortaGUI GUI_OBJ = new PortaGUI();
     
     /**
-     * Ensures that only one instance of <code>VigenereGUI</code> is created. 
+     * Ensures that only one instance of <code>PortaGUI</code> is created. 
      * Re-use the object if it's already instantiated.
      * 
-     * @return object of <code>VigenereGUI</code>
+     * @return object of <code>PortaGUI</code>
      */
-    public static VigenereGUI getInstance() {
+    public static PortaGUI getInstance() {
         return GUI_OBJ;
     }
     
-    private VigenereGUI() {
-        super("CryptoGUI -- Cryptic Messages -- Vigenère Cipher");
+    private PortaGUI() {
+        super("CryptoGUI -- Cryptic Messages -- Porta Cipher");
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         
         // Prompt confirmation to exit when user tries to close the window
@@ -184,8 +184,7 @@ public class VigenereGUI extends JFrame {
                     throw new Exception();
                 
                 String plainText = inputTextArea.getText();
-                key = vigenere.createValidKey(plainText, key);
-                String cipherText = vigenere.encrypt(plainText, key);
+                String cipherText = porta.encrypt(plainText, key);
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
             } catch (Exception ex) {
@@ -201,8 +200,7 @@ public class VigenereGUI extends JFrame {
                     throw new Exception();
                 
                 String cipherText = inputTextArea.getText();
-                key = vigenere.createValidKey(cipherText, key);
-                String plainText = vigenere.decrypt(cipherText, key);
+                String plainText = porta.decrypt(cipherText, key);
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
                 outputTextArea.setText("Warning: Invalid key value");

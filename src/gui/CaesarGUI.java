@@ -1,9 +1,6 @@
-/**
- * package gui implements the user interface of the application.
- */
 package gui;
 
-import crypto.*;
+import crypto.Caesar;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

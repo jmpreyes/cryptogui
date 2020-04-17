@@ -1,6 +1,3 @@
-/**
- * testVigenereCrypto contains the unit tests for Vigenère cipher operations.
- */
 package testVigenereCrypto;
 
 import crypto.Vigenere;

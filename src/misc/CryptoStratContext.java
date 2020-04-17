@@ -1,7 +1,3 @@
-/*
- *  Removed from package crypto
- */
-
 package misc;
 
 /*

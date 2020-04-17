@@ -1,6 +1,3 @@
-/**
- * testPortaCrypto contains the unit tests for Porta cipher operations.
- */
 package testPortaCrypto;
 
 import crypto.Porta;

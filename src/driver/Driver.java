@@ -1,6 +1,3 @@
-/**
- * package driver contains the main method of the application.
- */
 package driver;
 
 import gui.MainMenu;
