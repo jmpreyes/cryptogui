@@ -15,6 +15,7 @@ public class MainMenu extends JFrame {
     private final JRadioButton caesarRadioBtn;
     private final JRadioButton vigenereRadioBtn;
     private final JRadioButton portaRadioBtn;
+    private final JRadioButton zimmermannRadioBtn;
     private final ButtonGroup radioBtnGroup;
     
     // Label for header text
@@ -73,21 +74,24 @@ public class MainMenu extends JFrame {
         
         // Creating a panel for the radio button group
         // and adding the radio buttons to that group
-        radioGroupPanel = new JPanel(new GridLayout(3, 1));
+        radioGroupPanel = new JPanel(new GridLayout(4, 1));
         caesarRadioBtn = new JRadioButton("Caesar Cipher");
         vigenereRadioBtn = new JRadioButton("Vigenère Cipher");
         portaRadioBtn = new JRadioButton("Porta Cipher");
+        zimmermannRadioBtn = new JRadioButton("Zimmermann Cipher");
         
         // Adding the radio buttons to a group so only one is enabled at once
         radioBtnGroup = new ButtonGroup();
         radioBtnGroup.add(caesarRadioBtn);
         radioBtnGroup.add(vigenereRadioBtn);
         radioBtnGroup.add(portaRadioBtn);
+        radioBtnGroup.add(zimmermannRadioBtn);
         
         // Adding each radio button to the radio group panel
         radioGroupPanel.add(caesarRadioBtn);
         radioGroupPanel.add(vigenereRadioBtn);
         radioGroupPanel.add(portaRadioBtn);
+        radioGroupPanel.add(zimmermannRadioBtn);
         
         // Creating the panel for the button and adding the button to the panel
         btnPanel = new JPanel();
@@ -127,8 +131,17 @@ public class MainMenu extends JFrame {
                     dispose();
                     setVisible(false);
                 }
+            } else if (zimmermannRadioBtn.isSelected()) {
+                int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Continue with " + portaRadioBtn.getText() + "?", 
+                        "Confirm", JOptionPane.YES_NO_OPTION);
+                
+                if (proceedCode == JOptionPane.YES_OPTION) {
+                    // Stub for now
+                    JOptionPane.showMessageDialog(rootPane, "Work in progress!");
+                }
             } else {
-                // stub for now
+                // Stub for now
                 JOptionPane.showMessageDialog(rootPane, "Please select an option");
             }
         });
