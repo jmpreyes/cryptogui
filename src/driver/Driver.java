@@ -14,6 +14,6 @@ public class Driver {
      * @param args String arguments
      */
     public static void main(String[] args) {
-        MainMenu m = MainMenu.getInstance();        
+        MainMenu m = MainMenu.getInstance();
     }
 }
