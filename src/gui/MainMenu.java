@@ -117,7 +117,7 @@ public class MainMenu extends JFrame {
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
-                    CaesarGUI.getInstance();
+                    CaesarGUI.getInstance().setVisible(true);
                     dispose();
                     setVisible(false);
                 }
@@ -127,7 +127,7 @@ public class MainMenu extends JFrame {
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
-                    VigenereGUI.getInstance();
+                    VigenereGUI.getInstance().setVisible(true);
                     dispose();
                     setVisible(false);
                 }
@@ -137,13 +137,13 @@ public class MainMenu extends JFrame {
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
-                    PortaGUI.getInstance();
+                    PortaGUI.getInstance().setVisible(true);
                     dispose();
                     setVisible(false);
                 }
             } else if (zimmermannRadioBtn.isSelected()) {
                 int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Continue with " + portaRadioBtn.getText() + "?", 
+                        "Continue with " + zimmermannRadioBtn.getText() + "?", 
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
@@ -151,7 +151,6 @@ public class MainMenu extends JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Work in progress!");
                 }
             } else {
-                // Stub for now
                 JOptionPane.showMessageDialog(rootPane, "Please select an option");
             }
         });

@@ -126,8 +126,15 @@ public class CaesarGUI extends JFrame {
         switchMenuItem = new JMenuItem("Change Cryptographic Technique");
         
         switchMenuItem.addActionListener((ActionEvent e) -> {
-            // STUB
-            JOptionPane.showMessageDialog(rootPane, "Work in progress.");
+            int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
+                    "Are you sure?", "Change Cryptographic Technique", 
+                    JOptionPane.YES_NO_OPTION);
+            
+            if (proceedCode == JOptionPane.YES_OPTION) {
+                MainMenu.getInstance().setVisible(true);
+                dispose();
+                setVisible(false);
+            }
         });
         
         // "Help" menu
