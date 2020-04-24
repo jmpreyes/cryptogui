@@ -26,51 +26,34 @@ import javax.swing.JTextField;
  * @since April 17, 2020
  * @see crypto.Porta
  */
-public class PortaGUI extends JFrame {
-    // Text areas
-    private final JTextArea inputTextArea;
-    private final JTextArea outputTextArea;
-    
-    // Text field
-    private final JTextField keyTextField;
-    
-    // Buttons
-    private final JButton encryptBtn;
-    private final JButton decryptBtn;
-    private final JButton clearBtn;
-    private final JButton moveBtn;
-    private final JButton exitBtn;
-    
-    // Panels
-    private final JPanel topPanel;
-    private final JPanel btnPanel;
-    private final JPanel textPanel;
-    
-    // Scroll panes
-    private final JScrollPane inputTextAreaScrollPane;
-    private final JScrollPane outputTextAreaScrollPane;
-    
-    // Label
-    private final JLabel keyLabel;
-    
-    // Menu bar and menu items
-    private final JMenuBar menuBar;
-    private final JMenu fileMenu;
-    private final JMenu optionsMenu;
-    private final JMenu helpMenu;
-    private final JMenuItem saveMenuItem;
-    private final JMenuItem switchMenuItem;
-    private final JMenuItem exitMenuItem;
-    private final JMenuItem aboutMenuItem;
-    
+public final class PortaGUI extends Gui {
+    private static final PortaGUI GUI_OBJ = new PortaGUI();
+    private final Porta porta = new Porta();
     private final int FRAME_WIDTH = 800;
     private final int FRAME_HEIGHT = 600;
     
-    // Porta cipher instance
-    private final Porta porta = new Porta();
-    
-    // Singleton design pattern
-    private static final PortaGUI GUI_OBJ = new PortaGUI();
+    private JTextArea inputTextArea;
+    private JTextArea outputTextArea;
+    private JTextField keyTextField;
+    private JButton encryptBtn;
+    private JButton decryptBtn;
+    private JButton clearBtn;
+    private JButton moveBtn;
+    private JButton exitBtn;
+    private JPanel topPanel;
+    private JPanel btnPanel;
+    private JPanel textPanel;
+    private JScrollPane inputTextAreaScrollPane;
+    private JScrollPane outputTextAreaScrollPane;
+    private JLabel keyLabel;
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenu optionsMenu;
+    private JMenu helpMenu;
+    private JMenuItem saveMenuItem;
+    private JMenuItem switchMenuItem;
+    private JMenuItem exitMenuItem;
+    private JMenuItem aboutMenuItem;
     
     /**
      * Ensures that only one instance of <code>PortaGUI</code> is created. 
@@ -83,23 +66,15 @@ public class PortaGUI extends JFrame {
     }
     
     private PortaGUI() {
-        super("CryptoGUI -- Cryptic Messages -- Porta Cipher");
-        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-        
-        // Prompt confirmation to exit when user tries to close the window
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
-                
-                if (exitCode == JOptionPane.YES_OPTION) {
-                    dispose();
-                    System.exit(0);
-                }
-            }
-        });
-        
+        addMenuBar();
+        addContentPanel();
+        addButtons();
+        addPanelsToFrame();
+        setFrameProperties();
+    }
+    
+    @Override
+    public void addMenuBar() {
         // Creating a menu bar and its items
         menuBar = new JMenuBar();
         
@@ -156,10 +131,13 @@ public class PortaGUI extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(optionsMenu);
         menuBar.add(helpMenu);
-        
+    }
+    
+    @Override
+    public void addContentPanel() {
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
-        keyLabel = new JLabel("Enter keyword or passcode");
+        keyLabel = new JLabel("Enter keyword or passcode with at least 15 characters");
         keyTextField = new JTextField(20);
         
         // Adding the key label and text field on top panel
@@ -180,7 +158,10 @@ public class PortaGUI extends JFrame {
         outputTextAreaScrollPane = new JScrollPane(outputTextArea);
         textPanel.add(inputTextAreaScrollPane);
         textPanel.add(outputTextAreaScrollPane);
-        
+    }
+    
+    @Override
+    public void addButtons() {
         // Creating a panel for buttons and the buttons' labels
         // Added tool tip for every button on hover
         btnPanel = new JPanel();
@@ -195,6 +176,13 @@ public class PortaGUI extends JFrame {
         moveBtn.setToolTipText("Move the text from the right to the left pane.");
         exitBtn = new JButton("Exit");
         exitBtn.setToolTipText("Exit the application.");
+        
+        // Adding the buttons to the button panel
+        btnPanel.add(encryptBtn);
+        btnPanel.add(decryptBtn);
+        btnPanel.add(clearBtn);
+        btnPanel.add(moveBtn);
+        btnPanel.add(exitBtn);
         
         // Assigning an event listener to the buttons
         encryptBtn.addActionListener((ActionEvent e) -> {
@@ -246,18 +234,34 @@ public class PortaGUI extends JFrame {
             if (exitCode == JOptionPane.YES_OPTION)
                 System.exit(0);
         });
-        
-        // Adding the buttons to the button panel
-        btnPanel.add(encryptBtn);
-        btnPanel.add(decryptBtn);
-        btnPanel.add(clearBtn);
-        btnPanel.add(moveBtn);
-        btnPanel.add(exitBtn);
-        
+    }
+    
+    @Override
+    public void addPanelsToFrame() {
         // Adding panels to the frame
         add(topPanel, BorderLayout.NORTH);
         add(textPanel, BorderLayout.CENTER);
         add(btnPanel, BorderLayout.SOUTH);
+    }
+    
+    @Override
+    public void setFrameProperties() {
+        setTitle(super.title + " -- Porta Cipher");
+        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        
+        // Prompt confirmation to exit when user tries to close the window
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent evt) {
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                
+                if (exitCode == JOptionPane.YES_OPTION) {
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        });
         
         pack();
         setLocationRelativeTo(null);

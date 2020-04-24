@@ -26,51 +26,34 @@ import javax.swing.JTextField;
  * @since April 9, 2020
  * @see crypto.Caesar
  */
-public class CaesarGUI extends JFrame {
-    // Text areas
-    private final JTextArea inputTextArea;
-    private final JTextArea outputTextArea;
-    
-    // Text field
-    private final JTextField keyTextField;
-    
-    // Buttons
-    private final JButton encryptBtn;
-    private final JButton decryptBtn;
-    private final JButton clearBtn;
-    private final JButton moveBtn;
-    private final JButton exitBtn;
-    
-    // Panels
-    private final JPanel topPanel;
-    private final JPanel btnPanel;
-    private final JPanel textPanel;
-    
-    // Scroll panes
-    private final JScrollPane inputTextAreaScrollPane;
-    private final JScrollPane outputTextAreaScrollPane;
-    
-    // Label
-    private final JLabel keyLabel;
-    
-    // Menu bar and menu items
-    private final JMenuBar menuBar;
-    private final JMenu fileMenu;
-    private final JMenu optionsMenu;
-    private final JMenu helpMenu;
-    private final JMenuItem saveMenuItem;
-    private final JMenuItem switchMenuItem;
-    private final JMenuItem exitMenuItem;
-    private final JMenuItem aboutMenuItem;
-    
+public final class CaesarGUI extends Gui {
+    private static final CaesarGUI GUI_OBJ = new CaesarGUI();
+    private final Caesar caesar = new Caesar();
     private final int FRAME_WIDTH = 800;
     private final int FRAME_HEIGHT = 600;
     
-    // Caesar cipher instance
-    private final Caesar caesar = new Caesar();
-    
-    // Singleton design pattern
-    private static final CaesarGUI GUI_OBJ = new CaesarGUI();
+    private JTextArea inputTextArea;
+    private JTextArea outputTextArea;
+    private JTextField keyTextField;
+    private JButton encryptBtn;
+    private JButton decryptBtn;
+    private JButton clearBtn;
+    private JButton moveBtn;
+    private JButton exitBtn;
+    private JPanel topPanel;
+    private JPanel btnPanel;
+    private JPanel textPanel;
+    private JScrollPane inputTextAreaScrollPane;
+    private JScrollPane outputTextAreaScrollPane;
+    private JLabel keyLabel;
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenu optionsMenu;
+    private JMenu helpMenu;
+    private JMenuItem saveMenuItem;
+    private JMenuItem switchMenuItem;
+    private JMenuItem exitMenuItem;
+    private JMenuItem aboutMenuItem;
     
     /**
      * Ensures that only one instance of <code>CaesarGUI</code> is created. 
@@ -83,24 +66,16 @@ public class CaesarGUI extends JFrame {
     }
     
     private CaesarGUI() {
-        super("CryptoGUI -- Cryptic Messages -- Caesar Cipher");
-        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-        
-        // Prompt confirmation to exit when user tries to close the window
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
-                
-                if (exitCode == JOptionPane.YES_OPTION) {
-                    dispose();
-                    System.exit(0);
-                }
-            }
-        });
-        
-        // Creating a menu bar and its items
+        addMenuBar();
+        addContentPanel();
+        addButtons();
+        addPanelsToFrame();
+        setFrameProperties();
+    }
+    
+    @Override
+    public void addMenuBar() {
+         // Creating a menu bar and its items
         menuBar = new JMenuBar();
         
         // "File" menu
@@ -141,6 +116,8 @@ public class CaesarGUI extends JFrame {
         helpMenu = new JMenu("Help");
         aboutMenuItem = new JMenuItem("About Project");
         
+        // Idea: Help > About Cipher
+        
         aboutMenuItem.addActionListener((ActionEvent e) -> {
            JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
                    + "\nApril 2020\nEmail at foo@foo.com"); 
@@ -156,10 +133,13 @@ public class CaesarGUI extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(optionsMenu);
         menuBar.add(helpMenu);
-        
+    }
+    
+    @Override
+    public void addContentPanel() {
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
-        keyLabel = new JLabel("Enter a number as key value between 0 and 25 (inclusive)");
+        keyLabel = new JLabel("Enter a number between 0 and 25 (inclusive)");
         keyTextField = new JTextField(5);
         
         // Adding the key label and text field on top panel
@@ -180,7 +160,10 @@ public class CaesarGUI extends JFrame {
         outputTextAreaScrollPane = new JScrollPane(outputTextArea);
         textPanel.add(inputTextAreaScrollPane);
         textPanel.add(outputTextAreaScrollPane);
-        
+    }
+    
+    @Override
+    public void addButtons() {
         // Creating a panel for buttons and the buttons' labels
         // Added tool tip for every button on hover
         btnPanel = new JPanel();
@@ -253,11 +236,33 @@ public class CaesarGUI extends JFrame {
             if (exitCode == JOptionPane.YES_OPTION)
                 System.exit(0);
         });
-        
-        // Adding panels to the frame
+    }
+    
+    @Override
+    public void addPanelsToFrame() {
         add(topPanel, BorderLayout.NORTH);
         add(textPanel, BorderLayout.CENTER);
         add(btnPanel, BorderLayout.SOUTH);
+    }
+    
+    @Override
+    public void setFrameProperties() {
+        setTitle(super.title + " -- Caesar Cipher");
+        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        
+        // Prompt confirmation to exit when user tries to close the window
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent evt) {
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                
+                if (exitCode == JOptionPane.YES_OPTION) {
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        });
         
         pack();
         setLocationRelativeTo(null);

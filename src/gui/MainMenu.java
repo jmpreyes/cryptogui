@@ -10,6 +10,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -20,30 +23,24 @@ import javax.swing.JRadioButton;
  * @author Joseph R.
  * @since April 9, 2020
  */
-public class MainMenu extends JFrame {
-    // Radio buttons and group for selection
-    private final JRadioButton caesarRadioBtn;
-    private final JRadioButton vigenereRadioBtn;
-    private final JRadioButton portaRadioBtn;
-    private final JRadioButton zimmermannRadioBtn;
-    private final ButtonGroup radioBtnGroup;
-    
-    // Label for header text
-    private final JLabel topLabel;
-    
-    // Panels
-    private final JPanel topPanel;
-    private final JPanel radioGroupPanel;
-    private final JPanel btnPanel;
-    
-    // Button
-    private final JButton selectBtn;
-    
-    private final int FRAME_WIDTH = 350;
-    private final int FRAME_HEIGHT = 150;
-    
-    // Singleton design pattern
+public final class MainMenu extends Gui {
     private static final MainMenu MENU_OBJ = new MainMenu();
+    private final int FRAME_WIDTH = 350;
+    private final int FRAME_HEIGHT = 200;
+    
+    private JRadioButton caesarRadioBtn;
+    private JRadioButton vigenereRadioBtn;
+    private JRadioButton portaRadioBtn;
+    private JRadioButton zimmermannRadioBtn;
+    private ButtonGroup radioBtnGroup;
+    private JLabel topLabel;
+    private JPanel topPanel;
+    private JPanel radioGroupPanel;
+    private JPanel btnPanel;
+    private JButton selectBtn;
+    private JMenuBar menuBar;
+    private JMenu helpMenu;
+    private JMenuItem aboutMenuItem;
     
     /**
      * Ensures that only one instance of <code>MainMenu</code> is created. 
@@ -59,23 +56,36 @@ public class MainMenu extends JFrame {
      * Creates the main menu frame.
      */
     private MainMenu() {
-        super("CryptoGUI -- Cryptic Messages");
-        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        addMenuBar();
+        addContentPanel();
+        addButtons();
+        addPanelsToFrame();
+        setFrameProperties();
+    }
+    
+    @Override
+    public void addMenuBar() {
+        // Creating a menu bar and its items
+        menuBar = new JMenuBar();
         
-        // Prompt confirmation to exit when user tries to close the window
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
-                
-                if (exitCode == JOptionPane.YES_OPTION) {
-                    dispose();
-                    System.exit(0);
-                }
-            }
+        // "Help" menu
+        helpMenu = new JMenu("Help");
+        aboutMenuItem = new JMenuItem("About Project");
+        
+        aboutMenuItem.addActionListener((ActionEvent e) -> {
+           JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
+                   + "\nApril 2020\nEmail at foo@foo.com"); 
         });
         
+        // Adding the menu items to the "Help" menu bar
+        helpMenu.add(aboutMenuItem);
+        
+        // Adding type of menu to the main menu bar
+        menuBar.add(helpMenu);
+    }
+    
+    @Override
+    public void addContentPanel() {
         // Creating the top partfor the header label
         // and adding it to the top panel
         topPanel = new JPanel();
@@ -102,7 +112,10 @@ public class MainMenu extends JFrame {
         radioGroupPanel.add(vigenereRadioBtn);
         radioGroupPanel.add(portaRadioBtn);
         radioGroupPanel.add(zimmermannRadioBtn);
-        
+    }
+    
+    @Override
+    public void addButtons() {
         // Creating the panel for the button and adding the button to the panel
         btnPanel = new JPanel();
         selectBtn = new JButton("Select");
@@ -154,14 +167,38 @@ public class MainMenu extends JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Please select an option");
             }
         });
-        
+    }
+    
+    @Override
+    public void addPanelsToFrame() {
         // Add the respective panels to the frame
         add(topPanel, BorderLayout.NORTH);
         add(radioGroupPanel, BorderLayout.CENTER);
         add(btnPanel, BorderLayout.SOUTH);
+    }
+    
+    @Override
+    public void setFrameProperties() {
+        setTitle(super.title);
+        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        
+        // Prompt confirmation to exit when user tries to close the window
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent evt) {
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
+                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                
+                if (exitCode == JOptionPane.YES_OPTION) {
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        });
         
         pack();
         setLocationRelativeTo(null);
+        setJMenuBar(menuBar);
         setVisible(true);
         setResizable(false);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
