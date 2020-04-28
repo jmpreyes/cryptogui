@@ -1,15 +1,12 @@
-package crypto;
+package misc;
+/*
 
 /**
  * This class defines the Porta cipher.
  * 
- * !!! Rough implementation. 
- *     Work in progress 
- *     Test cases are valid so far !!!
- * 
  * @author Joseph R.
  * @since April 14, 2020
- */
+
 public class Porta {
     // Ignore first row and first two columns since they are only "labels"
     private final char[][] TABULA_RECTA = {
@@ -37,7 +34,7 @@ public class Porta {
      * @param plainText the message to be encrypted
      * @param key the given key for encryption
      * @return encrypted ciphertext
-     */
+    
     public String encrypt(String plainText, String key) {
         // Throw new Exception("Plain text must be less than key length: " + key.length);
         
@@ -59,7 +56,7 @@ public class Porta {
      * @param key the character of the given key for encryption
      * @param targetEncryptChar the character of the plaintext to be encrypted
      * @return the encrypted character
-     */
+    
     private char getEncryptedCharacter(char key, char targetEncryptChar) {
         for (int row = 1; row <= TABULA_RECTA.length; row++) {
             if (TABULA_RECTA[row][0] == key || TABULA_RECTA[row][1] == key) {
@@ -79,7 +76,7 @@ public class Porta {
      * @param cipherText the message to be decrypted
      * @param key the given key for decryption
      * @return original, decrypted plaintext
-     */
+  
     public String decrypt(String cipherText, final String key) {
         // Throw new Exception("Cipher text must be less than key length: " + key.length);
         
@@ -101,7 +98,7 @@ public class Porta {
      * @param key the character of the key for decryption
      * @param targetDecryptChar the character of the ciphertext to be decrypted
      * @return the decrypted character
-     */
+    
     private char getDecryptedCharacter(char key, char targetDecryptChar) {
         for (int row = 1; row <= TABULA_RECTA.length; row++) {
             if (TABULA_RECTA[row][0] == key || TABULA_RECTA[row][1] == key) {
@@ -116,7 +113,6 @@ public class Porta {
     }
 
     /*
-    
     /**
      * Determines whether or not the text is valid. A text is valid if it is 
      * non-empty and has at least 10 characters.
@@ -159,5 +155,6 @@ public class Porta {
         key = new String(temp);
     }
     
-    */
 }
+
+*/

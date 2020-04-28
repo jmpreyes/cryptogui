@@ -1,6 +1,6 @@
 package testPortaCrypto;
 
-import crypto.Porta;
+import misc.Porta;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  * 
  * @author Joseph R.
  * @since April 14, 2020
- * @see crypto.Porta
+ * @see misc.Porta
  */
 public class TestPortaDecryption {
     Porta p = new Porta();

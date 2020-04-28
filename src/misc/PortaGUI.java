@@ -1,6 +1,9 @@
-package gui;
+package misc;
 
-import crypto.Porta;
+/*
+import gui.Gui;
+import gui.MainMenu;
+import misc.Porta;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -24,8 +27,8 @@ import javax.swing.JTextField;
  * 
  * @author Joseph R.
  * @since April 17, 2020
- * @see crypto.Porta
- */
+ * @see misc.Porta
+
 public final class PortaGUI extends Gui {
     private static final PortaGUI GUI_OBJ = new PortaGUI();
     private final Porta porta = new Porta();
@@ -60,7 +63,7 @@ public final class PortaGUI extends Gui {
      * Re-use the object if it's already instantiated.
      * 
      * @return object of <code>PortaGUI</code>
-     */
+    
     public static PortaGUI getInstance() {
         return GUI_OBJ;
     }
@@ -137,7 +140,7 @@ public final class PortaGUI extends Gui {
     public void addContentPanel() {
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
-        keyLabel = new JLabel("Enter keyword or passcode with at least 15 characters");
+        keyLabel = new JLabel("Enter keyword or passcode");
         keyTextField = new JTextField(20);
         
         // Adding the key label and text field on top panel
@@ -193,6 +196,7 @@ public final class PortaGUI extends Gui {
                     throw new Exception();
                 
                 String plainText = inputTextArea.getText();
+                key = new String(new char[(plainText.length() - 1) - (key.length() - 1) + 1]).replace("\0", key);
                 String cipherText = porta.encrypt(plainText, key);
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
@@ -209,6 +213,7 @@ public final class PortaGUI extends Gui {
                     throw new Exception();
                 
                 String cipherText = inputTextArea.getText();
+                key = new String(new char[(cipherText.length() - 1) - (key.length() - 1) + 1]).replace("\0", key);
                 String plainText = porta.decrypt(cipherText, key);
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
@@ -271,3 +276,5 @@ public final class PortaGUI extends Gui {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }
+
+*/
