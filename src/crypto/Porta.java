@@ -1,12 +1,11 @@
-package misc;
-/*
+package crypto;
 
 /**
  * This class defines the Porta cipher.
  * 
  * @author Joseph R.
  * @since April 14, 2020
-
+ */
 public class Porta {
     // Ignore first row and first two columns since they are only "labels"
     private final char[][] TABULA_RECTA = {
@@ -26,18 +25,14 @@ public class Porta {
     	{'Y','Z','Z','N','O','P','Q','R','S','T','U','V','W','X','Y','B','C','D','E','F','G','H','I','J','K','L','M','A'},
     };
     
-    //private final int MINIMUM_KEY_LENGTH = key.length() + 1;
-    
     /**
      * Perform encryption of the given plaintext and key.
      * 
      * @param plainText the message to be encrypted
      * @param key the given key for encryption
      * @return encrypted ciphertext
-    
+     */
     public String encrypt(String plainText, String key) {
-        // Throw new Exception("Plain text must be less than key length: " + key.length);
-        
         StringBuilder sb = new StringBuilder();
         plainText = plainText.toUpperCase().replaceAll("\\s+","");
         
@@ -56,7 +51,7 @@ public class Porta {
      * @param key the character of the given key for encryption
      * @param targetEncryptChar the character of the plaintext to be encrypted
      * @return the encrypted character
-    
+     */
     private char getEncryptedCharacter(char key, char targetEncryptChar) {
         for (int row = 1; row <= TABULA_RECTA.length; row++) {
             if (TABULA_RECTA[row][0] == key || TABULA_RECTA[row][1] == key) {
@@ -76,10 +71,8 @@ public class Porta {
      * @param cipherText the message to be decrypted
      * @param key the given key for decryption
      * @return original, decrypted plaintext
-  
+     */
     public String decrypt(String cipherText, final String key) {
-        // Throw new Exception("Cipher text must be less than key length: " + key.length);
-        
         StringBuilder sb = new StringBuilder();
         cipherText = cipherText.toUpperCase().replaceAll("\\s+", "");
         
@@ -98,7 +91,7 @@ public class Porta {
      * @param key the character of the key for decryption
      * @param targetDecryptChar the character of the ciphertext to be decrypted
      * @return the decrypted character
-    
+     */
     private char getDecryptedCharacter(char key, char targetDecryptChar) {
         for (int row = 1; row <= TABULA_RECTA.length; row++) {
             if (TABULA_RECTA[row][0] == key || TABULA_RECTA[row][1] == key) {
@@ -111,50 +104,39 @@ public class Porta {
         
         return targetDecryptChar;
     }
-
-    /*
-    /**
-     * Determines whether or not the text is valid. A text is valid if it is 
-     * non-empty and has at least 10 characters.
-     * 
-     * @param text the message to be encrypted or decrypted
-     * @return true if text is non-empty and has at least 10 characters; false otherwise
     
-    private boolean isValidText(String text) {
-        return !text.isEmpty();
+    /**
+     * Determine if the given key is valid. A key is valid if its non-empty and 
+     * its length is at least the length of the given text.
+     * 
+     * @param key the given keyword for encryption or decryption
+     * @param text the given plaintext or ciphertext
+     * @return true if key is valid; false, otherwise
+     */
+    public boolean isValidTextAndKey(String text, String key) {
+        return true ? (!key.isEmpty() && (key.length() >= text.length())) : false;
     }
     
     /**
-     * Ensures that the key can be cyclically repeated to cover all characters 
-     * of the plaintext or ciphertext.
+     * Repeat the key to make it valid for encryption and decryption. The key 
+     * length has to be at least the length of the text.
      * 
-     * @param key the given key for encryption or decryption
-     * @param capacity the maximum length of the key
-    
-    public void ensureCapacity(String key, int capacity) {
-        if (capacity > key.length())
-            resize(key, capacity);
-    }
-
-    /**
-     * Dynamically allocates more space for the key if it is not sufficient 
-     * enough to cover all characters of the plaintext or ciphertext.
-     * 
-     * @param capacity the maximum length of the key
-    
-    private void resize(String key, int capacity) {
-        char[] temp = new char[capacity];
-        int index = 0;
+     * @param text the given plaintext or ciphertext
+     * @param key the given key to be repeated
+     * @return appended key
+     */
+    public String repeatKey(String text, String key) {
+        int textLen = text.length();
+        int keyLen = key.length();
+        int numTimes = textLen % keyLen;
         
-        while (index < temp.length) {
-            for (int i = 0; i < key.length() && index < temp.length; i++){
-                temp[index] = key.charAt(i);
-                index++;
-            }
+        StringBuilder sb = new StringBuilder();
+        
+        if (numTimes > 0) {
+            for (int count = 0; count < numTimes; count++)
+                sb.append(key);
         }
-        key = new String(temp);
+        
+        return sb.toString();
     }
-    
 }
-
-*/

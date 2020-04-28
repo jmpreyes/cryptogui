@@ -1,8 +1,7 @@
 package crypto;
 
 /**
- * This class simply defines the Vigenère cipher, a poly-alphabetic 
- * cryptographic technique.
+ * This class simply defines the Vigenère cipher.
  * 
  * @author Joseph R.
  * @since April 9, 2020

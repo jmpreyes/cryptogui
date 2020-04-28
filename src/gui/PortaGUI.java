@@ -1,9 +1,6 @@
-package misc;
+package gui;
 
-/*
-import gui.Gui;
-import gui.MainMenu;
-import misc.Porta;
+import crypto.Porta;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -27,8 +24,8 @@ import javax.swing.JTextField;
  * 
  * @author Joseph R.
  * @since April 17, 2020
- * @see misc.Porta
-
+ * @see crypto.Porta
+ */
 public final class PortaGUI extends Gui {
     private static final PortaGUI GUI_OBJ = new PortaGUI();
     private final Porta porta = new Porta();
@@ -63,7 +60,7 @@ public final class PortaGUI extends Gui {
      * Re-use the object if it's already instantiated.
      * 
      * @return object of <code>PortaGUI</code>
-    
+     */
     public static PortaGUI getInstance() {
         return GUI_OBJ;
     }
@@ -190,13 +187,16 @@ public final class PortaGUI extends Gui {
         // Assigning an event listener to the buttons
         encryptBtn.addActionListener((ActionEvent e) -> {
             try {
+                String plainText = inputTextArea.getText();
                 String key = keyTextField.getText();
                 
-                if (key.isEmpty())
+                if (!porta.isValidTextAndKey(plainText, key))
                     throw new Exception();
                 
-                String plainText = inputTextArea.getText();
-                key = new String(new char[(plainText.length() - 1) - (key.length() - 1) + 1]).replace("\0", key);
+                //key = new String(new char[(plainText.length() - 1) - (key.length() - 1) + 1]).replace("\0", key);
+                if (key.length() < plainText.length())
+                    key = porta.repeatKey(plainText, key);
+                    
                 String cipherText = porta.encrypt(plainText, key);
                 outputTextArea.setText(cipherText);
                 inputTextArea.cut();
@@ -207,13 +207,16 @@ public final class PortaGUI extends Gui {
         
         decryptBtn.addActionListener((ActionEvent e) -> {
             try {
+                String cipherText = inputTextArea.getText();
                 String key = keyTextField.getText();
                 
-                if (key.isEmpty())
+                if (!porta.isValidTextAndKey(cipherText, key))
                     throw new Exception();
                 
-                String cipherText = inputTextArea.getText();
-                key = new String(new char[(cipherText.length() - 1) - (key.length() - 1) + 1]).replace("\0", key);
+                //key = new String(new char[(cipherText.length() - 1) - (key.length() - 1) + 1]).replace("\0", key);
+                if (key.length() < cipherText.length())
+                    key = porta.repeatKey(cipherText, key);
+                
                 String plainText = porta.decrypt(cipherText, key);
                 outputTextArea.setText(plainText);
             } catch (Exception ex) {
@@ -276,5 +279,3 @@ public final class PortaGUI extends Gui {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }
-
-*/
