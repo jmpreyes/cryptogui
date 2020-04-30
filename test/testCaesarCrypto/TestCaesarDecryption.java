@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
  * 
  * @author Joseph R.
  * @since April 5, 2020
- * @see crypto.Crypto
+ * @see crypto.Caesar
  */
 public class TestCaesarDecryption {
     @Test
