@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * JUnit test to ensure Crypto decryption works well.
+ * JUnit test to ensure Caesar decryption works well.
  * 
  * @author Joseph R.
  * @since April 5, 2020

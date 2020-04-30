@@ -62,6 +62,7 @@ public final class MainMenu extends Gui {
         addButtons();
         addPanelsToFrame();
         setFrameProperties();
+        System.out.println("> CREATING MAIN MENU INTERFACE");
     }
     
     @Override
@@ -74,8 +75,9 @@ public final class MainMenu extends Gui {
         aboutMenuItem = new JMenuItem("About Project");
         
         aboutMenuItem.addActionListener((ActionEvent e) -> {
-           JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
-                   + "\nApril 2020\nEmail at foo@foo.com"); 
+            System.out.println("> READING ABOUT PROJECT");
+            JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
+                + "\nApril 2020\nEmail at foo@foo.com"); 
         });
         
         // Adding the menu items to the "Help" menu bar
@@ -137,6 +139,7 @@ public final class MainMenu extends Gui {
                         "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
+                    System.out.println("> SELECTING CAESAR CIPHER");
                     CaesarGUI.getInstance().setVisible(true);
                     dispose();
                     setVisible(false);
@@ -197,6 +200,7 @@ public final class MainMenu extends Gui {
                         "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (exitCode == JOptionPane.YES_OPTION) {
+                    System.out.println("> EXITING APPLICATION");
                     dispose();
                     System.exit(0);
                 }

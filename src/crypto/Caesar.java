@@ -7,10 +7,6 @@ package crypto;
  * @since April 9, 2020
  */
 public class Caesar extends Crypto {
-    private final char[] METACHARS = {'<', '>', '(', ')', '[', ']', '{', '}', 
-                                     '\\', '^', '-', '=', '$', '!', '|', '?', 
-                                     '*', '+', '.', ',', '\'', '\"'};
-    
     /**
      * Sets the plaintext value.
      * 
@@ -77,19 +73,19 @@ public class Caesar extends Crypto {
     @Override
     public void encrypt() {
         String ptext = getPlaintext();
-        int encKey = Integer.valueOf(getKey());
         String ctext = new String();
+        int encKey = Integer.valueOf(getKey());
         ptext = ptext.toUpperCase();
         
         for (int i = 0; i < ptext.length(); i++) {
             char ch = ptext.charAt(i);
-            if (ch != ' ' && !isAMetaChar(ch)) {
+            if (Character.isLetter(ch)) {
                 if (ch >= 'A' && ch <= 'Z') {
                     int oldAlphaPos = ch - 'A';
                     int newAlphaPos = (oldAlphaPos + encKey) % 26;
                     ctext += (char)(newAlphaPos + 'A');
                 }
-            } else if (isAMetaChar(ch)) {
+            } else if (super.isAMetaChar(ch)) {
                 ctext += ch;
             } else {
                 ctext += ' ';
@@ -105,19 +101,19 @@ public class Caesar extends Crypto {
     @Override
     public void decrypt() {
         String ctext = getCiphertext();
-        int decKey = Integer.valueOf(getKey());
         String ptext = new String();
+        int decKey = Integer.valueOf(getKey());
         ctext = ctext.toUpperCase();
         
         for (int i = 0; i < ctext.length(); i++) {
             char ch = ctext.charAt(i);
-            if (ch != ' ' && !isAMetaChar(ch)) {
+            if (Character.isLetter(ch)) {
                 int oldAlphaPos = ch - 'A';
                 int newAlphaPos = oldAlphaPos - decKey;
                 if (newAlphaPos < 0)
                     newAlphaPos += 26;
                 ptext += (char)(newAlphaPos + 'A');
-            } else if (isAMetaChar(ch)) {
+            } else if (super.isAMetaChar(ch)) {
                 ptext += ch;
             } else {
                 ptext += ' ';
@@ -125,21 +121,5 @@ public class Caesar extends Crypto {
         }
         
         setPlaintext(ptext);
-    }
-
-    /**
-     * Determines whether or not the character in the text is a meta-character 
-     * or a special character defined in the array.
-     * 
-     * @param ch the target character
-     * @return true if target character is a special character; false, otherwise.
-     */
-    private boolean isAMetaChar(char ch) {
-        for (int i = 0; i < METACHARS.length; i++) {
-            if (ch == METACHARS[i])
-                return true;
-        }
-        
-        return false;
     }
 }

@@ -8,6 +8,10 @@ package crypto;
  * @since April 30, 2020
  */
 public abstract class Crypto {
+    protected final char[] METACHARS = {'<', '>', '(', ')', '[', ']', '{', '}', 
+                                       '\\', '^', '-', '=', '$', '!', '|', '?', 
+                                        '*', '+', '.', ',', '\'', '\"'};
+    
     /**
      * Define the original message.
      */
@@ -22,6 +26,35 @@ public abstract class Crypto {
      * Define the key for encryption or decryption.
      */
     protected String key;
+    
+    /**
+     * Determine if character in the text is a meta character. If so, 
+     * ignore it and add it to the resulting text after encryption or 
+     * decryption.
+     * 
+     * @param ch the character in the text
+     * @return true if the character is a meta character; false otherwise
+     */
+    protected boolean isAMetaChar(char ch) {
+        for (int i = 0; i < METACHARS.length; i++) {
+            if (ch == METACHARS[i])
+                return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Override toString() method to show output to screen.
+     * 
+     * @return message
+     */
+    @Override
+    public String toString() {
+        return "P = " + this.plaintext + 
+             "\nK = " + this.key + 
+             "\nC = " + this.ciphertext;
+    }
 
     /**
      * Sets the plaintext value.

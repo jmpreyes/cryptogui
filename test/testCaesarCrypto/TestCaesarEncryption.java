@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * JUnit test to check if Crypto encryption is valid.
+ * JUnit test to check if Caesar encryption is valid.
  *
  * @author Joseph R.
  * @since April 5, 2020

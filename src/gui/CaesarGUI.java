@@ -74,6 +74,7 @@ public final class CaesarGUI extends Gui {
         addButtons();
         addPanelsToFrame();
         setFrameProperties();
+        System.out.println("> CREATING CAESAR CIPHER INTERFACE");
     }
     
     /**
@@ -90,6 +91,7 @@ public final class CaesarGUI extends Gui {
         exitMenuItem = new JMenuItem("Quit");
         
         saveMenuItem.addActionListener((ActionEvent e) -> {
+            System.out.println("> SAVING DATA");
             // STUB
             JOptionPane.showMessageDialog(rootPane, "Work in progress.");
         });
@@ -98,8 +100,11 @@ public final class CaesarGUI extends Gui {
             int exitCode = JOptionPane.showConfirmDialog(rootPane, 
                     "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
             
-            if (exitCode == JOptionPane.YES_OPTION)
+            if (exitCode == JOptionPane.YES_OPTION) {
+                System.out.println("> EXITING APPLICATION");
+                dispose();
                 System.exit(0);
+            }
         });
         
         // "Options" menu
@@ -112,6 +117,7 @@ public final class CaesarGUI extends Gui {
                     JOptionPane.YES_NO_OPTION);
             
             if (proceedCode == JOptionPane.YES_OPTION) {
+                System.out.println("> SWITCHING CIPHERS");
                 MainMenu.getInstance().setVisible(true);
                 dispose();
                 setVisible(false);
@@ -126,7 +132,8 @@ public final class CaesarGUI extends Gui {
         
         aboutMenuItem.addActionListener((ActionEvent e) -> {
            JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
-                   + "\nApril 2020\nEmail at foo@foo.com"); 
+                   + "\nApril 2020\nEmail at foo@foo.com");
+           System.out.println("> READING ABOUT PROJECT");
         });
         
         // Adding the menu items to the "Options" menu bar
@@ -207,15 +214,14 @@ public final class CaesarGUI extends Gui {
                     throw new Exception();
                 
                 caesar.setKey(encKey);
-                
                 String ptext = inputTextArea.getText();
                 caesar.setPlaintext(ptext);
                 caesar.encrypt();
-                
                 outputTextArea.setText(caesar.getCiphertext());
                 inputTextArea.cut();
+                System.out.println("> ENCRYPTING PLAINTEXT\n" + caesar);
             } catch (Exception ex) {
-                outputTextArea.setText("Warning: Invalid key value");
+                outputTextArea.setText("!!! Warning: Invalid key value !!!");
             }
         });
         
@@ -227,23 +233,25 @@ public final class CaesarGUI extends Gui {
                     throw new Exception();
                 
                 caesar.setKey(decKey);
-                
                 String ctext = inputTextArea.getText();
                 caesar.setCiphertext(ctext);
                 caesar.decrypt();
                 outputTextArea.setText(caesar.getPlaintext());
+                System.out.println("> DECRYPTING CIPHERTEXT\n" + caesar);
             } catch (Exception ex) {
-                outputTextArea.setText("Warning: Invalid key value");
+                outputTextArea.setText("!!! Warning: Invalid key value !!!");
             }
         });
         
         clearBtn.addActionListener((ActionEvent e) -> {
+            System.out.println("> CLEARING TEXT AREAS");
             outputTextArea.setText("");
             inputTextArea.setText("Enter text here");
             keyTextField.setText("");
         });
         
         moveBtn.addActionListener((ActionEvent e) -> {
+            System.out.println("> MOVING TEXTS");
             inputTextArea.setText(outputTextArea.getText());
             outputTextArea.setText("");
         });
@@ -252,8 +260,11 @@ public final class CaesarGUI extends Gui {
             int exitCode = JOptionPane.showConfirmDialog(rootPane, 
                     "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
             
-            if (exitCode == JOptionPane.YES_OPTION)
+            if (exitCode == JOptionPane.YES_OPTION) {
+                System.out.println("> EXITING APPLICATION");
+                dispose();
                 System.exit(0);
+            }
         });
     }
     
@@ -283,6 +294,7 @@ public final class CaesarGUI extends Gui {
                         "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (exitCode == JOptionPane.YES_OPTION) {
+                    System.out.println("> EXITING APPLICATION");
                     dispose();
                     System.exit(0);
                 }
