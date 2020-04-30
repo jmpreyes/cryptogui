@@ -1,6 +1,7 @@
 package driver;
 
 import gui.MainMenu;
+import javax.swing.SwingUtilities;
 
 /**
  * This class is the driver class (main class) of the program.
@@ -11,9 +12,12 @@ import gui.MainMenu;
 public class Driver {
     /**
      * Main method.
-     * @param args String arguments
+     * 
+     * @param args command-line parameters
      */
     public static void main(String[] args) {
-        MainMenu m = MainMenu.getInstance();
+        SwingUtilities.invokeLater(() -> {
+            MainMenu m = MainMenu.getInstance();
+        });
     }
 }

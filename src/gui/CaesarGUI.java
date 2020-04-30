@@ -1,6 +1,7 @@
 package gui;
 
 import crypto.Caesar;
+import crypto.Crypto;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -28,10 +29,9 @@ import javax.swing.JTextField;
  */
 public final class CaesarGUI extends Gui {
     private static final CaesarGUI GUI_OBJ = new CaesarGUI();
-    private final Caesar caesar = new Caesar();
+    private final Crypto caesar = new Caesar();
     private final int FRAME_WIDTH = 800;
     private final int FRAME_HEIGHT = 600;
-    
     private JTextArea inputTextArea;
     private JTextArea outputTextArea;
     private JTextField keyTextField;
@@ -65,6 +65,9 @@ public final class CaesarGUI extends Gui {
         return GUI_OBJ;
     }
     
+    /**
+     * Initialize and implement user interface.
+     */
     private CaesarGUI() {
         addMenuBar();
         addContentPanel();
@@ -73,6 +76,9 @@ public final class CaesarGUI extends Gui {
         setFrameProperties();
     }
     
+    /**
+     * Define interface menu bar and its menu items.
+     */
     @Override
     public void addMenuBar() {
          // Creating a menu bar and its items
@@ -135,6 +141,9 @@ public final class CaesarGUI extends Gui {
         menuBar.add(helpMenu);
     }
     
+    /**
+     * Define text areas and panels of interface.
+     */
     @Override
     public void addContentPanel() {
         // Creating a panel for the key text field at top of frame
@@ -162,6 +171,9 @@ public final class CaesarGUI extends Gui {
         textPanel.add(outputTextAreaScrollPane);
     }
     
+    /**
+     * Define a set of buttons and its functionality.
+     */
     @Override
     public void addButtons() {
         // Creating a panel for buttons and the buttons' labels
@@ -189,14 +201,18 @@ public final class CaesarGUI extends Gui {
         // Assigning an event listener to the buttons
         encryptBtn.addActionListener((ActionEvent e) -> {
             try {
-                int key = Integer.parseInt(keyTextField.getText());
+                String encKey = keyTextField.getText();
                 
-                if (key > 25 || key < 0)
+                if (Integer.valueOf(encKey) > 25 || Integer.valueOf(encKey) < 0)
                     throw new Exception();
                 
-                String plainText = inputTextArea.getText();
-                String cipherText = caesar.encrypt(plainText, key);
-                outputTextArea.setText(cipherText);
+                caesar.setKey(encKey);
+                
+                String ptext = inputTextArea.getText();
+                caesar.setPlaintext(ptext);
+                caesar.encrypt();
+                
+                outputTextArea.setText(caesar.getCiphertext());
                 inputTextArea.cut();
             } catch (Exception ex) {
                 outputTextArea.setText("Warning: Invalid key value");
@@ -205,14 +221,17 @@ public final class CaesarGUI extends Gui {
         
         decryptBtn.addActionListener((ActionEvent e) -> {
             try {
-                int key = Integer.parseInt(keyTextField.getText());
+                String decKey = keyTextField.getText();
                 
-                if (key > 25 || key < 0)
+                if (Integer.valueOf(decKey) > 25 || Integer.valueOf(decKey) < 0)
                     throw new Exception();
                 
-                String cipherText = inputTextArea.getText();
-                String plainText = caesar.decrypt(cipherText, key);
-                outputTextArea.setText(plainText);
+                caesar.setKey(decKey);
+                
+                String ctext = inputTextArea.getText();
+                caesar.setCiphertext(ctext);
+                caesar.decrypt();
+                outputTextArea.setText(caesar.getPlaintext());
             } catch (Exception ex) {
                 outputTextArea.setText("Warning: Invalid key value");
             }
@@ -238,6 +257,9 @@ public final class CaesarGUI extends Gui {
         });
     }
     
+    /**
+     * Compiles all panels into the frame.
+     */
     @Override
     public void addPanelsToFrame() {
         add(topPanel, BorderLayout.NORTH);
@@ -245,6 +267,9 @@ public final class CaesarGUI extends Gui {
         add(btnPanel, BorderLayout.SOUTH);
     }
     
+    /**
+     * Define operations on close and other frame properties.
+     */
     @Override
     public void setFrameProperties() {
         setTitle(super.title + " -- Caesar Cipher");

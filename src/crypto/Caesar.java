@@ -6,77 +6,133 @@ package crypto;
  * @author Joseph R.
  * @since April 9, 2020
  */
-public class Caesar {
-    // Array of all meta characters to ignore from the text
+public class Caesar extends Crypto {
     private final char[] METACHARS = {'<', '>', '(', ')', '[', ']', '{', '}', 
                                      '\\', '^', '-', '=', '$', '!', '|', '?', 
                                      '*', '+', '.', ',', '\'', '\"'};
     
     /**
-     * Perform encryption operation given the plaintext and the key value.
+     * Sets the plaintext value.
      * 
-     * @param plainText the text message for encryption
-     * @param key the value for character shift
-     * @return an encrypted text (ciphertext)
+     * @param plaintext the original message
      */
-    public String encrypt(String plainText, int key) {
-        String cipherText = new String();
-        plainText = plainText.toUpperCase();
+    @Override
+    public void setPlaintext(String plaintext) {
+        super.plaintext = plaintext;
+    }
+    
+    /**
+     * Sets the ciphertext value.
+     * 
+     * @param ciphertext the encrypted message
+     */
+    @Override
+    public void setCiphertext(String ciphertext) {
+        super.ciphertext = ciphertext;
+    }
+    
+    /**
+     * Sets the key value for shift or substitution.
+     * 
+     * @param key the key for encryption or decryption
+     */
+    @Override
+    public void setKey(String key) {
+        super.key = key;
+    }
+    
+    /**
+     * Returns the plaintext.
+     * 
+     * @return plaintext
+     */
+    @Override
+    public String getPlaintext() {
+        return super.plaintext;
+    }
+    
+    /**
+     * Returns the ciphertext.
+     * 
+     * @return ciphertext
+     */
+    @Override
+    public String getCiphertext() {
+        return super.ciphertext;
+    }
+    
+    /**
+     * Returns the key.
+     * 
+     * @return key
+     */
+    @Override
+    public String getKey() {
+        return super.key;
+    }
+    
+    /**
+     * Performs Caesar cipher encryption.
+     */
+    @Override
+    public void encrypt() {
+        String ptext = getPlaintext();
+        int encKey = Integer.valueOf(getKey());
+        String ctext = new String();
+        ptext = ptext.toUpperCase();
         
-        for (int i = 0; i < plainText.length(); i++) {
-            char ch = plainText.charAt(i);
+        for (int i = 0; i < ptext.length(); i++) {
+            char ch = ptext.charAt(i);
             if (ch != ' ' && !isAMetaChar(ch)) {
                 if (ch >= 'A' && ch <= 'Z') {
                     int oldAlphaPos = ch - 'A';
-                    int newAlphaPos = (oldAlphaPos + key) % 26;
-                    cipherText += (char)(newAlphaPos + 'A');
+                    int newAlphaPos = (oldAlphaPos + encKey) % 26;
+                    ctext += (char)(newAlphaPos + 'A');
                 }
             } else if (isAMetaChar(ch)) {
-                cipherText += ch;
+                ctext += ch;
             } else {
-                cipherText += ' ';
+                ctext += ' ';
             }
         }
         
-        return cipherText;
+        setCiphertext(ctext);
     }
-    
+
     /**
-     * Perform decryption operation given the ciphertext and the key value.
-     * 
-     * @param cipherText the text message for decryption
-     * @param key the value for character shift
-     * @return the decrypted, original message (plaintext)
+     * Performs Caesar cipher decryption.
      */
-    public String decrypt(String cipherText, int key) {
-        String plainText = new String();
-        cipherText = cipherText.toUpperCase();
+    @Override
+    public void decrypt() {
+        String ctext = getCiphertext();
+        int decKey = Integer.valueOf(getKey());
+        String ptext = new String();
+        ctext = ctext.toUpperCase();
         
-        for (int i = 0; i < cipherText.length(); i++) {
-            char ch = cipherText.charAt(i);
+        for (int i = 0; i < ctext.length(); i++) {
+            char ch = ctext.charAt(i);
             if (ch != ' ' && !isAMetaChar(ch)) {
                 int oldAlphaPos = ch - 'A';
-                int newAlphaPos = oldAlphaPos - key;
+                int newAlphaPos = oldAlphaPos - decKey;
                 if (newAlphaPos < 0)
                     newAlphaPos += 26;
-                plainText += (char)(newAlphaPos + 'A');
+                ptext += (char)(newAlphaPos + 'A');
             } else if (isAMetaChar(ch)) {
-                plainText += ch;
+                ptext += ch;
             } else {
-                plainText += ' ';
+                ptext += ' ';
             }
         }
         
-        return plainText;
+        setPlaintext(ptext);
     }
-    
+
     /**
-     * Determine if character in the text is a meta character. If so, 
-     * ignore it and add it to the resulting text after encryption or 
-     * decryption.
+     * Determines whether or not the character in the text is a meta-character 
+     * or a special character defined in the array.
      * 
-     * @param ch the character in the text
-     * @return true if the character is a meta character; false otherwise
+     * @param ch the target character
+     * @return true if target character is a special character; false, otherwise.
      */
     private boolean isAMetaChar(char ch) {
         for (int i = 0; i < METACHARS.length; i++) {

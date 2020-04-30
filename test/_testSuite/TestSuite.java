@@ -14,10 +14,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     testCaesarCrypto.TestCaesarEncryption.class,
     testCaesarCrypto.TestCaesarDecryption.class,
-    testPortaCrypto.TestPortaEncryption.class,
-    testPortaCrypto.TestPortaDecryption.class,
-    testVigenereCrypto.TestVigenereEncryption.class,
-    testVigenereCrypto.TestVigenereDecryption.class
 })
 
 public class TestSuite {}

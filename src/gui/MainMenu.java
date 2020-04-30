@@ -25,18 +25,14 @@ import javax.swing.JRadioButton;
  */
 public final class MainMenu extends Gui {
     private static final MainMenu MENU_OBJ = new MainMenu();
-    
-    // Frame dimensions
     private final int FRAME_WIDTH = 350;
-    private final int FRAME_HEIGHT = 200;
-    // GridLayout params
-    private final int GRID_ROWS = 2;
-    private final int GRID_COLS = 2;
-    
+    private final int FRAME_HEIGHT = 150;
+    private final int GRID_ROWS = 1;
+    private final int GRID_COLS = 1;
     private JRadioButton caesarRadioBtn;
-    private JRadioButton vigenereRadioBtn;
-    private JRadioButton portaRadioBtn;
-    private JRadioButton zimmermannRadioBtn;
+    //private JRadioButton vigenereRadioBtn;
+    //private JRadioButton portaRadioBtn;
+    //private JRadioButton zimmermannRadioBtn;
     private ButtonGroup radioBtnGroup;
     private JLabel topLabel;
     private JPanel topPanel;
@@ -101,22 +97,28 @@ public final class MainMenu extends Gui {
         // and adding the radio buttons to that group
         radioGroupPanel = new JPanel(new GridLayout(GRID_ROWS, GRID_COLS));
         caesarRadioBtn = new JRadioButton("Caesar Cipher");
+        /*
         vigenereRadioBtn = new JRadioButton("Vigenère Cipher");
         portaRadioBtn = new JRadioButton("Porta Cipher");
         zimmermannRadioBtn = new JRadioButton("Zimmermann Cipher");
+        */
         
         // Adding the radio buttons to a group so only one is enabled at once
         radioBtnGroup = new ButtonGroup();
         radioBtnGroup.add(caesarRadioBtn);
+        /*
         radioBtnGroup.add(vigenereRadioBtn);
         radioBtnGroup.add(portaRadioBtn);
         radioBtnGroup.add(zimmermannRadioBtn);
+        */
         
         // Adding each radio button to the radio group panel
         radioGroupPanel.add(caesarRadioBtn);
+        /*
         radioGroupPanel.add(vigenereRadioBtn);
         radioGroupPanel.add(portaRadioBtn);
         radioGroupPanel.add(zimmermannRadioBtn);
+        */
     }
     
     @Override
@@ -139,7 +141,7 @@ public final class MainMenu extends Gui {
                     dispose();
                     setVisible(false);
                 }
-            } else if (vigenereRadioBtn.isSelected()) {
+            }/* else if (vigenereRadioBtn.isSelected()) {
                 int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
                         "Continue with " + vigenereRadioBtn.getText() + "?", 
                         "Confirm", JOptionPane.YES_NO_OPTION);
@@ -168,7 +170,7 @@ public final class MainMenu extends Gui {
                     // Stub for now
                     JOptionPane.showMessageDialog(rootPane, "Work in progress!");
                 }
-            } else {
+            } */ else {
                 JOptionPane.showMessageDialog(rootPane, "Please select an option");
             }
         });

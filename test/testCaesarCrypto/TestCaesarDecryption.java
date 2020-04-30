@@ -1,26 +1,29 @@
 package testCaesarCrypto;
 
 import crypto.Caesar;
+import crypto.Crypto;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * JUnit test to ensure Caesar decryption works well.
+ * JUnit test to ensure Crypto decryption works well.
  * 
  * @author Joseph R.
  * @since April 5, 2020
- * @see crypto.Caesar
+ * @see crypto.Crypto
  */
 public class TestCaesarDecryption {
-    Caesar c = new Caesar();
-    String cipherText = "Nz obnf jt Kpf!";
-    int key = 1;
-    String plainText = c.decrypt(cipherText, key);
-    String expectedPlainText = "My name is Joe!";
-    
     @Test
     public void TestCaesarDecryption() {
+        Crypto c = new Caesar();
+        String ctext = "Nz obnf jt Kpf!";
+        c.setCiphertext(ctext);
+        c.setKey("1");
+        c.decrypt();
+        String actualPlaintext = c.getPlaintext();
+        String expectedPlaintext = "My name is Joe!";
+        
         System.out.println("@Test TestCaesarDecryption()");
-        assertEquals(plainText, expectedPlainText.toUpperCase());
+        assertEquals(actualPlaintext, expectedPlaintext.toUpperCase());
     }
 }
