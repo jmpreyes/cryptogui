@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import resources.Strings;
 
 /**
  * Creates the window for Vigenère cipher.
@@ -74,7 +75,7 @@ public final class VigenereGUI extends Gui {
         addButtons();
         addPanelsToFrame();
         setFrameProperties();
-        System.out.println("> CREATING VIGENÉRE CIPHER INTERFACE");
+        System.out.println(Strings.DEBUG_VIGENERE_INTERFACE.getMsg());
     }
     
     /**
@@ -86,38 +87,35 @@ public final class VigenereGUI extends Gui {
         menuBar = new JMenuBar();
         
         // "File" menu
-        fileMenu = new JMenu("File");
-        saveMenuItem = new JMenuItem("Save Output File");
-        exitMenuItem = new JMenuItem("Exit");
+        fileMenu = new JMenu(Strings.FILE_LABEL.getMsg());
+        saveMenuItem = new JMenuItem(Strings.SAVE_LABEL.getMsg());
+        exitMenuItem = new JMenuItem(Strings.QUIT_LABEL.getMsg());
         
         saveMenuItem.addActionListener((ActionEvent e) -> {
-            System.out.println("> SAVING DATA");
+            System.out.println(Strings.DEBUG_SAVE_DATA.getMsg());
             // STUB
-            JOptionPane.showMessageDialog(rootPane, "Work in progress.");
+            JOptionPane.showMessageDialog(rootPane, Strings.WIP_MSG.getMsg());
         });
         
         exitMenuItem.addActionListener((ActionEvent e) -> {
-            int exitCode = JOptionPane.showConfirmDialog(rootPane, 
-                    "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+            int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
             
             if (exitCode == JOptionPane.YES_OPTION) {
-                System.out.println("> EXITING APPLICATION");
+                System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
                 dispose();
-                System.exit(0);   
+                System.exit(0);
             }
         });
         
         // "Options" menu
-        optionsMenu = new JMenu("Options");
-        switchMenuItem = new JMenuItem("Change Cryptographic Technique");
+        optionsMenu = new JMenu(Strings.OPTIONS_LABEL.getMsg());
+        switchMenuItem = new JMenuItem(Strings.CHANGE_CRYPTO_LABEL.getMsg());
         
         switchMenuItem.addActionListener((ActionEvent e) -> {
-            int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
-                    "Are you sure?", "Change Cryptographic Technique", 
-                    JOptionPane.YES_NO_OPTION);
+            int proceedCode = JOptionPane.showConfirmDialog(rootPane, Strings.CONFIRMATION_MSG.getMsg(), Strings.CHANGE_CRYPTO_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
             
             if (proceedCode == JOptionPane.YES_OPTION) {
-                System.out.println("> SWITCHING CIPHERS");
+                System.out.println(Strings.DEBUG_SWITCH_CIPHER.getMsg());
                 MainMenu.getInstance().setVisible(true);
                 dispose();
                 setVisible(false);
@@ -125,13 +123,12 @@ public final class VigenereGUI extends Gui {
         });
         
         // "Help" menu
-        helpMenu = new JMenu("Help");
-        aboutMenuItem = new JMenuItem("About Project");
+        helpMenu = new JMenu(Strings.HELP_LABEL.getMsg());
+        aboutMenuItem = new JMenuItem(Strings.ABOUT_PROJECT_LABEL.getMsg());
         
         aboutMenuItem.addActionListener((ActionEvent e) -> {
-            System.out.println("> READING ABOUT PROJECT");
-            JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
-                    + "\nApril 2020\nEmail at foo@foo.com");
+            System.out.println(Strings.DEBUG_ABOUT_PROJECT.getMsg());
+            JOptionPane.showMessageDialog(rootPane, Strings.PROJECT_DESC.getMsg());
         });
         
         // Adding the menu items to the "Options" menu bar
@@ -153,7 +150,7 @@ public final class VigenereGUI extends Gui {
     public void addContentPanel() {
         // Creating a panel for the key text field at top of frame
         topPanel = new JPanel();
-        keyLabel = new JLabel("Enter a password");
+        keyLabel = new JLabel(Strings.VIGENERE_PASSWORD_PROMPT_MSG.getMsg());
         keyTextField = new JTextField(20);
         
         // Adding the key label and text field on top panel
@@ -162,7 +159,7 @@ public final class VigenereGUI extends Gui {
         
         // Creating a panel for the text areas
         textPanel = new JPanel(new GridLayout(2, 1));
-        inputTextArea = new JTextArea("Enter text here", 25, 20);
+        inputTextArea = new JTextArea(Strings.INPUT_TEXT_MSG.getMsg(), 25, 20);
         outputTextArea = new JTextArea(25, 20);
         inputTextArea.setLineWrap(true);
         outputTextArea.setLineWrap(true);
@@ -184,17 +181,16 @@ public final class VigenereGUI extends Gui {
         // Creating a panel for buttons and the buttons' labels
         // Added tool tip for every button on hover
         btnPanel = new JPanel();
-        encryptBtn = new JButton("Encrypt");
-        encryptBtn.setToolTipText("Encrypt your original message with a key.");
-        decryptBtn = new JButton("Decrypt");
-        decryptBtn.setToolTipText("Decrypt your coded message to get the "
-                + "original text. Same key for encryption is necessary.");
-        clearBtn = new JButton("Clear");
-        clearBtn.setToolTipText("Clear and reset both text screens.");
-        moveBtn = new JButton("Move");
-        moveBtn.setToolTipText("Move the text from the right to the left pane.");
-        exitBtn = new JButton("Exit");
-        exitBtn.setToolTipText("Exit the application.");
+        encryptBtn = new JButton(Strings.ENCRYPT_LABEL.getMsg());
+        encryptBtn.setToolTipText(Strings.ENCRYPT_HINT_MSG.getMsg());
+        decryptBtn = new JButton(Strings.DECRYPT_LABEL.getMsg());
+        decryptBtn.setToolTipText(Strings.DECRYPT_HINT_MSG.getMsg());
+        clearBtn = new JButton(Strings.CLEAR_LABEL.getMsg());
+        clearBtn.setToolTipText(Strings.CLEAR_HINT_MSG.getMsg());
+        moveBtn = new JButton(Strings.MOVE_LABEL.getMsg());
+        moveBtn.setToolTipText(Strings.MOVE_HINT_MSG.getMsg());
+        exitBtn = new JButton(Strings.EXIT_LABEL.getMsg());
+        exitBtn.setToolTipText(Strings.EXIT_HINT_MSG.getMsg());
         
         // Adding the buttons to the button panel
         btnPanel.add(encryptBtn);
@@ -217,9 +213,9 @@ public final class VigenereGUI extends Gui {
                 vigenere.encrypt();
                 outputTextArea.setText(vigenere.getCiphertext());
                 inputTextArea.cut();
-                System.out.println("> ENCRYPTING PLAINTEXT\n" + vigenere);
+                System.out.println(Strings.DEBUG_ENCRYPTING_TEXT.getMsg());
             } catch (Exception ex) {
-                outputTextArea.setText("!!! Warning: Invalid key value !!!");
+                outputTextArea.setText(Strings.INVALID_KEY_MSG.getMsg());
             }
         });
         
@@ -235,31 +231,30 @@ public final class VigenereGUI extends Gui {
                 vigenere.setCiphertext(ctext);
                 vigenere.decrypt();
                 outputTextArea.setText(vigenere.getPlaintext());
-                System.out.println("> DECRYPTING CIPHERTEXT\n" + vigenere);
+                System.out.println(Strings.DEBUG_DECRYPTING_TEXT.getMsg());
             } catch (Exception ex) {
-                outputTextArea.setText("!!! Warning: Invalid key value !!!");
+                outputTextArea.setText(Strings.INVALID_KEY_MSG.getMsg());
             }
         });
         
         clearBtn.addActionListener((ActionEvent e) -> {
-            System.out.println("> CLEARING TEXT AREAS");
+            System.out.println(Strings.DEBUG_CLEAR_TEXTS.getMsg());
             outputTextArea.setText("");
-            inputTextArea.setText("Enter text here");
+            inputTextArea.setText(Strings.INPUT_TEXT_MSG.getMsg());
             keyTextField.setText("");
         });
         
         moveBtn.addActionListener((ActionEvent e) -> {
-            System.out.println("> MOVING TEXTS");
+            System.out.println(Strings.DEBUG_MOVE_TEXTS.getMsg());
             inputTextArea.setText(outputTextArea.getText());
             outputTextArea.setText("");
         });
         
         exitBtn.addActionListener((ActionEvent e) -> {
-            int exitCode = JOptionPane.showConfirmDialog(rootPane, 
-                    "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+            int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
             
             if (exitCode == JOptionPane.YES_OPTION) {
-                System.out.println("> EXITING APPLICATION");
+                System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
                 dispose();
                 System.exit(0);
             }
@@ -289,11 +284,10 @@ public final class VigenereGUI extends Gui {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
                 
                 if (exitCode == JOptionPane.YES_OPTION) {
-                    System.out.println("> EXITING APPLICATION");
+                    System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
                     dispose();
                     System.exit(0);
                 }

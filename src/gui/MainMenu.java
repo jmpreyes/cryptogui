@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import resources.Strings;
 
 /**
  * Creates the window for the main menu.
@@ -62,22 +63,24 @@ public final class MainMenu extends Gui {
         addButtons();
         addPanelsToFrame();
         setFrameProperties();
-        System.out.println("> CREATING MAIN MENU INTERFACE");
+        System.out.println(Strings.DEBUG_MENU_INTERFACE.getMsg());
     }
     
+    /**
+     * Define interface menu bar and its menu items.
+     */
     @Override
     public void addMenuBar() {
         // Creating a menu bar and its items
         menuBar = new JMenuBar();
         
         // "Help" menu
-        helpMenu = new JMenu("Help");
-        aboutMenuItem = new JMenuItem("About Project");
+        helpMenu = new JMenu(Strings.HELP_LABEL.getMsg());
+        aboutMenuItem = new JMenuItem(Strings.ABOUT_PROJECT_LABEL.getMsg());
         
         aboutMenuItem.addActionListener((ActionEvent e) -> {
-            System.out.println("> READING ABOUT PROJECT");
-            JOptionPane.showMessageDialog(rootPane, "Written by Joe R."
-                + "\nApril 2020\nEmail at foo@foo.com"); 
+            System.out.println(Strings.DEBUG_ABOUT_PROJECT.getMsg());
+            JOptionPane.showMessageDialog(rootPane, Strings.PROJECT_DESC.getMsg()); 
         });
         
         // Adding the menu items to the "Help" menu bar
@@ -87,19 +90,22 @@ public final class MainMenu extends Gui {
         menuBar.add(helpMenu);
     }
     
+    /**
+     * Define text areas and panels of interface.
+     */
     @Override
     public void addContentPanel() {
         // Creating the top partfor the header label
         // and adding it to the top panel
         topPanel = new JPanel();
-        topLabel = new JLabel("Select Cryptographic Technique");
+        topLabel = new JLabel(Strings.SELECT_CRYPTO_LABEL.getMsg());
         topPanel.add(topLabel);
         
         // Creating a panel for the radio button group
         // and adding the radio buttons to that group
         radioGroupPanel = new JPanel(new GridLayout(GRID_ROWS, GRID_COLS));
-        caesarRadioBtn = new JRadioButton("Caesar Cipher");
-        vigenereRadioBtn = new JRadioButton("Vigenère Cipher");
+        caesarRadioBtn = new JRadioButton(Strings.CAESAR_LABEL.getMsg());
+        vigenereRadioBtn = new JRadioButton(Strings.VIGENERE_LABEL.getMsg());
         /*
         portaRadioBtn = new JRadioButton("Porta Cipher");
         zimmermannRadioBtn = new JRadioButton("Zimmermann Cipher");
@@ -123,33 +129,33 @@ public final class MainMenu extends Gui {
         */
     }
     
+    /**
+     * Define a set of buttons and its functionality.
+     */
     @Override
     public void addButtons() {
         // Creating the panel for the button and adding the button to the panel
         btnPanel = new JPanel();
-        selectBtn = new JButton("Select");
+        selectBtn = new JButton(Strings.SELECT_LABEL.getMsg());
         btnPanel.add(selectBtn);
         
         // Determine which radio button is selected 
         // and which cipher to use
         selectBtn.addActionListener((ActionEvent e) -> {
             if (caesarRadioBtn.isSelected()) {
-                int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Continue with " + caesarRadioBtn.getText() + "?", 
-                        "Confirm", JOptionPane.YES_NO_OPTION);
+                int proceedCode = JOptionPane.showConfirmDialog(rootPane, "Continue with " + caesarRadioBtn.getText() + "?", Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
-                    System.out.println("> SELECTING CAESAR CIPHER");
+                    System.out.println(Strings.DEBUG_SELECT_CAESAR.getMsg());
                     CaesarGUI.getInstance().setVisible(true);
                     dispose();
                     setVisible(false);
                 }
             } else if (vigenereRadioBtn.isSelected()) {
-                int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Continue with " + vigenereRadioBtn.getText() + "?", 
-                        "Confirm", JOptionPane.YES_NO_OPTION);
+                int proceedCode = JOptionPane.showConfirmDialog(rootPane, "Continue with " + vigenereRadioBtn.getText() + "?", Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
+                    System.out.println(Strings.DEBUG_SELECT_VIGENERE.getMsg());
                     VigenereGUI.getInstance().setVisible(true);
                     dispose();
                     setVisible(false);
@@ -174,11 +180,14 @@ public final class MainMenu extends Gui {
                     JOptionPane.showMessageDialog(rootPane, "Work in progress!");
                 }
             } */else {
-                JOptionPane.showMessageDialog(rootPane, "Please select an option");
+                JOptionPane.showMessageDialog(rootPane, Strings.DEFAULT_MSG.getMsg());
             }
         });
     }
     
+    /**
+     * Compiles all panels into the frame.
+     */
     @Override
     public void addPanelsToFrame() {
         // Add the respective panels to the frame
@@ -187,6 +196,9 @@ public final class MainMenu extends Gui {
         add(btnPanel, BorderLayout.SOUTH);
     }
     
+    /**
+     * Define operations on close and other frame properties.
+     */
     @Override
     public void setFrameProperties() {
         setTitle(super.title);
@@ -196,11 +208,10 @@ public final class MainMenu extends Gui {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Quit and Exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+                int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
                 
                 if (exitCode == JOptionPane.YES_OPTION) {
-                    System.out.println("> EXITING APPLICATION");
+                    System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
                     dispose();
                     System.exit(0);
                 }

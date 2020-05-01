@@ -1,9 +1,10 @@
 package gui;
 
 import javax.swing.JFrame;
+import resources.Strings;
 
 /**
- * Abstract class of each interface to be created. This is an attempt to 
+ * Abstract class of each user interface to be created. This is an attempt to 
  * reduce code redundancy.
  * 
  * @author Joseph R.
@@ -13,7 +14,7 @@ public abstract class Gui extends JFrame {
     /**
      * Title of the frame.
      */
-    protected String title = "CryptoGUI -- Cryptic Messages";
+    protected String title = Strings.WINDOW_TITLE.getMsg();
     
     /**
      * Set the title of the frame.
