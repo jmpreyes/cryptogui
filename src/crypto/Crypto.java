@@ -8,24 +8,16 @@ package crypto;
  * @since April 30, 2020
  */
 public abstract class Crypto {
+    private String plaintext;       // the original message
+    private String ciphertext;      // the encrypted message
+    private String key;             // the key needed for encryption/decryption
+    
+    /**
+     * Define array of special characters.
+     */
     protected final char[] METACHARS = {'<', '>', '(', ')', '[', ']', '{', '}', 
                                        '\\', '^', '-', '=', '$', '!', '|', '?', 
                                         '*', '+', '.', ',', '\'', '\"'};
-    
-    /**
-     * Define the original message.
-     */
-    protected String plaintext;
-    
-    /**
-     * Define the encrypted message.
-     */
-    protected String ciphertext;
-    
-    /**
-     * Define the key for encryption or decryption.
-     */
-    protected String key;
     
     /**
      * Determine if character in the text is a meta character. If so, 
@@ -45,6 +37,60 @@ public abstract class Crypto {
     }
     
     /**
+     * Sets the plaintext value.
+     * 
+     * @param plaintext the original message
+     */
+    public void setPlaintext(String plaintext) {
+        this.plaintext = plaintext;
+    }
+    
+    /**
+     * Sets the ciphertext value.
+     * 
+     * @param ciphertext the encrypted message
+     */
+    public void setCiphertext(String ciphertext) {
+        this.ciphertext = ciphertext;
+    }
+    
+    /**
+     * Sets the key value for shift or substitution.
+     * 
+     * @param key the key for encryption or decryption
+     */
+    public void setKey(String key) {
+        this.key = key;
+    }
+    
+    /**
+     * Returns the plaintext.
+     * 
+     * @return plaintext
+     */
+    public String getPlaintext() {
+        return this.plaintext;
+    }
+    
+    /**
+     * Returns the ciphertext.
+     * 
+     * @return ciphertext
+     */
+    public String getCiphertext() {
+        return this.ciphertext;
+    }
+    
+    /**
+     * Returns the key.
+     * 
+     * @return key
+     */
+    public String getKey() {
+        return this.key;
+    }
+    
+    /**
      * Override toString() method to show output to screen.
      * 
      * @return message
@@ -55,48 +101,6 @@ public abstract class Crypto {
              "\nK = " + this.key + 
              "\nC = " + this.ciphertext;
     }
-
-    /**
-     * Sets the plaintext value.
-     * 
-     * @param plaintext the original message
-     */
-    public abstract void setPlaintext(String plaintext);
-    
-    /**
-     * Sets the ciphertext value.
-     * 
-     * @param ciphertext the encrypted message
-     */
-    public abstract void setCiphertext(String ciphertext);
-    
-    /**
-     * Sets the key value for shift or substitution.
-     * 
-     * @param key the key for encryption or decryption
-     */
-    public abstract void setKey(String key);
-    
-    /**
-     * Returns the plaintext.
-     * 
-     * @return plaintext
-     */
-    public abstract String getPlaintext();
-    
-    /**
-     * Returns the ciphertext.
-     * 
-     * @return ciphertext
-     */
-    public abstract String getCiphertext();
-    
-    /**
-     * Returns the key.
-     * 
-     * @return key
-     */
-    public abstract String getKey();
     
     /**
      * Performs cryptographic encryption operation defined by sub-class.

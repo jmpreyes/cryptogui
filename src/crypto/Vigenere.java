@@ -1,74 +1,14 @@
 package crypto;
 
 /**
- * This class simply defines the Vigenère cipher.
+ * This class defines the Vigenère cipher.
  * 
  * @author Joseph R.
  * @since April 9, 2020
  */
-public class Vigenere extends Crypto {
+public class Vigenere extends Crypto {    
     /**
-     * Sets the plaintext value.
-     * 
-     * @param plaintext the original message
-     */
-    @Override
-    public void setPlaintext(String plaintext) {
-        super.plaintext = plaintext;
-    }
-    
-    /**
-     * Sets the ciphertext value.
-     * 
-     * @param ciphertext the encrypted message
-     */
-    @Override
-    public void setCiphertext(String ciphertext) {
-        super.ciphertext = ciphertext;
-    }
-    
-    /**
-     * Sets the key value for shift or substitution.
-     * 
-     * @param key the key for encryption or decryption
-     */
-    @Override
-    public void setKey(String key) {
-        super.key = key;
-    }
-    
-    /**
-     * Returns the plaintext.
-     * 
-     * @return plaintext
-     */
-    @Override
-    public String getPlaintext() {
-        return super.plaintext;
-    }
-    
-    /**
-     * Returns the ciphertext.
-     * 
-     * @return ciphertext
-     */
-    @Override
-    public String getCiphertext() {
-        return super.ciphertext;
-    }
-    
-    /**
-     * Returns the key.
-     * 
-     * @return key
-     */
-    @Override
-    public String getKey() {
-        return super.key;
-    }
-    
-    /**
-     * Performs cryptographic encryption operation defined by sub-class.
+     * Performs Vigenère cipher encryption.
      */
     @Override
     public void encrypt() {
@@ -95,7 +35,7 @@ public class Vigenere extends Crypto {
     }
 
     /**
-     * Performs cryptographic decryption operation defined by sub-class.
+     * Performs Vigenère cipher decryption.
      */
     @Override
     public void decrypt() {
