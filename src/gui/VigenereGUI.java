@@ -204,7 +204,7 @@ public final class VigenereGUI extends Gui {
             try {
                 String encKey = keyTextField.getText();
                 
-                if (encKey.isEmpty())
+                if (encKey.isEmpty() || encKey.matches("^\\d+$"))
                     throw new Exception();
                 
                 vigenere.setKey(encKey);
@@ -223,7 +223,7 @@ public final class VigenereGUI extends Gui {
             try {
                 String decKey = keyTextField.getText();
                 
-                if (decKey.isEmpty())
+                if (decKey.isEmpty() || decKey.matches("^\\d+$"))
                     throw new Exception();
                 
                 vigenere.setKey(decKey);
