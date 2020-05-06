@@ -5,6 +5,7 @@ package crypto;
  * 
  * @author Joseph R.
  * @since April 9, 2020
+ * @see crypto.Crypto
  */
 public class Vigenere extends Crypto {    
     /**
@@ -13,25 +14,25 @@ public class Vigenere extends Crypto {
     @Override
     public void encrypt() {
         String ptext = getPlaintext();
-        String ctext = new String();
         setKey(createValidKey(ptext, getKey()));
         String encKey = getKey();
         ptext = ptext.toUpperCase();
         
         int numVal = 0;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ptext.length(); i++) {
             char ch = ptext.charAt(i);
             if (ch >= 'A' && ch <= 'Z') {
                 numVal = (ch + encKey.charAt(i)) % 26;
                 numVal += 'A';
-                ctext += (char)(numVal);
+                sb.append((char)(numVal));
             } else {
                 numVal += 0;
-                ctext += ch;
+                sb.append(ch);
             }
         }
         
-        setCiphertext(ctext);
+        setCiphertext(sb.toString());
     }
 
     /**
@@ -40,25 +41,25 @@ public class Vigenere extends Crypto {
     @Override
     public void decrypt() {
         String ctext = getCiphertext();
-        String ptext = new String();
         setKey(createValidKey(ctext, getKey()));
         String decKey = getKey();
         ctext = ctext.toUpperCase();
         
         int numVal = 0;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ctext.length() && i < decKey.length(); i++) {
             char ch = ctext.charAt(i);
             if (ch >= 'A' && ch <= 'Z') {
                 numVal = (ch - decKey.charAt(i) + 26) % 26;
                 numVal += 'A';
-                ptext += (char)(numVal);
+                sb.append((char)(numVal));
             } else {
                 numVal += 0;
-                ptext += ch;
+                sb.append(ch);
             }
         }
         
-        setPlaintext(ptext);
+        setPlaintext(sb.toString());
     }
     
     /**

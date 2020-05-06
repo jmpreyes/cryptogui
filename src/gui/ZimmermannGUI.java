@@ -1,13 +1,20 @@
 package gui;
 
-import crypto.Caesar;
 import crypto.Crypto;
+import crypto.Zimmermann;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,20 +29,21 @@ import javax.swing.JTextField;
 import resources.Strings;
 
 /**
- * Creates the window for Caesar cipher.
+ * Creates the window for Zimmermann cipher.
  * 
  * @author Joseph R.
- * @since April 9, 2020
- * @see crypto.Caesar
+ * @since May 6, 2020
+ * @see crypto.Zimmermann
  */
-public final class CaesarGUI extends Gui {
-    private static final CaesarGUI GUI_OBJ = new CaesarGUI();
-    private final Crypto caesar = new Caesar();
+public class ZimmermannGUI extends Gui {
+    private static final ZimmermannGUI GUI_OBJ = new ZimmermannGUI();
     private final int FRAME_WIDTH = 800;
     private final int FRAME_HEIGHT = 600;
+    private Crypto zimmermann;
     private JTextArea inputTextArea;
     private JTextArea outputTextArea;
-    private JTextField keyTextField;
+    private JTextField fileNameTextField;
+    private JButton selectFileBtn;
     private JButton encryptBtn;
     private JButton decryptBtn;
     private JButton clearBtn;
@@ -46,7 +54,7 @@ public final class CaesarGUI extends Gui {
     private JPanel textPanel;
     private JScrollPane inputTextAreaScrollPane;
     private JScrollPane outputTextAreaScrollPane;
-    private JLabel keyLabel;
+    private JLabel fileNameLabel;
     private JMenuBar menuBar;
     private JMenu fileMenu;
     private JMenu optionsMenu;
@@ -57,25 +65,25 @@ public final class CaesarGUI extends Gui {
     private JMenuItem aboutMenuItem;
     
     /**
-     * Ensures that only one instance of <code>CaesarGUI</code> is created. 
+     * Ensures that only one instance of <code>ZimmermannGUI</code> is created. 
      * Re-use the object if it's already instantiated.
      * 
-     * @return object of <code>CaesarGUI</code>
+     * @return object of <code>ZimmermannGUI</code>
      */
-    public static CaesarGUI getInstance() {
+    public static ZimmermannGUI getInstance() {
         return GUI_OBJ;
     }
     
     /**
      * Initialize and implement user interface.
      */
-    private CaesarGUI() {
+    private ZimmermannGUI() {
         addMenuBar();
         addContentPanel();
         addButtons();
         addPanelsToFrame();
         setFrameProperties();
-        System.out.println(Strings.DEBUG_CAESAR_INTERFACE.getMsg());
+        System.out.println(Strings.DEBUG_ZIMMERMANN_INTERFACE.getMsg());
     }
     
     /**
@@ -144,24 +152,26 @@ public final class CaesarGUI extends Gui {
         menuBar.add(optionsMenu);
         menuBar.add(helpMenu);
     }
-    
+
     /**
      * Define text areas and panels of interface.
      */
     @Override
     public void addContentPanel() {
-        // Creating a panel for the key text field at top of frame
+        // Creating a panel for the file name text field at top of frame
         topPanel = new JPanel();
-        keyLabel = new JLabel(Strings.CAESAR_KEY_PROMPT_MSG.getMsg());
-        keyTextField = new JTextField(5);
+        fileNameLabel = new JLabel(Strings.ZIMMERMANN_FILENAME_PROMPT_MSG.getMsg());
+        fileNameTextField = new JTextField(25);
+        selectFileBtn = new JButton(Strings.SELECT_FILE_LABEL.getMsg());
         
-        // Adding the key label and text field on top panel
-        topPanel.add(keyLabel);
-        topPanel.add(keyTextField);
+        // Adding the file name label and text field on top panel
+        topPanel.add(fileNameLabel);
+        topPanel.add(fileNameTextField);
+        topPanel.add(selectFileBtn);
         
         // Creating a panel for the text areas
-        textPanel = new JPanel(new GridLayout(2, 1));
-        inputTextArea = new JTextArea(Strings.INPUT_TEXT_MSG.getMsg(), 25, 20);
+        textPanel = new JPanel(new GridLayout(1, 2));
+        inputTextArea = new JTextArea(Strings.INPUT_TEXT_ZIMMERMANN_MSG.getMsg(), 25, 20);
         outputTextArea = new JTextArea(25, 20);
         inputTextArea.setLineWrap(true);
         outputTextArea.setLineWrap(true);
@@ -174,7 +184,7 @@ public final class CaesarGUI extends Gui {
         textPanel.add(inputTextAreaScrollPane);
         textPanel.add(outputTextAreaScrollPane);
     }
-    
+
     /**
      * Define a set of buttons and its functionality.
      */
@@ -202,48 +212,68 @@ public final class CaesarGUI extends Gui {
         btnPanel.add(exitBtn);
         
         // Assigning an event listener to the buttons
+        selectFileBtn.addActionListener((ActionEvent e) -> {
+            String fileName = fileNameTextField.getText();
+            BufferedReader br = null;
+            StringBuilder sb = new StringBuilder();
+            String line;
+            
+            try {
+                br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fileName))));
+                
+                while ((line = br.readLine()) != null)
+                    sb.append(line);
+                
+                inputTextArea.setText(sb.toString());
+            } catch (IOException ex) {
+                outputTextArea.setText(Strings.INVALID_FILENAME_MSG.getMsg());
+            } finally {
+                try {
+                    if (br != null)
+                        br.close();
+                } catch (IOException ex) {
+                    outputTextArea.setText(Strings.INVALID_FILENAME_MSG.getMsg());
+                }
+            }
+        });
+        
         encryptBtn.addActionListener((ActionEvent e) -> {
             try {
-                String encKey = keyTextField.getText();
+                String fileName = fileNameTextField.getText();
                 
-                if (Integer.valueOf(encKey) > 25 || Integer.valueOf(encKey) < 0)
+                if (fileName.isEmpty())
                     throw new Exception();
                 
-                caesar.setKey(encKey);
-                String ptext = inputTextArea.getText();
-                caesar.setPlaintext(ptext);
-                caesar.encrypt();
-                outputTextArea.setText(caesar.getCiphertext());
+                zimmermann = new Zimmermann(fileName);
+                zimmermann.encrypt();
+                outputTextArea.setText(zimmermann.printCodes());
                 inputTextArea.cut();
                 System.out.println(Strings.DEBUG_ENCRYPTING_TEXT.getMsg());
             } catch (Exception ex) {
-                outputTextArea.setText(Strings.INVALID_KEY_MSG.getMsg());
+                outputTextArea.setText(Strings.INVALID_FILENAME_MSG.getMsg());
             }
         });
         
         decryptBtn.addActionListener((ActionEvent e) -> {
             try {
-                String decKey = keyTextField.getText();
+                String fileName = fileNameTextField.getText();
                 
-                if (Integer.valueOf(decKey) > 25 || Integer.valueOf(decKey) < 0)
+                if (fileName.isEmpty())
                     throw new Exception();
                 
-                caesar.setKey(decKey);
-                String ctext = inputTextArea.getText();
-                caesar.setCiphertext(ctext);
-                caesar.decrypt();
-                outputTextArea.setText(caesar.getPlaintext());
+                zimmermann.decrypt();
+                outputTextArea.setText(zimmermann.printWords());
                 System.out.println(Strings.DEBUG_DECRYPTING_TEXT.getMsg());
             } catch (Exception ex) {
-                outputTextArea.setText(Strings.INVALID_KEY_MSG.getMsg());
+                outputTextArea.setText(Strings.INVALID_FILENAME_MSG.getMsg());
             }
         });
         
         clearBtn.addActionListener((ActionEvent e) -> {
             System.out.println(Strings.DEBUG_CLEAR_TEXTS.getMsg());
             outputTextArea.setText("");
-            inputTextArea.setText(Strings.INPUT_TEXT_MSG.getMsg());
-            keyTextField.setText("");
+            inputTextArea.setText(Strings.INPUT_TEXT_ZIMMERMANN_MSG.getMsg());
+            fileNameTextField.setText("");
         });
         
         moveBtn.addActionListener((ActionEvent e) -> {
@@ -262,7 +292,7 @@ public final class CaesarGUI extends Gui {
             }
         });
     }
-    
+
     /**
      * Compiles all panels into the frame.
      */
@@ -272,13 +302,13 @@ public final class CaesarGUI extends Gui {
         add(textPanel, BorderLayout.CENTER);
         add(btnPanel, BorderLayout.SOUTH);
     }
-    
+
     /**
      * Define operations on close and other frame properties.
      */
     @Override
     public void setFrameProperties() {
-        setTitle(super.title + " -- Caesar Cipher");
+        setTitle(super.title + " -- Zimmermann Cipher");
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         
         // Prompt confirmation to exit when user tries to close the window

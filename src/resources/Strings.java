@@ -21,8 +21,10 @@ public enum Strings {
     DEBUG_SAVE_DATA("> SAVING DATA"),
     DEBUG_SELECT_CAESAR("> SELECTING CAESAR CIPHER"),
     DEBUG_SELECT_VIGENERE("> SELECTING VIGENÉRE CIPHER"),
+    DEBUG_SELECT_ZIMMERMANN("> SELECTING ZIMMERMANN CIPHER"),
     DEBUG_SWITCH_CIPHER("> SWITCHING CIPHERS"),
     DEBUG_VIGENERE_INTERFACE("> CREATING VIGENÉRE CIPHER INTERFACE"),
+    DEBUG_ZIMMERMANN_INTERFACE("> CREATING ZIMMERMANN CIPHER INTERFACE"),
     
     ABOUT_PROJECT_LABEL("About Project"),
     CAESAR_LABEL("Caesar Cipher"),
@@ -40,6 +42,7 @@ public enum Strings {
     SAVE_LABEL("Save Output File"),
     SELECT_CRYPTO_LABEL("Select Cryptographic Technique"),
     SELECT_LABEL("Select"),
+    SELECT_FILE_LABEL("Select File"),
     VIGENERE_LABEL("Vigenère Cipher"),
     
     CAESAR_KEY_PROMPT_MSG("Enter a number between 0 and 25 (inclusive)"),
@@ -50,11 +53,14 @@ public enum Strings {
     ENCRYPT_HINT_MSG("Encrypt your original message with a key."),
     EXIT_HINT_MSG("Exit the application."),
     INPUT_TEXT_MSG("Enter text here"),
+    INPUT_TEXT_ZIMMERMANN_MSG("Contents of file are shown here"),
     INVALID_KEY_MSG("!!! Warning: Invalid key value !!!"),
+    INVALID_FILENAME_MSG("!!! Warning: Invalid file name !!!"),
     MOVE_HINT_MSG("Move the text to decrypt."),
     QUIT_MSG("Quit and Exit?"),
     VIGENERE_PASSWORD_PROMPT_MSG("Enter a password"),
-    WIP_MSG("Work in progress.");
+    WIP_MSG("Work in progress."),
+    ZIMMERMANN_FILENAME_PROMPT_MSG("Enter file name");
     
     private final String msg;
     

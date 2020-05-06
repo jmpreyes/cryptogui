@@ -27,13 +27,13 @@ import resources.Strings;
 public final class MainMenu extends Gui {
     private static final MainMenu MENU_OBJ = new MainMenu();
     private final int FRAME_WIDTH = 350;
-    private final int FRAME_HEIGHT = 150;
-    private final int GRID_ROWS = 1;
+    private final int FRAME_HEIGHT = 200;
+    private final int GRID_ROWS = 3;
     private final int GRID_COLS = 1;
     private JRadioButton caesarRadioBtn;
     private JRadioButton vigenereRadioBtn;
     //private JRadioButton portaRadioBtn;
-    //private JRadioButton zimmermannRadioBtn;
+    private JRadioButton zimmermannRadioBtn;
     private ButtonGroup radioBtnGroup;
     private JLabel topLabel;
     private JPanel topPanel;
@@ -106,27 +106,22 @@ public final class MainMenu extends Gui {
         radioGroupPanel = new JPanel(new GridLayout(GRID_ROWS, GRID_COLS));
         caesarRadioBtn = new JRadioButton(Strings.CAESAR_LABEL.getMsg());
         vigenereRadioBtn = new JRadioButton(Strings.VIGENERE_LABEL.getMsg());
-        /*
-        portaRadioBtn = new JRadioButton("Porta Cipher");
+        //portaRadioBtn = new JRadioButton("Porta Cipher");
         zimmermannRadioBtn = new JRadioButton("Zimmermann Cipher");
-        */
+        
         
         // Adding the radio buttons to a group so only one is enabled at once
         radioBtnGroup = new ButtonGroup();
         radioBtnGroup.add(caesarRadioBtn);
         radioBtnGroup.add(vigenereRadioBtn);
-        /*
-        radioBtnGroup.add(portaRadioBtn);
+        //radioBtnGroup.add(portaRadioBtn);
         radioBtnGroup.add(zimmermannRadioBtn);
-        */
         
         // Adding each radio button to the radio group panel
         radioGroupPanel.add(caesarRadioBtn);
         radioGroupPanel.add(vigenereRadioBtn);
-        /*
-        radioGroupPanel.add(portaRadioBtn);
+        //radioGroupPanel.add(portaRadioBtn);
         radioGroupPanel.add(zimmermannRadioBtn);
-        */
     }
     
     /**
@@ -160,7 +155,7 @@ public final class MainMenu extends Gui {
                     dispose();
                     setVisible(false);
                 }
-            } /*else if (portaRadioBtn.isSelected()) {
+            /*} else if (portaRadioBtn.isSelected()) {
                 int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
                         "Continue with " + portaRadioBtn.getText() + "?", 
                         "Confirm", JOptionPane.YES_NO_OPTION);
@@ -169,17 +164,17 @@ public final class MainMenu extends Gui {
                     PortaGUI.getInstance().setVisible(true);
                     dispose();
                     setVisible(false);
-                }
+                }*/
             } else if (zimmermannRadioBtn.isSelected()) {
-                int proceedCode = JOptionPane.showConfirmDialog(rootPane, 
-                        "Continue with " + zimmermannRadioBtn.getText() + "?", 
-                        "Confirm", JOptionPane.YES_NO_OPTION);
+                int proceedCode = JOptionPane.showConfirmDialog(rootPane, "Continue with " + zimmermannRadioBtn.getText() + "?", Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
                 
                 if (proceedCode == JOptionPane.YES_OPTION) {
-                    // Stub for now
-                    JOptionPane.showMessageDialog(rootPane, "Work in progress!");
+                    System.out.println(Strings.DEBUG_SELECT_ZIMMERMANN.getMsg());
+                    ZimmermannGUI.getInstance().setVisible(true);
+                    dispose();
+                    setVisible(false);
                 }
-            } */else {
+            } else {
                 JOptionPane.showMessageDialog(rootPane, Strings.DEFAULT_MSG.getMsg());
             }
         });
