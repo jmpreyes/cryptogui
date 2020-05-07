@@ -4,7 +4,7 @@ import gui.MainMenu;
 import javax.swing.SwingUtilities;
 
 /**
- * This class is the driver class (main class) of the program.
+ * This is the driver class (main class) of the program.
  * 
  * @author Joseph R.
  * @since April 9, 2020

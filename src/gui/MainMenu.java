@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -26,8 +23,6 @@ import resources.Strings;
  */
 public final class MainMenu extends Gui {
     private static final MainMenu MENU_OBJ = new MainMenu();
-    private final int FRAME_WIDTH = 350;
-    private final int FRAME_HEIGHT = 200;
     private final int GRID_ROWS = 3;
     private final int GRID_COLS = 1;
     private JRadioButton caesarRadioBtn;
@@ -45,6 +40,21 @@ public final class MainMenu extends Gui {
     private JMenuItem aboutMenuItem;
     
     /**
+     * Creates the main menu frame.
+     */
+    private MainMenu() {
+        setTitle(super.title);
+        setPreferredSize(new Dimension(super.MENU_FRAME_WIDTH, super.MENU_FRAME_HEIGHT));
+        super.setFrameProperties();
+        addMenuBar();
+        addContentPanel();
+        addButtons();
+        addPanelsToFrame();
+        setJMenuBar(getFrameMenuBar());
+        System.out.println(Strings.DEBUG_MENU_INTERFACE.getMsg());
+    }
+    
+    /**
      * Ensures that only one instance of <code>MainMenu</code> is created. 
      * Re-use the object if it's already instantiated.
      * 
@@ -52,18 +62,6 @@ public final class MainMenu extends Gui {
      */
     public static MainMenu getInstance() {
         return MENU_OBJ;
-    }
-    
-    /**
-     * Creates the main menu frame.
-     */
-    private MainMenu() {
-        addMenuBar();
-        addContentPanel();
-        addButtons();
-        addPanelsToFrame();
-        setFrameProperties();
-        System.out.println(Strings.DEBUG_MENU_INTERFACE.getMsg());
     }
     
     /**
@@ -189,35 +187,5 @@ public final class MainMenu extends Gui {
         add(topPanel, BorderLayout.NORTH);
         add(radioGroupPanel, BorderLayout.CENTER);
         add(btnPanel, BorderLayout.SOUTH);
-    }
-    
-    /**
-     * Define operations on close and other frame properties.
-     */
-    @Override
-    public void setFrameProperties() {
-        setTitle(super.title);
-        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-        
-        // Prompt confirmation to exit when user tries to close the window
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
-                
-                if (exitCode == JOptionPane.YES_OPTION) {
-                    System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
-                    dispose();
-                    System.exit(0);
-                }
-            }
-        });
-        
-        pack();
-        setLocationRelativeTo(null);
-        setJMenuBar(menuBar);
-        setVisible(true);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }

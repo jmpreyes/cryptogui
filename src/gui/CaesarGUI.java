@@ -2,18 +2,11 @@ package gui;
 
 import crypto.Caesar;
 import crypto.Crypto;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,31 +23,20 @@ import resources.Strings;
  */
 public final class CaesarGUI extends Gui {
     private static final CaesarGUI GUI_OBJ = new CaesarGUI();
-    private final Crypto caesar = new Caesar();
-    private final int FRAME_WIDTH = 800;
-    private final int FRAME_HEIGHT = 600;
-    private JTextArea inputTextArea;
-    private JTextArea outputTextArea;
-    private JTextField keyTextField;
-    private JButton encryptBtn;
-    private JButton decryptBtn;
-    private JButton clearBtn;
-    private JButton moveBtn;
-    private JButton exitBtn;
-    private JPanel topPanel;
-    private JPanel btnPanel;
-    private JPanel textPanel;
-    private JScrollPane inputTextAreaScrollPane;
-    private JScrollPane outputTextAreaScrollPane;
-    private JLabel keyLabel;
-    private JMenuBar menuBar;
-    private JMenu fileMenu;
-    private JMenu optionsMenu;
-    private JMenu helpMenu;
-    private JMenuItem saveMenuItem;
-    private JMenuItem switchMenuItem;
-    private JMenuItem exitMenuItem;
-    private JMenuItem aboutMenuItem;
+    private final Crypto CAESAR = new Caesar();
+    
+    // Implement user interface
+    private CaesarGUI() {
+        setTitle(super.title + " -- Caesar Cipher");
+        setPreferredSize(new Dimension(super.CIPHER_FRAME_WIDTH, super.CIPHER_FRAME_HEIGHT));
+        super.setFrameProperties();
+        super.addMenuBar();
+        addContentPanel();
+        addButtons();
+        super.addPanelsToFrame();
+        setJMenuBar(getFrameMenuBar());
+        System.out.println(Strings.DEBUG_CAESAR_INTERFACE.getMsg());
+    }
     
     /**
      * Ensures that only one instance of <code>CaesarGUI</code> is created. 
@@ -67,112 +49,47 @@ public final class CaesarGUI extends Gui {
     }
     
     /**
-     * Initialize and implement user interface.
-     */
-    private CaesarGUI() {
-        addMenuBar();
-        addContentPanel();
-        addButtons();
-        addPanelsToFrame();
-        setFrameProperties();
-        System.out.println(Strings.DEBUG_CAESAR_INTERFACE.getMsg());
-    }
-    
-    /**
-     * Define interface menu bar and its menu items.
-     */
-    @Override
-    public void addMenuBar() {
-        // Creating a menu bar and its items
-        menuBar = new JMenuBar();
-        
-        // "File" menu
-        fileMenu = new JMenu(Strings.FILE_LABEL.getMsg());
-        saveMenuItem = new JMenuItem(Strings.SAVE_LABEL.getMsg());
-        exitMenuItem = new JMenuItem(Strings.QUIT_LABEL.getMsg());
-        
-        saveMenuItem.addActionListener((ActionEvent e) -> {
-            System.out.println(Strings.DEBUG_SAVE_DATA.getMsg());
-            // STUB
-            JOptionPane.showMessageDialog(rootPane, Strings.WIP_MSG.getMsg());
-        });
-        
-        exitMenuItem.addActionListener((ActionEvent e) -> {
-            int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
-            
-            if (exitCode == JOptionPane.YES_OPTION) {
-                System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
-                dispose();
-                System.exit(0);
-            }
-        });
-        
-        // "Options" menu
-        optionsMenu = new JMenu(Strings.OPTIONS_LABEL.getMsg());
-        switchMenuItem = new JMenuItem(Strings.CHANGE_CRYPTO_LABEL.getMsg());
-        
-        switchMenuItem.addActionListener((ActionEvent e) -> {
-            int proceedCode = JOptionPane.showConfirmDialog(rootPane, Strings.CONFIRMATION_MSG.getMsg(), Strings.CHANGE_CRYPTO_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
-            
-            if (proceedCode == JOptionPane.YES_OPTION) {
-                System.out.println(Strings.DEBUG_SWITCH_CIPHER.getMsg());
-                MainMenu.getInstance().setVisible(true);
-                dispose();
-                setVisible(false);
-            }
-        });
-        
-        // "Help" menu
-        helpMenu = new JMenu(Strings.HELP_LABEL.getMsg());
-        aboutMenuItem = new JMenuItem(Strings.ABOUT_PROJECT_LABEL.getMsg());
-        
-        // Idea: Help > About Cipher
-        
-        aboutMenuItem.addActionListener((ActionEvent e) -> {
-            System.out.println(Strings.DEBUG_ABOUT_PROJECT.getMsg());
-            JOptionPane.showMessageDialog(rootPane, Strings.PROJECT_DESC.getMsg());
-        });
-        
-        // Adding the menu items to the "Options" menu bar
-        fileMenu.add(saveMenuItem);
-        fileMenu.add(exitMenuItem);
-        optionsMenu.add(switchMenuItem);
-        helpMenu.add(aboutMenuItem);
-        
-        // Adding each type of menu to the main menu bar
-        menuBar.add(fileMenu);
-        menuBar.add(optionsMenu);
-        menuBar.add(helpMenu);
-    }
-    
-    /**
      * Define text areas and panels of interface.
      */
     @Override
     public void addContentPanel() {
         // Creating a panel for the key text field at top of frame
-        topPanel = new JPanel();
-        keyLabel = new JLabel(Strings.CAESAR_KEY_PROMPT_MSG.getMsg());
-        keyTextField = new JTextField(5);
+        JPanel topPanel = new JPanel();
+        setTopPanel(topPanel);
+        
+        JLabel keyLabel = new JLabel(Strings.CAESAR_KEY_PROMPT_MSG.getMsg());
+        setKeyLabel(keyLabel);
+        
+        JTextField keyTextField = new JTextField(5);
+        setKeyTextField(keyTextField);
         
         // Adding the key label and text field on top panel
-        topPanel.add(keyLabel);
-        topPanel.add(keyTextField);
+        getTopPanel().add(getKeyLabel());
+        getTopPanel().add(getKeyTextField());
         
         // Creating a panel for the text areas
-        textPanel = new JPanel(new GridLayout(2, 1));
-        inputTextArea = new JTextArea(Strings.INPUT_TEXT_MSG.getMsg(), 25, 20);
-        outputTextArea = new JTextArea(25, 20);
-        inputTextArea.setLineWrap(true);
-        outputTextArea.setLineWrap(true);
-        outputTextArea.setEditable(false);
+        JPanel textPanel = new JPanel(new GridLayout(2, 1));
+        setTextPanel(textPanel);
         
-        // Adding the scroll panes to each text area 
-        // and adding them to the text area panel
-        inputTextAreaScrollPane = new JScrollPane(inputTextArea);
-        outputTextAreaScrollPane = new JScrollPane(outputTextArea);
-        textPanel.add(inputTextAreaScrollPane);
-        textPanel.add(outputTextAreaScrollPane);
+        JTextArea inputTextArea = new JTextArea(Strings.INPUT_TEXT_MSG.getMsg(), 25, 20);
+        setInputTextArea(inputTextArea);
+        
+        JTextArea outputTextArea = new JTextArea(25, 20);
+        setOutputTextArea(outputTextArea);
+        
+        getInputTextArea().setLineWrap(true);
+        getOutputTextArea().setLineWrap(true);
+        getOutputTextArea().setEditable(false);
+        
+        // Adding the scroll panes to each text area and adding them to the text area panel
+        JScrollPane inputTextAreaScrollPane = new JScrollPane(inputTextArea);
+        setInputScrollPane(inputTextAreaScrollPane);
+        
+        JScrollPane outputTextAreaScrollPane = new JScrollPane(outputTextArea);
+        setOutputScrollPane(outputTextAreaScrollPane);
+        
+        getTextPanel().add(getInputScrollPane());
+        getTextPanel().add(getOutputScrollPane());
     }
     
     /**
@@ -181,78 +98,86 @@ public final class CaesarGUI extends Gui {
     @Override
     public void addButtons() {
         // Creating a panel for buttons and the buttons' labels
-        // Added tool tip for every button on hover
-        btnPanel = new JPanel();
-        encryptBtn = new JButton(Strings.ENCRYPT_LABEL.getMsg());
-        encryptBtn.setToolTipText(Strings.ENCRYPT_HINT_MSG.getMsg());
-        decryptBtn = new JButton(Strings.DECRYPT_LABEL.getMsg());
-        decryptBtn.setToolTipText(Strings.DECRYPT_HINT_MSG.getMsg());
-        clearBtn = new JButton(Strings.CLEAR_LABEL.getMsg());
-        clearBtn.setToolTipText(Strings.CLEAR_HINT_MSG.getMsg());
-        moveBtn = new JButton(Strings.MOVE_LABEL.getMsg());
-        moveBtn.setToolTipText(Strings.MOVE_HINT_MSG.getMsg());
-        exitBtn = new JButton(Strings.EXIT_LABEL.getMsg());
-        exitBtn.setToolTipText(Strings.EXIT_HINT_MSG.getMsg());
+        JPanel btnPanel = new JPanel();
+        setBtnPanel(btnPanel);
+        
+        JButton encryptBtn = new JButton(Strings.ENCRYPT_LABEL.getMsg());
+        setEncryptBtn(encryptBtn);
+        getEncryptBtn().setToolTipText(Strings.ENCRYPT_HINT_MSG.getMsg());
+        
+        JButton decryptBtn = new JButton(Strings.DECRYPT_LABEL.getMsg());
+        setDecryptBtn(decryptBtn);
+        getDecryptBtn().setToolTipText(Strings.DECRYPT_HINT_MSG.getMsg());
+        
+        JButton clearBtn = new JButton(Strings.CLEAR_LABEL.getMsg());
+        setClearBtn(clearBtn);
+        getClearBtn().setToolTipText(Strings.CLEAR_HINT_MSG.getMsg());
+        
+        JButton moveBtn = new JButton(Strings.MOVE_LABEL.getMsg());
+        setMoveBtn(moveBtn);
+        getMoveBtn().setToolTipText(Strings.MOVE_HINT_MSG.getMsg());
+        
+        JButton exitBtn = new JButton(Strings.EXIT_LABEL.getMsg());
+        setExitBtn(exitBtn);
+        getExitBtn().setToolTipText(Strings.EXIT_HINT_MSG.getMsg());
         
         // Adding the buttons to the button panel
-        btnPanel.add(encryptBtn);
-        btnPanel.add(decryptBtn);
-        btnPanel.add(clearBtn);
-        btnPanel.add(moveBtn);
-        btnPanel.add(exitBtn);
+        getBtnPanel().add(getEncryptBtn());
+        getBtnPanel().add(getDecryptBtn());
+        getBtnPanel().add(getClearBtn());
+        getBtnPanel().add(getMoveBtn());
+        getBtnPanel().add(getExitBtn());
         
         // Assigning an event listener to the buttons
-        encryptBtn.addActionListener((ActionEvent e) -> {
+        getEncryptBtn().addActionListener((ActionEvent e) -> {
             try {
-                String encKey = keyTextField.getText();
+                String encKey = getKeyTextField().getText();
                 
                 if (Integer.valueOf(encKey) > 25 || Integer.valueOf(encKey) < 0)
                     throw new Exception();
                 
-                caesar.setKey(encKey);
-                String ptext = inputTextArea.getText();
-                caesar.setPlaintext(ptext);
-                caesar.encrypt();
-                outputTextArea.setText(caesar.getCiphertext());
-                inputTextArea.cut();
+                CAESAR.setKey(encKey);
+                CAESAR.setPlaintext(getInputTextArea().getText());
+                CAESAR.encrypt();
+                getOutputTextArea().setText(CAESAR.getCiphertext());
+                getInputTextArea().cut();
                 System.out.println(Strings.DEBUG_ENCRYPTING_TEXT.getMsg());
             } catch (Exception ex) {
-                outputTextArea.setText(Strings.INVALID_KEY_MSG.getMsg());
+                getOutputTextArea().setText(Strings.INVALID_KEY_MSG.getMsg());
             }
         });
         
-        decryptBtn.addActionListener((ActionEvent e) -> {
+        getDecryptBtn().addActionListener((ActionEvent e) -> {
             try {
-                String decKey = keyTextField.getText();
+                String decKey = getKeyTextField().getText();
                 
                 if (Integer.valueOf(decKey) > 25 || Integer.valueOf(decKey) < 0)
                     throw new Exception();
                 
-                caesar.setKey(decKey);
-                String ctext = inputTextArea.getText();
-                caesar.setCiphertext(ctext);
-                caesar.decrypt();
-                outputTextArea.setText(caesar.getPlaintext());
+                CAESAR.setKey(decKey);
+                CAESAR.setCiphertext(getInputTextArea().getText());
+                CAESAR.decrypt();
+                getOutputTextArea().setText(CAESAR.getPlaintext());
                 System.out.println(Strings.DEBUG_DECRYPTING_TEXT.getMsg());
             } catch (Exception ex) {
-                outputTextArea.setText(Strings.INVALID_KEY_MSG.getMsg());
+                getOutputTextArea().setText(Strings.INVALID_KEY_MSG.getMsg());
             }
         });
         
-        clearBtn.addActionListener((ActionEvent e) -> {
+        getClearBtn().addActionListener((ActionEvent e) -> {
             System.out.println(Strings.DEBUG_CLEAR_TEXTS.getMsg());
-            outputTextArea.setText("");
-            inputTextArea.setText(Strings.INPUT_TEXT_MSG.getMsg());
-            keyTextField.setText("");
+            getOutputTextArea().setText("");
+            getInputTextArea().setText(Strings.INPUT_TEXT_MSG.getMsg());
+            getKeyTextField().setText("");
         });
         
-        moveBtn.addActionListener((ActionEvent e) -> {
+        getMoveBtn().addActionListener((ActionEvent e) -> {
             System.out.println(Strings.DEBUG_MOVE_TEXTS.getMsg());
-            inputTextArea.setText(outputTextArea.getText());
-            outputTextArea.setText("");
+            getInputTextArea().setText(getOutputTextArea().getText());
+            getOutputTextArea().setText("");
         });
         
-        exitBtn.addActionListener((ActionEvent e) -> {
+        getExitBtn().addActionListener((ActionEvent e) -> {
             int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
             
             if (exitCode == JOptionPane.YES_OPTION) {
@@ -261,45 +186,5 @@ public final class CaesarGUI extends Gui {
                 System.exit(0);
             }
         });
-    }
-    
-    /**
-     * Compiles all panels into the frame.
-     */
-    @Override
-    public void addPanelsToFrame() {
-        add(topPanel, BorderLayout.NORTH);
-        add(textPanel, BorderLayout.CENTER);
-        add(btnPanel, BorderLayout.SOUTH);
-    }
-    
-    /**
-     * Define operations on close and other frame properties.
-     */
-    @Override
-    public void setFrameProperties() {
-        setTitle(super.title + " -- Caesar Cipher");
-        setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-        
-        // Prompt confirmation to exit when user tries to close the window
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent evt) {
-                int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
-                
-                if (exitCode == JOptionPane.YES_OPTION) {
-                    System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
-                    dispose();
-                    System.exit(0);
-                }
-            }
-        });
-        
-        pack();
-        setLocationRelativeTo(null);
-        setJMenuBar(menuBar);
-        setVisible(true);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }

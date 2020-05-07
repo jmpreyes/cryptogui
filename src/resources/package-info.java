@@ -1,4 +1,4 @@
 /**
- * Contains resource files such as string constant values and screenshots.
+ * Contains resource files such as constant String values and image files.
  */
 package resources;

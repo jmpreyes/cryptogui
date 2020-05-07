@@ -27,6 +27,7 @@ public enum Strings {
     DEBUG_ZIMMERMANN_INTERFACE("> CREATING ZIMMERMANN CIPHER INTERFACE"),
     
     ABOUT_PROJECT_LABEL("About Project"),
+    BROWSE_FILE_LABEL("Browse Text File"),
     CAESAR_LABEL("Caesar Cipher"),
     CHANGE_CRYPTO_LABEL("Change Cryptographic Technique"),
     CLEAR_LABEL("Clear"),
@@ -35,6 +36,7 @@ public enum Strings {
     ENCRYPT_LABEL("Encrypt"),
     EXIT_LABEL("Exit"),
     FILE_LABEL("File"),
+    GO_LABEL("Go"),
     HELP_LABEL("Help"),
     MOVE_LABEL("Move"),
     OPTIONS_LABEL("Options"),
@@ -42,7 +44,6 @@ public enum Strings {
     SAVE_LABEL("Save Output File"),
     SELECT_CRYPTO_LABEL("Select Cryptographic Technique"),
     SELECT_LABEL("Select"),
-    SELECT_FILE_LABEL("Select File"),
     VIGENERE_LABEL("Vigenère Cipher"),
     
     CAESAR_KEY_PROMPT_MSG("Enter a number between 0 and 25 (inclusive)"),
@@ -50,17 +51,17 @@ public enum Strings {
     CONFIRMATION_MSG("Are you sure?"),
     DECRYPT_HINT_MSG("Decrypt your coded message to get the original text. Same key for encryption is necessary."),
     DEFAULT_MSG("Please select an option"),
+    EMPTY_INPUT_MSG("!!! Warning: No text to encrypt/decrypt !!!"),
     ENCRYPT_HINT_MSG("Encrypt your original message with a key."),
     EXIT_HINT_MSG("Exit the application."),
-    INPUT_TEXT_MSG("Enter text here"),
-    INPUT_TEXT_ZIMMERMANN_MSG("Contents of file are shown here"),
+    INPUT_TEXT_MSG("Input text here"),
     INVALID_KEY_MSG("!!! Warning: Invalid key value !!!"),
-    INVALID_FILENAME_MSG("!!! Warning: Invalid file name !!!"),
     MOVE_HINT_MSG("Move the text to decrypt."),
     QUIT_MSG("Quit and Exit?"),
+    SELECT_FILE_MSG("Select a file to open"),
     VIGENERE_PASSWORD_PROMPT_MSG("Enter a password"),
     WIP_MSG("Work in progress."),
-    ZIMMERMANN_FILENAME_PROMPT_MSG("Enter file name");
+    ZIMMERMANN_HEADER_PROMPT_MSG("Enter text on left panel");
     
     private final String msg;
     
