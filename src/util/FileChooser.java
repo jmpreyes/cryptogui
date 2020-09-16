@@ -7,6 +7,7 @@ import resources.Strings;
 
 /**
  * Allows the user to open a file from a directory.
+ * Unused for now since all texts are directly typed/input into the text area.
  * 
  * @author Joseph R.
  * @since May 6, 2020
@@ -22,13 +23,11 @@ public class FileChooser {
         file.setDialogTitle(Strings.SELECT_FILE_MSG.getMsg());
         
         int proceedCode = file.showOpenDialog(null);
-        String chosenFile;
+        String chosenFile = "";
         
         if (proceedCode == JFileChooser.APPROVE_OPTION) {
             File f = file.getSelectedFile();
             chosenFile = f.getName();
-        } else {
-            chosenFile = "";
         }
         
         return chosenFile;
