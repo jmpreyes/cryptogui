@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import resources.Strings;
+import util.RuntimeCalc;
 
 /**
  * Abstract class of each user interface to be created.
@@ -24,6 +25,7 @@ import resources.Strings;
  * @since April 24, 2020
  */
 public abstract class Gui extends JFrame {
+    private final RuntimeCalc runtimeCalc;
     private JTextArea inputTextArea;
     private JTextArea outputTextArea;
     private JTextField keyTextField;
@@ -31,7 +33,6 @@ public abstract class Gui extends JFrame {
     private JButton decryptBtn;
     private JButton clearBtn;
     private JButton moveBtn;
-    private JButton exitBtn;
     private JPanel topPanel;
     private JPanel btnPanel;
     private JPanel textPanel;
@@ -78,7 +79,34 @@ public abstract class Gui extends JFrame {
      */
     public Gui() {
         setTitle(title);
+        runtimeCalc = new RuntimeCalc();
     }
+    
+    /*
+    protected void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+    
+    protected void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+    
+    protected void setExecTime(long execTime) {
+        this.execTime = execTime;
+    }
+    
+    protected long getStartTime() {
+        return this.startTime;
+    }
+    
+    protected long getEndTime() {
+        return this.endTime;
+    }
+    
+    protected long getExecTime() {
+        return this.execTime;
+    }
+    */
     
     public void setInputTextArea(JTextArea inputTextArea) {
         this.inputTextArea = inputTextArea;
@@ -106,10 +134,6 @@ public abstract class Gui extends JFrame {
     
     public void setMoveBtn(JButton moveBtn) {
         this.moveBtn = moveBtn;
-    }
-    
-    public void setExitBtn(JButton exitBtn) {
-        this.exitBtn = exitBtn;
     }
     
     public void setTopPanel(JPanel topPanel) {
@@ -200,10 +224,6 @@ public abstract class Gui extends JFrame {
         return this.moveBtn;
     }
     
-    public JButton getExitBtn() {
-        return this.exitBtn;
-    }
-    
     public JPanel getTopPanel() {
         return this.topPanel;
     }
@@ -276,6 +296,9 @@ public abstract class Gui extends JFrame {
                 
                 if (exitCode == JOptionPane.YES_OPTION) {
                     System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
+                    runtimeCalc.setEndTime(System.nanoTime());
+                    runtimeCalc.setExecTime(runtimeCalc.getEndTime() - runtimeCalc.getStartTime());
+                    System.out.println(runtimeCalc);
                     dispose();
                     System.exit(0);
                 }
@@ -318,6 +341,9 @@ public abstract class Gui extends JFrame {
             
             if (exitCode == JOptionPane.YES_OPTION) {
                 System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
+                runtimeCalc.setEndTime(System.nanoTime());
+                    runtimeCalc.setExecTime(runtimeCalc.getEndTime() - runtimeCalc.getStartTime());
+                    System.out.println(runtimeCalc);
                 dispose();
                 System.exit(0);
             }

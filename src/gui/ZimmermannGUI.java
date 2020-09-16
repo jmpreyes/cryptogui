@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -112,16 +111,11 @@ public final class ZimmermannGUI extends Gui {
         setMoveBtn(moveBtn);
         getMoveBtn().setToolTipText(Strings.MOVE_HINT_MSG.getMsg());
         
-        JButton exitBtn = new JButton(Strings.EXIT_LABEL.getMsg());
-        setExitBtn(exitBtn);
-        getExitBtn().setToolTipText(Strings.EXIT_HINT_MSG.getMsg());
-        
         // Adding the buttons to the button panel
         getBtnPanel().add(getEncryptBtn());
         getBtnPanel().add(getDecryptBtn());
         getBtnPanel().add(getClearBtn());
         getBtnPanel().add(getMoveBtn());
-        getBtnPanel().add(getExitBtn());
         
         // Assigning an event listener to the buttons
         getEncryptBtn().addActionListener((ActionEvent e) -> {
@@ -162,16 +156,6 @@ public final class ZimmermannGUI extends Gui {
             System.out.println(Strings.DEBUG_MOVE_TEXTS.getMsg());
             getInputTextArea().setText(getOutputTextArea().getText());
             getOutputTextArea().setText("");
-        });
-        
-        getExitBtn().addActionListener((ActionEvent e) -> {
-            int exitCode = JOptionPane.showConfirmDialog(rootPane, Strings.QUIT_MSG.getMsg(), Strings.CONFIRM_LABEL.getMsg(), JOptionPane.YES_NO_OPTION);
-            
-            if (exitCode == JOptionPane.YES_OPTION) {
-                System.out.println(Strings.DEBUG_EXIT_APP.getMsg());
-                dispose();
-                System.exit(0);
-            }
         });
     }
 }
